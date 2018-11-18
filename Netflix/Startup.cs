@@ -1,13 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Netflix.Controllers;
+using Netflix.Repositories;
+using Netflix.Services;
+using Swashbuckle.AspNetCore.Swagger;
 
-namespace Netflix
+namespace Netflix.Api
 {
     public class Startup
     {
@@ -22,12 +23,24 @@ namespace Netflix
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddTransient<IVideoStreamService, VideoStreamService>();
+            services.AddTransient<IMovieStreamService, MovieStreamService>();
+            services.AddTransient<IMovieRepository, MovieRepository>();
+            services.AddTransient<IRecommendationsService, RecommendationsService>();
+            services.AddTransient<INewsRepository, NewsRepository>();
+            services.AddTransient<INewsService, NewsService>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IWatchingListService, WatchingListService>();
+            services.AddTransient<IWatchingItemRepository, WatchingItemRepository>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
+            });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Netflix API", Version = "v1" });
             });
         }
 
@@ -53,6 +66,16 @@ namespace Netflix
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
+            });
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Netflix V1");
             });
 
             app.UseSpa(spa =>

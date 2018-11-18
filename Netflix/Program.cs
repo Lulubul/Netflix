@@ -2,7 +2,7 @@ using System;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Netflix
+namespace Netflix.Api
 {
     public class Program
     {

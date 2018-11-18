@@ -1,33 +1,31 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
-namespace Netflix.Controllers
+namespace Netflix.Repositories
 {
-    public interface IVideoStreamService
+    public interface IMovieRepository
     {
-        Task<Stream> GetVideoByNameAsync(string name);
+        Task<Stream> GetMovieByNameAsync(string name);
     }
 
-    public class VideoStreamService : IVideoStreamService
+    public class MovieRepository : IMovieRepository
     {
         private const string MoviesContainer = "movies";
 
-        public async Task<Stream> GetVideoByNameAsync(string name)
+        public async Task<Stream> GetMovieByNameAsync(string movieName)
         {
             try
             {
                 CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
                 CloudBlobContainer container = blobClient.GetContainerReference(MoviesContainer);
-                return await container.GetBlobReference($"{name}.mp4").OpenReadAsync();
+                return await container.GetBlobReference(movieName).OpenReadAsync();
             }
             catch (Exception ex)
             {
-                Trace.WriteLine(ex);
                 return null;
             }
         }

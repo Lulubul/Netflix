@@ -1,27 +1,32 @@
 ﻿using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Netflix.Services;
 
-namespace Netflix.Controllers
+namespace Netflix.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class MoviesController : Controller
+    [ApiController]
+    public class MoviesController : ControllerBase
     {
-        private readonly IVideoStreamService _streamingService;
+        private readonly IMovieStreamService _streamingService;
 
-        public MoviesController(IVideoStreamService streamingService)
+        public MoviesController(IMovieStreamService streamingService)
         {
             _streamingService = streamingService;
         }
 
         // GET: api/<controller>
         [HttpGet]
-        public async Task<IActionResult> GetVideoContentAsync()
+        [ProducesResponseType(typeof(FileStreamResult), 200)]
+        public async Task<IActionResult> GetMoviesContentAsync([FromQuery]string name = "cosmos")
         {
-            //var data = Encoding.UTF8.GetBytes("This is a sample text from a binary array");
-            //var entityTag = new EntityTagHeaderValue("\"MyCalculatedEtagValue\"");
-            //return File(data, "text/plain", "downloadName.txt", lastModified: DateTime.UtcNow.AddSeconds(-5), entityTag: entityTag);
-            var movieStream = await _streamingService.GetVideoByNameAsync("cosmos");
+            if (string.IsNullOrEmpty(name))
+            {
+                return BadRequest($"Parameter is not defined in query {nameof(name)}");
+            }
+
+            var movieStream = await _streamingService.GetMovieByNameAsync(name);
             return new FileStreamResult(movieStream, new MediaTypeHeaderValue("video/mp4").MediaType)
             {
                 EnableRangeProcessing = true
