@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Neflix.Services\Netflix.Services.csproj" />
     <ProjectReference Include="..\Netflix.Domain\Netflix.Domain.csproj" />
+    <ProjectReference Include="..\Netflix.Services\Netflix.Services.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

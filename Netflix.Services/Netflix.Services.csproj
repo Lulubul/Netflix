@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Neflix.Repositories\Netflix.Repositories.csproj" />
     <ProjectReference Include="..\Netflix.Domain\Netflix.Domain.csproj" />
+    <ProjectReference Include="..\Netflix.Repositories\Netflix.Repositories.csproj" />
   </ItemGroup>
 
 </Project>

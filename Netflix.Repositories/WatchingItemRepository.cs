@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Netflix.Domain;
 
 namespace Netflix.Repositories
 {
     public interface IWatchingItemRepository
     {
-        Task GetWatchingListForUser(Guid userId);
+        Task<List<WatchingItem>> GetWatchingListForUser(Guid userId);
     }
 
     public class WatchingItemRepository : IWatchingItemRepository
     {
-        public Task GetWatchingListForUser(Guid userId)
+        public Task<List<WatchingItem>> GetWatchingListForUser(Guid userId)
         {
             throw new NotImplementedException();
         }

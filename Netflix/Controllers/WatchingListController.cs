@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Netflix.Domain;
 using Netflix.Services;
 
 namespace Netflix.Api.Controllers
@@ -14,7 +16,19 @@ namespace Netflix.Api.Controllers
         {
             _watchingListService = watchingListService;
         }
-        
 
+        // GET: api/<controller>
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Recommendation>), 200)]
+        public async Task<IActionResult> GetWatchingList([FromQuery]Guid? usedId)
+        {
+            if (usedId == null)
+            {
+                return BadRequest($"Parameter is not defined in query {nameof(usedId)}");
+            }
+
+            var watchingList = await _watchingListService.GetWatchingListForUser(usedId.Value);
+            return Ok(watchingList);
+        }
     }
 }
