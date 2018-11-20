@@ -2,7 +2,9 @@
 import { Link } from 'react-router-dom';
 import { Glyphicon, Nav, Navbar, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { SearchBar } from './SearchBar';
 import './NavMenu.css';
+
 
 export class NavMenu extends Component {
   displayName = NavMenu.name
@@ -28,6 +30,9 @@ export class NavMenu extends Component {
                 <Glyphicon glyph='th-list' /> Movies
               </NavItem>
             </LinkContainer>
+            <NavItem className="searchBar">
+              <SearchBar/>
+            </NavItem>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

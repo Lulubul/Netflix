@@ -8,3 +8,20 @@
 body {
     background-color: #141414;
 }
+
+.home h1 {
+    text-align: center;
+    color: white;
+}
+
+.home img {
+    width: 130px;
+    height: 130px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container-fluid .row:first-child {
+    height: 50px;
+}
