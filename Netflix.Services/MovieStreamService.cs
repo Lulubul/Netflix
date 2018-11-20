@@ -9,7 +9,7 @@ namespace Netflix.Services
         Task<Stream> GetMovieByNameAsync(string name);
     }
 
-    public class MovieStreamService : IMovieStreamService
+    public class MovieStreamService : AbstractService, IMovieStreamService
     {
         private readonly IMovieRepository _movieRepository;
 

@@ -31,6 +31,7 @@ namespace Netflix.Api
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IWatchingListService, WatchingListService>();
             services.AddTransient<IWatchingItemRepository, WatchingItemRepository>();
+            services.AddTransient<IProfileService, ProfileService>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

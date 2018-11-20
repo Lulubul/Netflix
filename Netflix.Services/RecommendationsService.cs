@@ -10,7 +10,7 @@ namespace Netflix.Services
         Task<List<Recommendation>> GetVideoRecommendationsByUser(Guid userId);
     }
 
-    public class RecommendationsService : IRecommendationsService
+    public class RecommendationsService : AbstractService, IRecommendationsService
     {
         public async Task<List<Recommendation>> GetVideoRecommendationsByUser(Guid userId)
         {

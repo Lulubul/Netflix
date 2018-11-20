@@ -10,7 +10,7 @@ namespace Netflix.Services
         Task<List<News>> GetNewsAsync();
     }
 
-    public class NewsService : INewsService
+    public class NewsService : AbstractService, INewsService
     {
         private readonly INewsRepository _newsRepository;
 

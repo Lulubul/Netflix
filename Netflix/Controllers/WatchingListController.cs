@@ -8,7 +8,9 @@ using Netflix.Services;
 
 namespace Netflix.Api.Controllers
 {
-    public class WatchingListController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class WatchingListController : ControllerBase
     {
         private readonly IWatchingListService _watchingListService;
 
@@ -19,7 +21,7 @@ namespace Netflix.Api.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Recommendation>), 200)]
+        [ProducesResponseType(typeof(IEnumerable<WatchingItem>), 200)]
         public async Task<IActionResult> GetWatchingList([FromQuery]Guid? usedId)
         {
             if (usedId == null)
