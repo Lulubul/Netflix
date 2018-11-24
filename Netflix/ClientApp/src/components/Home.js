@@ -1,23 +1,31 @@
 import React, { Component } from 'react';
 import { Col, Grid, Row, Image, Button} from 'react-bootstrap';
+import { Profile } from './Profile';
+import { getProfiles } from '../resources/Api';
 import './Home.css';
 
 export class Home extends Component {
   displayName = Home.name
+  constructor(props) {
+    super(props);
+    this.state = { profiles: [] };
+  }
+
+  componentDidMount() {
+    getProfiles('3f008259-8509-40a2-8118-f047861e4f31')
+      .then((profiles) => this.setState({profiles: profiles}))
+  }
 
   render() {
+    const { profiles } = this.state;
+
     return (
       <div className="home">
         <h1>Who's watching?</h1>
         <Grid>
           <Row>
             <Col xs={6} md={3}/>
-            <Col xs={6} md={2}>
-              <Image src="https://occ-0-3032-768.1.nflxso.net/art/0d282/eb648e0fd0b2676dbb7317310a48f9bdc2b0d282.png" thumbnail  />
-            </Col>
-            <Col xs={6} md={2}>
-              <Image src="https://occ-0-3032-768.1.nflxso.net/art/adee5/994a657647584c9333956e515d8864bc854adee5.png" thumbnail  />
-            </Col>
+            {profiles.map((profile, index) => (<Profile key={index} profile={profile}/>))}
             <Col xs={6} md={5}/>
           </Row>
           <Row>
