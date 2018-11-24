@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,7 @@ namespace Netflix.Api
             services.AddTransient<IWatchingListService, WatchingListService>();
             services.AddTransient<IWatchingItemRepository, WatchingItemRepository>();
             services.AddTransient<IProfileService, ProfileService>();
+            services.AddTransient<IProfileRepository, ProfileRepository>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -43,6 +45,8 @@ namespace Netflix.Api
             {
                 c.SwaggerDoc("v1", new Info { Title = "Netflix API", Version = "v1" });
             });
+
+            services.AddAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

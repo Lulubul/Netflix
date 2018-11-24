@@ -22,6 +22,10 @@ body {
     margin-right: auto;
 }
 
-.container-fluid .row:first-child {
+.navbar-header  {
     height: 50px;
+}
+
+.home {
+    margin-top: 50px;
 }

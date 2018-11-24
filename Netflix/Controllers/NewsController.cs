@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Netflix.Domain;
+using Netflix.Domain.Models;
 using Netflix.Services;
 
 namespace Netflix.Api.Controllers

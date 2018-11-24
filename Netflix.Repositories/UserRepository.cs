@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Netflix.Domain;
+using Netflix.Domain.Models;
 
 namespace Netflix.Repositories
 {

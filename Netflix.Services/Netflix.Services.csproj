@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Netflix.Domain\Netflix.Domain.csproj" />
     <ProjectReference Include="..\Netflix.Repositories\Netflix.Repositories.csproj" />
   </ItemGroup>

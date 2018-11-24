@@ -19,7 +19,7 @@ namespace Netflix.Repositories
         {
             try
             {
-                CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+                var storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
                 CloudBlobContainer container = blobClient.GetContainerReference(MoviesContainer);
                 return await container.GetBlobReference(movieName).OpenReadAsync();

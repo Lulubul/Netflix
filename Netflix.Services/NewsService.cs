@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Netflix.Domain;
+using Netflix.Domain.Models;
 using Netflix.Repositories;
 
 namespace Netflix.Services

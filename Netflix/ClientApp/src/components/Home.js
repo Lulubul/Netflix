@@ -18,10 +18,7 @@ export class Home extends Component {
             <Col xs={6} md={2}>
               <Image src="https://occ-0-3032-768.1.nflxso.net/art/adee5/994a657647584c9333956e515d8864bc854adee5.png" thumbnail  />
             </Col>
-            <Col xs={6} md={2}>
-              <Image src="/thumbnail.png" circle  />
-            </Col>
-            <Col xs={6} md={3}/>
+            <Col xs={6} md={5}/>
           </Row>
           <Row>
             <Button id="manage-profile" bsSize="large">Manage profiles</Button>

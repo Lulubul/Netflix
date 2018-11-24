@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Netflix.Domain;
+using Netflix.Domain.Models;
 using Netflix.Services;
 
 namespace Netflix.Api.Controllers
@@ -22,7 +23,7 @@ namespace Netflix.Api.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Profile>), 200)]
+        [ProducesResponseType(typeof(IEnumerable<UserProfile>), 200)]
         public async Task<IActionResult> GetUserProfiles([FromQuery]Guid? usedId)
         {
             if (usedId == null)

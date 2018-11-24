@@ -18,7 +18,7 @@ namespace Netflix.Api.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        public async Task<IActionResult> GetMoviesContentAsync([FromQuery]string name = "cosmos")
+        public async Task<IActionResult> GetMovieByNameAsync([FromQuery]string name = "cosmos")
         {
             if (string.IsNullOrEmpty(name))
             {

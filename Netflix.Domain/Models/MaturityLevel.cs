@@ -1,4 +1,4 @@
-﻿namespace Netflix.Domain
+﻿namespace Netflix.Domain.Models
 {
     public enum MaturityLevel
     {
