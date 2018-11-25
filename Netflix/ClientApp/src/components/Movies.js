@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Movies.css';
 
 export class Movies extends Component {
 
@@ -12,7 +13,7 @@ export class Movies extends Component {
   render() {
     return (
       <div>
-        <video  width="100%" height="auto" autoPlay="true" controls>
+        <video id="video" width="1000px" height="auto" autoPlay="true" controls>
           <source src="api/Movies" type="video/mp4" codecs="avc1.42E01E, mp4a.40.2"/>
         </video>
       </div>

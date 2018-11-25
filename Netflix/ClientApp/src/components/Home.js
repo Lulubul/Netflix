@@ -12,7 +12,8 @@ export class Home extends Component {
   }
 
   componentDidMount() {
-    getProfiles('3f008259-8509-40a2-8118-f047861e4f31')
+    const userId = '3f008259-8509-40a2-8118-f047861e4f31';
+    getProfiles(userId)
       .then((profiles) => this.setState({profiles: profiles}))
   }
 

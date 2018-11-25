@@ -14,20 +14,30 @@ namespace Netflix.Repositories
     public class MovieRepository : IMovieRepository
     {
         private const string MoviesContainer = "movies";
+        private readonly string _storageConnectionString;
+
+        public MovieRepository(string storageConnectionString)
+        {
+            _storageConnectionString = storageConnectionString;
+        }
 
         public async Task<Stream> GetMovieByNameAsync(string movieName)
         {
             try
             {
-                var storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
-                CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-                CloudBlobContainer container = blobClient.GetContainerReference(MoviesContainer);
-                return await container.GetBlobReference(movieName).OpenReadAsync();
+                return await GetContainer().GetBlobReference(movieName).OpenReadAsync();
             }
             catch (Exception ex)
             {
                 return null;
             }
+        }
+
+        private CloudBlobContainer GetContainer()
+        {
+            var storageAccount = CloudStorageAccount.Parse(_storageConnectionString);
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            return blobClient.GetContainerReference(MoviesContainer);
         }
     }
 }

@@ -1,6 +1,6 @@
 
 
-const apiBase = 'https://localhost:44334/api';
+const apiBase = '/api';
 
 export const getProfiles = (userId) => {
     return fetch(`${apiBase}/Profiles?usedId=${userId}`)

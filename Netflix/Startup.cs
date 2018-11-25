@@ -25,7 +25,7 @@ namespace Netflix.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<IMovieStreamService, MovieStreamService>();
-            services.AddTransient<IMovieRepository, MovieRepository>();
+            services.AddTransient<IMovieRepository>(m => new MovieRepository(Configuration.GetConnectionString("AzureBlobStorage")));
             services.AddTransient<IRecommendationsService, RecommendationsService>();
             services.AddTransient<INewsRepository, NewsRepository>();
             services.AddTransient<INewsService, NewsService>();
@@ -33,7 +33,7 @@ namespace Netflix.Api
             services.AddTransient<IWatchingListService, WatchingListService>();
             services.AddTransient<IWatchingItemRepository, WatchingItemRepository>();
             services.AddTransient<IProfileService, ProfileService>();
-            services.AddTransient<IProfileRepository, ProfileRepository>();
+            services.AddTransient<IProfileRepository>(m => new ProfileRepository(Configuration.GetConnectionString("AzureTableStorage")));
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

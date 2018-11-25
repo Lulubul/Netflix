@@ -18,6 +18,12 @@ namespace Netflix.Repositories
     public class ProfileRepository : IProfileRepository
     {
         private const string ProfilesTable = "profiles";
+        private readonly string _storageConnectionString;
+
+        public ProfileRepository(string storageConnectionString)
+        {
+            _storageConnectionString = storageConnectionString;
+        }
 
         public async Task<List<ProfileEntity>> GetUserProfiles(Guid userId)
         {
@@ -36,9 +42,9 @@ namespace Netflix.Repositories
             return profiles;
         }
 
-        private static CloudTable GetTable()
+        private CloudTable GetTable()
         {
-            CloudStorageAccount storageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_storageConnectionString); ;
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             return tableClient.GetTableReference(ProfilesTable);
         }
