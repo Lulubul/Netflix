@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Netflix.Domain.Models
+namespace Netflix.Repositories.AzureEntities
 {
-    public class Episode: Entity
+    class PlanEntity
     {
     }
 }

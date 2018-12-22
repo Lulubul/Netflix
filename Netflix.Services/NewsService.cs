@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Netflix.Domain;
 using Netflix.Domain.Models;
+using Netflix.Domain.Models.MovieContext;
 using Netflix.Repositories;
 
 namespace Netflix.Services

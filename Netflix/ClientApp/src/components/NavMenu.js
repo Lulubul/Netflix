@@ -25,6 +25,11 @@ export class NavMenu extends Component {
                 <Glyphicon glyph='home' /> Home
               </NavItem>
             </LinkContainer>
+            <LinkContainer to={'/tvshows'}>
+              <NavItem>
+                <Glyphicon glyph='th-list' /> TV Shows
+              </NavItem>
+            </LinkContainer>
             <LinkContainer to={'/movies'}>
               <NavItem>
                 <Glyphicon glyph='th-list' /> Movies

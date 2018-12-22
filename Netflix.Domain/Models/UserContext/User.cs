@@ -1,4 +1,4 @@
-﻿namespace Netflix.Domain.Models
+﻿namespace Netflix.Domain.Models.UserContext
 {
     public class User : Entity
     {

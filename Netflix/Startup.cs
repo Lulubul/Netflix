@@ -23,6 +23,8 @@ namespace Netflix.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var azureTableStorage = Configuration.GetConnectionString("AzureTableStorage");
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<IMovieStreamService, MovieStreamService>();
             services.AddTransient<IMovieRepository>(m => new MovieRepository(Configuration.GetConnectionString("AzureBlobStorage")));
@@ -33,7 +35,10 @@ namespace Netflix.Api
             services.AddTransient<IWatchingListService, WatchingListService>();
             services.AddTransient<IWatchingItemRepository, WatchingItemRepository>();
             services.AddTransient<IProfileService, ProfileService>();
-            services.AddTransient<IProfileRepository>(m => new ProfileRepository(Configuration.GetConnectionString("AzureTableStorage")));
+            services.AddTransient<IGenresService, GenresService>();
+            services.AddTransient<IMovieService, MovieService>();
+            services.AddTransient<IGenresRepository>(m => new GenresRepository(azureTableStorage));
+            services.AddTransient<IProfileRepository>(m => new ProfileRepository(azureTableStorage));
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

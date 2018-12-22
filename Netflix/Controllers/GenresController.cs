@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Netflix.Services;
 
 namespace Netflix.Api.Controllers
 {
@@ -11,5 +8,19 @@ namespace Netflix.Api.Controllers
     [ApiController]
     public class GenresController : ControllerBase
     {
+        private readonly IGenresService _genresService;
+
+        public GenresController(IGenresService genresService)
+        {
+            _genresService = genresService;
+        }
+
+        // GET: api/<controller>
+        [HttpGet]
+        public async Task<IActionResult> GetAllGenres()
+        {
+            var genres = await _genresService.GetAllGenres();
+            return Ok(genres);
+        }
     }
 }

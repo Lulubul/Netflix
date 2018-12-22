@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import { Col, Image} from 'react-bootstrap';
 
 export class Profile extends Component {
-
-    constructor(props) {
-        super(props);
-    }
-
   render() {
     const {avatarUrl} = this.props.profile;
     return (

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Grid, Row, Image, Button} from 'react-bootstrap';
+import { Col, Grid, Row, Button} from 'react-bootstrap';
 import { Profile } from './Profile';
 import { getProfiles } from '../resources/Api';
 import './Home.css';
@@ -26,7 +26,7 @@ export class Home extends Component {
         <Grid>
           <Row>
             <Col xs={6} md={3}/>
-            {profiles.map((profile, index) => (<Profile key={index} profile={profile}/>))}
+              {profiles.map((profile, index) => (<Profile key={index} profile={profile}/>))}
             <Col xs={6} md={5}/>
           </Row>
           <Row>

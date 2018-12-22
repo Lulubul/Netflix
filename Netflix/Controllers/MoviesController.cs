@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Headers;
+﻿using System;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Netflix.Services;
@@ -10,15 +11,25 @@ namespace Netflix.Api.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly IMovieStreamService _streamingService;
+        private readonly IMovieService _movieService;
 
-        public MoviesController(IMovieStreamService streamingService)
+        public MoviesController(IMovieStreamService streamingService, IMovieService movieService)
         {
             _streamingService = streamingService;
+            _movieService = movieService;
         }
 
         // GET: api/<controller>
         [HttpGet]
-        public async Task<IActionResult> GetMovieByNameAsync([FromQuery]string name = "cosmos")
+        public async Task<IActionResult> GetAllMovies()
+        {
+            var movies = await _movieService.GetTopMoviesInCategories();
+            return Ok(movies);
+        }
+
+        // GET: api/<controller>
+        [HttpGet("{name}")]
+        public async Task<IActionResult> GetMovieByNameAsync(string name)
         {
             if (string.IsNullOrEmpty(name))
             {

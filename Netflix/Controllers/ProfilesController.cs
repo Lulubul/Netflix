@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Netflix.Domain;
 using Netflix.Domain.Models;
+using Netflix.Domain.Models.UserContext;
 using Netflix.Services;
 
 namespace Netflix.Api.Controllers
@@ -32,6 +30,40 @@ namespace Netflix.Api.Controllers
             }
 
             var profiles = await _profileService.GetUserProfile(usedId.Value);
+            return Ok(profiles);
+        }
+
+        // Post: api/<controller>
+        [HttpPost]
+        public async Task<IActionResult> CreateNewProfile(Guid? usedId, UserProfile profile)
+        {
+            if (usedId == null)
+            {
+                return BadRequest($"Parameter is not defined in body {nameof(usedId)}");
+            }
+            if (profile == null)
+            {
+                return BadRequest($"Parameter is not defined in body {nameof(profile)}");
+            }
+
+            var profiles = await _profileService.AddUserProfile(usedId.Value, profile);
+            return Ok(profiles);
+        }
+
+        // Post: api/<controller>
+        [HttpPut]
+        public async Task<IActionResult> UpdateUserProfile(Guid? usedId, UserProfile profile)
+        {
+            if (usedId == null)
+            {
+                return BadRequest($"Parameter is not defined in body {nameof(usedId)}");
+            }
+            if (profile == null)
+            {
+                return BadRequest($"Parameter is not defined in body {nameof(profile)}");
+            }
+
+            var profiles = await _profileService.UpdateUserProfile(usedId.Value, profile);
             return Ok(profiles);
         }
     }

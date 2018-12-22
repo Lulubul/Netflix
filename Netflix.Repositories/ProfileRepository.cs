@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using Netflix.Domain.Models;
+using Netflix.Domain.Models.UserContext;
 using Netflix.Repositories.AzureEntities;
 
 namespace Netflix.Repositories
@@ -13,9 +12,11 @@ namespace Netflix.Repositories
     public interface IProfileRepository
     {
         Task<List<ProfileEntity>> GetUserProfiles(Guid userId);
+        Task<bool> UpdateUserProfile(Guid userId, UserProfile profile);
+        Task<bool> AddUserProfile(Guid userId, UserProfile profile);
     }
 
-    public class ProfileRepository : IProfileRepository
+    public class ProfileRepository : AbstractRepository, IProfileRepository
     {
         private const string ProfilesTable = "profiles";
         private readonly string _storageConnectionString;
@@ -31,10 +32,11 @@ namespace Netflix.Repositories
                 TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, userId.ToString())
             );
             var profiles = new List<ProfileEntity>();
+            var table = GetTable(ProfilesTable, _storageConnectionString);
             TableContinuationToken continuationToken = null;
             do
             {
-                TableQuerySegment<ProfileEntity> querySegment = await GetTable().ExecuteQuerySegmentedAsync(query, continuationToken);
+                TableQuerySegment<ProfileEntity> querySegment = await table.ExecuteQuerySegmentedAsync(query, continuationToken);
                 continuationToken = querySegment.ContinuationToken;
                 profiles.AddRange(querySegment.Results);
             }
@@ -42,11 +44,14 @@ namespace Netflix.Repositories
             return profiles;
         }
 
-        private CloudTable GetTable()
+        public Task<bool> UpdateUserProfile(Guid userId, UserProfile profile)
         {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_storageConnectionString); ;
-            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-            return tableClient.GetTableReference(ProfilesTable);
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> AddUserProfile(Guid userId, UserProfile profile)
+        {
+            throw new NotImplementedException();
         }
     }
 }
