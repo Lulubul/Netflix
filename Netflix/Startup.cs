@@ -37,6 +37,8 @@ namespace Netflix.Api
             services.AddTransient<IProfileService, ProfileService>();
             services.AddTransient<IGenresService, GenresService>();
             services.AddTransient<IMovieService, MovieService>();
+            services.AddTransient<IPlanService, PlansService>();
+            services.AddTransient<IPlanRepository>(m => new PlanRepository(azureTableStorage));
             services.AddTransient<IGenresRepository>(m => new GenresRepository(azureTableStorage));
             services.AddTransient<IProfileRepository>(m => new ProfileRepository(azureTableStorage));
 

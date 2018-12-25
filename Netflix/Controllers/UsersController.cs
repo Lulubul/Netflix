@@ -32,6 +32,13 @@ namespace Netflix.Api.Controllers
         {
             return await _usersService.AddUser(user);
         }
+
+        // Put: api/<controller>
+        [HttpPut]
+        public async Task<bool> UpdateUser(User user)
+        {
+            return await _usersService.UpdateUser(user);
+        }
     }
 
 }

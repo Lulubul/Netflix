@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Netflix.Domain.Models.UserContext;
+using Netflix.Services;
 
 namespace Netflix.Api.Controllers
 {
@@ -10,12 +10,19 @@ namespace Netflix.Api.Controllers
     [ApiController]
     public class PlansController : ControllerBase
     {
+        private readonly IPlanService _planService;
+
+        public PlansController(IPlanService planService)
+        {
+            _planService = planService;
+        }
+
         // GET: api/<controller>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Plan>), 200)]
-        public Task<IEnumerable<Plan>> GetPlans()
+        public async Task<IEnumerable<Plan>> GetPlans()
         {
-            throw new NotImplementedException();
+            return await _planService.GetAllPlans();
         }
     }
 }

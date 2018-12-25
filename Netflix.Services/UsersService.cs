@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Netflix.Domain.Models;
 using Netflix.Domain.Models.UserContext;
 using Netflix.Repositories;
 
@@ -10,6 +9,7 @@ namespace Netflix.Services
     {
         Task<User> GetUserById(Guid id);
         Task<bool> AddUser(User user);
+        Task<bool> UpdateUser(User user);
     }
 
     public class UsersService : AbstractService, IUsersService
@@ -24,6 +24,11 @@ namespace Netflix.Services
         public async Task<bool> AddUser(User user)
         {
             return await _userRepository.AddUser(user);
+        }
+
+        public Task<bool> UpdateUser(User user)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<User> GetUserById(Guid id)
