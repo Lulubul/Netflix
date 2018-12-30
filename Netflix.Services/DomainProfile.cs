@@ -16,6 +16,7 @@ namespace Netflix.Services
                 .ForMember(x => x.Id, opt => opt.MapFrom(x => x.RowKey));
             CreateMap<GenreEntity, Genre>()
                 .ForMember(x => x.Id, opt => opt.MapFrom(x => x.RowKey));
+            CreateMap<MovieEntity, Movie>();
         }
     }
 }

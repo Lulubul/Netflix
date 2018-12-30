@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import './SignIn.css';
-import { getPlans } from '../resources/Api';
+import './PlanForm.css';
+import { getPlans } from '../../resources/Api';
+import { Link } from 'react-router-dom';
 
-export default class SignIn extends Component {
+export class PlanForm extends Component {
 
   constructor(props) {
     super(props);
@@ -11,12 +12,12 @@ export default class SignIn extends Component {
 
   componentDidMount() {
     getPlans()
-      .then((plans) => this.setState({plans: plans}));
+      .then((plans) => this.setState({ plans: plans }));
   }
 
   render() {
     return (
-      <div>
+      <div id="signIn">
         <h1>Choose a plan that's right for you.</h1>
         <p>Downgrade or upgrade at any time</p>
         <table className="table table-dark">
@@ -49,13 +50,16 @@ export default class SignIn extends Component {
             </tr>
           </tbody>
         </table>
+        <Link to="/signup/register">
+          <button type="button" className="btn btn-primary btn-solid btn-oversize">CONTINUE</button>
+        </Link>
       </div>
     )
   }
 
   renderBoolean = (value) => {
-    return value 
-      ? <span class="glyphicon glyphicon-ok"></span> 
-      : <span class="glyphicon glyphicon-remove"></span>;
+    return value
+      ? <span className="glyphicon glyphicon-ok"></span>
+      : <span className="glyphicon glyphicon-remove"></span>;
   }
 }

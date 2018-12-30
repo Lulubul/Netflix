@@ -4,7 +4,8 @@ import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { Movies } from './components/Movies';
 import { TvShows } from './components/TvShows';
-import SignIn from './components/SignIn';
+import { PlanForm } from './components/signup/PlanForm';
+import { Register } from './components/signup/Register';
 
 export default class App extends Component {
   displayName = App.name
@@ -12,9 +13,11 @@ export default class App extends Component {
   render() {
     return (
       <Layout>
-        <Route exact path='/' component={SignIn} />
+        <Route exact path='/' component={Home} />
         <Route path='/tvshows' component={TvShows} />
         <Route path='/movies' component={Movies} />
+        <Route path='/signup/planform' component={PlanForm} />
+        <Route path='/signup/register' component={Register} />
       </Layout>
     );
   }

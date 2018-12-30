@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
-using Netflix.Domain.Models;
+using AutoMapper;
 using Netflix.Domain.Models.MovieContext;
 using Netflix.Repositories;
+using Netflix.Repositories.AzureEntities;
 
 namespace Netflix.Services
 {
@@ -16,16 +17,19 @@ namespace Netflix.Services
     public class MovieService : IMovieService
     {
         private readonly IMovieRepository _movieRepository;
+        private readonly IMapper _mapper;
 
-        public MovieService(IMovieRepository movieRepository)
+        public MovieService(IMovieRepository movieRepository, IMapper mapper)
         {
             _movieRepository = movieRepository;
+            _mapper = mapper;
         }
 
-        public Task<List<Movie>> GetTopMoviesInCategories()
+        public async Task<List<Movie>> GetTopMoviesInCategories()
         {
-            _movieRepository.GetMovies();
-            throw new NotImplementedException();
+            var movies = await _movieRepository.GetMovies();
+            return movies.Select(_mapper.Map<MovieEntity, Movie>).ToList();
+
         }
     }
 }

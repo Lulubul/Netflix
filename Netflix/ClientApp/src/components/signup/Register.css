@@ -1,0 +1,15 @@
+#register {
+    margin-top: 50px;
+}
+
+form {
+    display: table;
+}
+
+form input {
+    margin-bottom: 25px;
+}
+
+h1 {
+    color: white;
+}

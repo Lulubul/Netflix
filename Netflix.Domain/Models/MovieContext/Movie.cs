@@ -3,7 +3,8 @@
     public class Movie
     {
         public string Name { get; set; }
-        public MaturityLevel MaturityLevel { get; set; }
-        public byte[] Image { get; set; }
+        public string Description { get; set; }
+        public string Duration { get; set; }
+        public string Image { get; set; }
     }
 }

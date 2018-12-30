@@ -1,5 +1,3 @@
-
-
 const apiBase = '/api';
 
 export const getProfiles = (userId) => {
@@ -14,5 +12,10 @@ export const getGenres = () => {
 
 export const getPlans = () => {
   return fetch(`${apiBase}/plans`)
+    .then(response => response.json());
+}
+
+export const getMovies = () => {
+  return fetch(`${apiBase}/movies`)
     .then(response => response.json());
 }
