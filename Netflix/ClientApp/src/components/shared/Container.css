@@ -4,6 +4,23 @@
     overflow: hidden;
 }
 
+.rowContainer .carousel-control {
+    position: relative;
+    top: 50%;
+}
+
+.rowContainer .carousel-control.left {
+    left: 40%;
+}
+
+.rowContainer .carousel-control.right {
+    left: 60%;
+}
+
+.carousel-indicators {
+    position: relative;
+}
+
 .sliderMask {
     overflow: hidden;
     width: 95%;
