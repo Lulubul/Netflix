@@ -41,7 +41,9 @@ namespace Netflix.Repositories
 
         public async Task<Stream> GetMovieByNameAsync(string movieName)
         {
-            return await GetContainer(_storageConnectionString, MoviesContainer).GetBlobReference(movieName).OpenReadAsync();
+            return await GetContainer(_storageConnectionString, MoviesContainer)
+                .GetBlobReference(movieName)
+                .OpenReadAsync();
         }
     }
 }

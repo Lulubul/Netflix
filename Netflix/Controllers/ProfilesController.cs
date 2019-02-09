@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Netflix.Domain.Models;
 using Netflix.Domain.Models.UserContext;
 using Netflix.Services;
 
@@ -11,7 +10,7 @@ namespace Netflix.Api.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class ProfilesController : ControllerBase
-    {
+    { 
         private readonly IProfileService _profileService;
 
         public ProfilesController(IProfileService profileService)
