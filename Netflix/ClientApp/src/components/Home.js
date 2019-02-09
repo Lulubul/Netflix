@@ -26,7 +26,7 @@ export class Home extends Component {
         <Grid>
           <Row>
             <Col xs={6} md={3}/>
-              {profiles.map((profile, index) => (<Profile key={index} profile={profile}/>))}
+            {profiles.map((profile, index) => (<Profile key={index} profile={profile}/>))}
             <Col xs={6} md={5}/>
           </Row>
           <Row>

@@ -4,18 +4,29 @@
     overflow: hidden;
 }
 
+.sliderMask {
+    overflow: hidden;
+    width: 95%;
+}
+
+.items {
+    display: flex;
+    transition: 1s ease-in;
+}
+
 h2 {
     color: white;
 }
 
 .handle {
-    background: rgba(20, 20, 20, .5);
+    background: rgba(30,30,30,.9);
+    width: 60px;
 }
 
 .handlePrev {
-    margin-left: 25px;
+
 }
 
 .handleNext {
-    margin-right: 25px;
+
 }
