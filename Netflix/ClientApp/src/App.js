@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router';
 import { Layout } from './components/Layout';
-import { Home } from './components/Home';
+import { Home } from './components/profile/Home';
+import { NewProfile } from './components/profile/NewProfile';
 import { Movies } from './components/Movies';
 import { TvShows } from './components/TvShows';
 import { PlanForm } from './components/signup/PlanForm';
@@ -17,6 +18,7 @@ export default class App extends Component {
         <Route exact path='/' component={Home} />
         <Route path='/tvshows' component={TvShows} />
         <Route path='/movies' component={Movies} />
+        <Route path='/newProfile' component={NewProfile} />
         <Route path='/signup/planform' component={PlanForm} />
         <Route path='/signup/login' component={Login} />
         <Route path='/signup/register' component={Register} />
