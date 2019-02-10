@@ -1,0 +1,22 @@
+#login {
+    margin: auto;
+    position: relative;
+    width: 250px;
+    padding: 3em;
+}
+
+#login form {
+    display: table;
+}
+
+#login form input {
+    margin-bottom: 25px;
+}
+
+#login h1 {
+    color: white;
+}
+
+#login button {
+    width: 100%;
+}

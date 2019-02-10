@@ -1,15 +1,28 @@
-#register {
-    margin-top: 50px;
+#register-container {
+    margin: auto;
+    position: relative;
+    width: 350px;
+    padding: 3em;
 }
 
-form {
+#register {
+    margin: auto;
+    position: relative;
+    width: 180px;
+}
+
+#register-container form {
     display: table;
 }
 
-form input {
+#register-container form input {
     margin-bottom: 25px;
 }
 
-h1 {
+#register-container h1 {
     color: white;
+}
+
+#register-container button {
+    width: 100%;
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Col, Grid, Row, Button} from 'react-bootstrap';
 import { Profile } from './Profile';
 import { getProfiles } from '../resources/Api';
+import { Link } from 'react-router-dom';
 import './Home.css';
 
 export class Home extends Component {
@@ -27,6 +28,14 @@ export class Home extends Component {
           <Row>
             <Col xs={6} md={3}/>
             {profiles.map((profile, index) => (<Profile key={index} profile={profile}/>))}
+            <Col xs={2} md={2}>
+                <div className="profile-wrapper">
+                  <Link to={'/addProfile'}>
+                    <span className="glyphicon glyphicon-plus-sign"></span>
+                    <span className="profile-name">Add Profile</span>
+                  </Link>
+                </div>
+            </Col>
             <Col xs={6} md={5}/>
           </Row>
           <Row>
