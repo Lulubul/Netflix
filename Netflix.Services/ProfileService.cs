@@ -37,13 +37,19 @@ namespace Netflix.Services
 
         public async Task<bool> UpdateUserProfile(Guid userId, UserProfile profile)
         {
-            var updateResponse = await _profileRepository.UpdateUserProfile(userId, profile);
+            var profileEntity = _mapper.Map<UserProfile, ProfileEntity>(profile);
+            profileEntity.PartitionKey = userId.ToString();
+            profileEntity.RowKey = profile.Id.ToString();
+            var updateResponse = await _profileRepository.UpdateUserProfileAsync(profileEntity);
             return updateResponse;
         }
 
         public async Task<bool> AddUserProfile(Guid userId, UserProfile profile)
         {
-            var addResponse = await _profileRepository.AddUserProfile(userId, profile);
+            var newProfileEntity = _mapper.Map<UserProfile, ProfileEntity>(profile);
+            newProfileEntity.PartitionKey = userId.ToString();
+            newProfileEntity.RowKey = Guid.NewGuid().ToString();
+            var addResponse = await _profileRepository.AddUserProfile(newProfileEntity);
             return addResponse;
         }
     }

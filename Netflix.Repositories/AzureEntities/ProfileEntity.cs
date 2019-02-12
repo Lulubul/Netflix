@@ -2,7 +2,7 @@
 
 namespace Netflix.Repositories.AzureEntities
 {
-    public class ProfileEntity : TableEntity
+    public class ProfileEntity: TableEntity
     {
         public string AvatarUrl { get; set; }
         public string Language { get; set; }

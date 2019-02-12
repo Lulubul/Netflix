@@ -24,19 +24,21 @@ export class Home extends Component {
     return (
       <div className="home">
         <h1>Who's watching?</h1>
-        <Grid>
+        <Grid lg={12} md={12}>
           <Row>
-            <Col xs={6} md={3}/>
-            {profiles.map((profile, index) => (<Profile key={index} profile={profile}/>))}
-            <Col xs={2} md={2}>
-                <div className="profile-wrapper">
+            {profiles.map((profile, index) => (
+              <Col className="profile-wrapper" xs={2} md={2} lg={2}> 
+                <Profile key={index} profile={profile}/> 
+              </Col>
+            ))}
+            <Col className="profile-wrapper" xs={2} md={2} lg={2}>
+                <div>
                   <Link to={'/newProfile'}>
                     <span className="glyphicon glyphicon-plus-sign"></span>
                     <span className="profile-name">Add Profile</span>
                   </Link>
                 </div>
             </Col>
-            <Col xs={6} md={5}/>
           </Row>
           <Row>
             <Button id="manage-profile" bsSize="large">Manage profiles</Button>

@@ -10,7 +10,9 @@ namespace Netflix.Services
     {
         public DomainProfile()
         {
-            CreateMap<ProfileEntity, UserProfile>();
+            CreateMap<ProfileEntity, UserProfile>()
+                .ForMember(x => x.Id, opt => opt.MapFrom(x => x.RowKey));
+            CreateMap<UserProfile, ProfileEntity>();
             CreateMap<NewsEntity, News>();
             CreateMap<PlanEntity, Plan>()
                 .ForMember(x => x.Id, opt => opt.MapFrom(x => x.RowKey));

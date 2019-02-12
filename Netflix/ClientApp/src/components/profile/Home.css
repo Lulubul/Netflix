@@ -21,3 +21,8 @@
 .home .profile-name {
     display: block;
 }
+
+.home .row {
+    justify-content: flex-end;
+    display: flex;
+}

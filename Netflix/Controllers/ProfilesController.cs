@@ -34,7 +34,7 @@ namespace Netflix.Api.Controllers
 
         // Post: api/<controller>
         [HttpPost]
-        public async Task<IActionResult> CreateNewProfile(Guid? usedId, UserProfile profile)
+        public async Task<IActionResult> CreateNewProfile([FromQuery]Guid? usedId, [FromBody]UserProfile profile)
         {
             if (usedId == null)
             {

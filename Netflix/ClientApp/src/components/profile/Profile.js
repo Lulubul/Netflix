@@ -7,14 +7,12 @@ export class Profile extends Component {
   render() {
     const {avatarUrl, name} = this.props.profile;
     return (
-        <Col xs={6} md={2}>
-            <div className="profile-wrapper">
-              <Link to={'/tvshows'}>
-                <Image src={avatarUrl} thumbnail/>
-                <span className="profile-name">{name}</span>
-              </Link>
-            </div>
-        </Col>
+        <div className="profile-wrapper">
+          <Link to={'/tvshows'}>
+            <Image src={avatarUrl} thumbnail/>
+            <span className="profile-name">{name}</span>
+          </Link>
+        </div>
     )
   }
 }

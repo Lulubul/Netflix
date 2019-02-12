@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Table;
-using Netflix.Domain.Models;
 using Netflix.Domain.Models.UserContext;
 using Netflix.Repositories.AzureEntities;
 
@@ -12,8 +11,8 @@ namespace Netflix.Repositories
     public interface IProfileRepository
     {
         Task<List<ProfileEntity>> GetUserProfiles(Guid userId);
-        Task<bool> UpdateUserProfile(Guid userId, UserProfile profile);
-        Task<bool> AddUserProfile(Guid userId, UserProfile profile);
+        Task<bool> UpdateUserProfileAsync(ProfileEntity profile);
+        Task<bool> AddUserProfile(ProfileEntity profile);
     }
 
     public class ProfileRepository : AbstractRepository, IProfileRepository
@@ -44,14 +43,20 @@ namespace Netflix.Repositories
             return profiles;
         }
 
-        public Task<bool> UpdateUserProfile(Guid userId, UserProfile profile)
+        public async Task<bool> UpdateUserProfileAsync(ProfileEntity profile)
         {
-            throw new NotImplementedException();
+            TableOperation insertOrReplaceOperation = TableOperation.InsertOrReplace(profile);
+            var table = GetTable(ProfilesTable, _storageConnectionString);
+            await table.ExecuteAsync(insertOrReplaceOperation);
+            return await Task.FromResult(true);
         }
 
-        public Task<bool> AddUserProfile(Guid userId, UserProfile profile)
+        public async Task<bool> AddUserProfile(ProfileEntity newProfile)
         {
-            throw new NotImplementedException();
+            TableOperation insertOperation = TableOperation.Insert(newProfile);
+            var table = GetTable(ProfilesTable, _storageConnectionString);
+            await table.ExecuteAsync(insertOperation);
+            return await Task.FromResult(true);
         }
     }
 }
