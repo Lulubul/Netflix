@@ -30,3 +30,8 @@ export const getMovies = () => {
   return fetch(`${apiBase}/movies`)
     .then(response => response.json());
 }
+
+export const getTvShows = () => {
+  return fetch(`${apiBase}/movies`)
+    .then(response => response.json());
+}

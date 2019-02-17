@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Item } from './Item';
 import './Container.css';
+import { Link } from 'react-router-dom';
 
 export const Direction = { Back : -1, Forward: 1 }
 
@@ -29,16 +30,22 @@ export class Container extends Component {
         window.removeEventListener('resize', this.updateWindowDimensions(this.props.items.length));
     }
 
-    componentWillReceiveProps = (props) => {
-        this.updateWindowDimensions(props.items.length);
+    componentDidUpdate(prevProps) {
+        if (prevProps.items.length < this.props.items.length) {
+            this.updateWindowDimensions(this.props.items.length);
+        }
     }
 
     updateWindowDimensions = (elementCount) => {
-        const elementWidth = document.getElementsByClassName('boxart-container')[0].offsetWidth;
-        const stepSize = window.innerWidth - 120;
-        const elementsInContainer = stepSize / elementWidth;
-        const containerSize = Math.ceil(elementCount / elementsInContainer);
-        this.setState({ ... stepSize, elementWidth, containerSize  });
+        const boxartContainer = document.getElementsByClassName('boxart-container')[0];
+        if (elementCount > 0) { 
+            const defaultWidth = 341;
+            const elementWidth = boxartContainer.offsetWidth > 200 ? boxartContainer.offsetWidth : defaultWidth;
+            const stepSize = window.innerWidth - 120;
+            const elementsInContainer = stepSize / elementWidth;
+            const containerSize = Math.ceil(elementCount / elementsInContainer);
+            this.setState({ ...stepSize, elementWidth, containerSize  });
+        }
     }
 
     goBack = (event) => {
@@ -47,10 +54,6 @@ export class Container extends Component {
 
     goNext = (event) => {
         this.goToNextPosition(Direction.Forward);
-    }
-
-    goToElement = (elementId) => {
-
     }
 
     hasNextButton = () => {
@@ -76,9 +79,7 @@ export class Container extends Component {
             <div>
                 <div>
                     <h2>{title}</h2>
-                    <ol className="carousel-indicators">
-                        
-                    </ol>
+                    <ol className="carousel-indicators"></ol>
                 </div>
                 <div className="rowContainer">
                     <div className="handle handlePrev active">
@@ -87,7 +88,9 @@ export class Container extends Component {
                     <div className="sliderMask">
                         <div className="items" ref={this.itemsRef}>
                             {items.map((item, index) => (
-                                <Item key={index} imageSource={item.image} size={size} onClick={this.goToElement(item.videoId)} />
+                                <Link to="/watchingItem">
+                                    <Item key={index} imageSource={item.image} size={size} />
+                                </Link>
                             ))}
                         </div>
                     </div>

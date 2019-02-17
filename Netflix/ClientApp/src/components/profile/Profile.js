@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Col, Image} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { Image } from 'react-bootstrap';
 import './Profile.css';
 
 export class Profile extends Component {
@@ -8,7 +8,7 @@ export class Profile extends Component {
     const {avatarUrl, name} = this.props.profile;
     return (
         <div className="profile-wrapper">
-          <Link to={'/tvshows'}>
+          <Link to={'/movies'}>
             <Image src={avatarUrl} thumbnail/>
             <span className="profile-name">{name}</span>
           </Link>

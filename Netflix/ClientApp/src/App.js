@@ -7,7 +7,8 @@ import { Movies } from './components/Movies';
 import { TvShows } from './components/TvShows';
 import { PlanForm } from './components/signup/PlanForm';
 import { Register } from './components/signup/Register';
-import Login from './components/signup/Login';
+import { WatchingItem } from './components/WatchingItem';
+import { Login } from './components/signup/Login';
 
 export default class App extends Component {
   displayName = App.name
@@ -22,6 +23,7 @@ export default class App extends Component {
         <Route path='/signup/planform' component={PlanForm} />
         <Route path='/signup/login' component={Login} />
         <Route path='/signup/register' component={Register} />
+        <Route path='/watchingItem' component={WatchingItem} />
       </Layout>
     );
   }

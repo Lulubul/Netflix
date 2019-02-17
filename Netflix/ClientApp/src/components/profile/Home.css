@@ -8,6 +8,27 @@
     margin-top: 25px;
 }
 
+.home h1 {
+    text-align: center;
+    color: white;
+}
+
+.home img {
+    width: 130px;
+    height: 130px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.navbar-header  {
+    height: 50px;
+}
+
+.home {
+    margin-top: 15%;
+}
+
 .home .profile-wrapper span.glyphicon {
     font-size: 6em;
     padding: 20px;
@@ -23,6 +44,7 @@
 }
 
 .home .row {
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: center;
     display: flex;
 }

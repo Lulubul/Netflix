@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Grid, Row, Button} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { postProfile } from '../../resources/Api';
+import { Image } from 'react-bootstrap';
 import './NewProfile.css';
 
 export class NewProfile extends Component {
@@ -13,14 +14,10 @@ export class NewProfile extends Component {
     this.state = { name: '' };
   } 
 
-  addProfile = () => {
+   addProfile = () => {
     const userId = '3f008259-8509-40a2-8118-f047861e4f31';
-    postProfile(userId, {
-      avatarUrl: this.avatarUrl,
-      language: "English",
-      name: this.state.name,
-      maturityLevel: "All"
-    }).then((response) => {
+    const newPorfile = { avatarUrl: this.avatarUrl, language: "English", name: this.state.name, maturityLevel: "All" };
+    postProfile(userId, newPorfile).then((response) => {
       this.props.history.push('/');
     })
   }
@@ -36,7 +33,7 @@ export class NewProfile extends Component {
         <h3>Add a profile for another person watching Netflix.</h3>
         <Row className="profile-entry">
           <div className="main-profile-avatar">
-            <img src={this.avatarUrl} />
+            <Image alt={"Profile"} src={this.avatarUrl} />
           </div>
           <input type="text" value={this.state.name} onChange={this.onNameChanged} placeholder="Name"/>
         </Row>
