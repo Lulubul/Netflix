@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Grid, Row, Button} from 'react-bootstrap';
+import { Col, Container, Row, Button} from 'react-bootstrap';
 import { Profile } from './Profile';
 import { getProfiles } from '../../resources/Api';
 import { Link } from 'react-router-dom';
@@ -24,7 +24,7 @@ export class Home extends Component {
     return (
       <div className="home">
         <h1>Who's watching?</h1>
-        <Grid lg={12} md={12}>
+        <Container lg={12} md={12}>
           <Row>
             {profiles.map((profile, index) => (
               <Col key={index} className="profile-wrapper" xs={2} md={2} lg={2}> 
@@ -41,9 +41,9 @@ export class Home extends Component {
             </Col>
           </Row>
           <Row>
-            <Button id="manage-profile" bsSize="large">Manage profiles</Button>
+            <Button id="manage-profile" size="lg">Manage profiles</Button>
           </Row>
-        </Grid>
+        </Container>
       </div>
     );
   }

@@ -13,6 +13,7 @@ export class Login extends Component {
             <Link to="/">
               <button type="submit" className="btn btn-primary btn-solid btn-oversize">Sign In</button>
             </Link>
+            <span>New to Netflix? <Link to="/signup/planform">Sign up now.</Link></span>
         </form>
       </div>
     )

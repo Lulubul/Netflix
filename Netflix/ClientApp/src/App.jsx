@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router';
-import { Layout } from './components/Layout';
+import { Layout } from './components/Layout.';
 import { Home } from './components/profile/Home';
 import { NewProfile } from './components/profile/NewProfile';
 import { Movies } from './components/Movies';

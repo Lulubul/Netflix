@@ -1,14 +1,13 @@
 #register-container {
     margin: auto;
     position: relative;
-    width: 350px;
+    width: 25%;
     padding: 3em;
 }
 
 #register {
     margin: auto;
     position: relative;
-    width: 180px;
 }
 
 #register-container form {
@@ -19,10 +18,10 @@
     margin-bottom: 25px;
 }
 
-#register-container h1 {
+#register-container {
     color: white;
 }
 
-#register-container button {
+#register-container button, #register-container input, #register-container form {
     width: 100%;
 }

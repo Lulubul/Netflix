@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Register.css';
 
+
 export class Register extends Component {
   render() {
     return (
       <div id="register-container">
+        <span>STEP 2 OF 3</span>
         <h1>Sign up to start your free month.</h1>
         <div id="register">
           <form method="POST">

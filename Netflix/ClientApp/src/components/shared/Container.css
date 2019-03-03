@@ -6,15 +6,22 @@
 
 .rowContainer .carousel-control {
     position: relative;
-    top: 50%;
+    top: 30%;
+    font-size: 3em;
+    color: gray;
+    cursor: pointer;
+}
+
+.rowContainer .carousel-control:hover {
+    color: white;
 }
 
 .rowContainer .carousel-control.left {
-    left: 40%;
+    left: 30%;
 }
 
 .rowContainer .carousel-control.right {
-    left: 60%;
+    left: 40%;
 }
 
 .carousel-indicators {

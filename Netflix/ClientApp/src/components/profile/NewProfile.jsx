@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Row, Button} from 'react-bootstrap';
+import { Container, Row, Button} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { postProfile } from '../../resources/Api';
 import { Image } from 'react-bootstrap';
@@ -28,7 +28,7 @@ export class NewProfile extends Component {
 
   render() {
     return (
-      <Grid id="newProfile">
+      <Container id="newProfile">
         <h1>Add profile</h1>
         <h3>Add a profile for another person watching Netflix.</h3>
         <Row className="profile-entry">
@@ -38,12 +38,12 @@ export class NewProfile extends Component {
           <input type="text" value={this.state.name} onChange={this.onNameChanged} placeholder="Name"/>
         </Row>
         <Row>
-          <Button id="continue" bsSize="large" onClick={this.addProfile}>Continue</Button>
+          <Button id="continue" size="lg" onClick={this.addProfile}>Continue</Button>
           <Link to="/">
-            <Button bsSize="large">Cancel</Button>
+            <Button size="lg">Cancel</Button>
           </Link>
         </Row>
-      </Grid>
+      </Container>
     )
   }
 }

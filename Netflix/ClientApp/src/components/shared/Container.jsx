@@ -2,16 +2,17 @@ import React, { Component } from 'react'
 import { Item } from './Item';
 import './Container.css';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const Direction = { Back : -1, Forward: 1 }
 
-const NextButton = ({clickEvent}) => <a className="carousel-control right" role="button" onClick={() => clickEvent()}>
-        <span className="glyphicon glyphicon-chevron-right"></span>
-    </a>;
+const NextButton = ({clickEvent}) => <div className="carousel-control right" role="button" onClick={() => clickEvent()}>
+        <FontAwesomeIcon icon="angle-right"/>
+    </div>;
 
-const PreviousButton = ({clickEvent}) => <a className="carousel-control left" role="button" onClick={() => clickEvent()}>
-        <span className="glyphicon glyphicon-chevron-left"></span>
-    </a>;
+const PreviousButton = ({clickEvent}) => <div className="carousel-control left" role="button" onClick={() => clickEvent()}>
+        <FontAwesomeIcon icon="angle-left"/>
+    </div>;
 
 export class Container extends Component {
 
@@ -88,7 +89,7 @@ export class Container extends Component {
                     <div className="sliderMask">
                         <div className="items" ref={this.itemsRef}>
                             {items.map((item, index) => (
-                                <Link to="/watchingItem">
+                                <Link to="/watchingItem" key={index}>
                                     <Item key={index} imageSource={item.image} size={size} />
                                 </Link>
                             ))}

@@ -2,6 +2,22 @@
   color: white;
 }
 
+#signIn th[scope="col"] {
+  color: gray;
+}
+
+#signIn th[scope="col"].selected {
+  color: white;
+}
+
+#signIn table button {
+  background-color: transparent;
+}
+
+#signIn table button.selected {
+  background-color: #007bff;
+}
+
 #signIn {
   margin-top: 50px;
   color: white;
