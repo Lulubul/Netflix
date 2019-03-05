@@ -29,13 +29,12 @@
     margin-top: 15%;
 }
 
-.home .profile-wrapper span.glyphicon {
-    font-size: 6em;
-    padding: 20px;
+.home .profile-wrapper svg {
+    font-size: 8em;
     color: gray;
 }
   
-.home .profile-wrapper span.glyphicon:hover {
+.home .profile-wrapper svg:hover {
     color: white;
 }
 

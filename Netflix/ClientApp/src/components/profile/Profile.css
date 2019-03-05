@@ -14,3 +14,7 @@
   color: white;
   text-decoration: none;
 }
+
+.profile-entry {
+  align-items: center;
+}
