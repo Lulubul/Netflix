@@ -13,7 +13,7 @@ export class Register extends Component {
           <form method="POST">
               <input name="email" placeholder="email"></input><br/>
               <input name="password" placeholder="password"></input><br/>
-              <Link to="/">
+              <Link to="/signup/payment">
                 <button type="submit" className="btn btn-primary btn-solid btn-oversize">Continue</button>
               </Link>
           </form>

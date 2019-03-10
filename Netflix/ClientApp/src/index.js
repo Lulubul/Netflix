@@ -7,9 +7,9 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTimes, faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faTimes, faAngleRight, faAngleLeft, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faCheck, faTimes, faAngleRight, faAngleLeft)
+library.add(faCheck, faTimes, faAngleRight, faAngleLeft, faPlusCircle)
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');

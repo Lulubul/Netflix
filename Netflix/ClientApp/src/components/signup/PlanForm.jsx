@@ -46,23 +46,23 @@ export class PlanForm extends Component {
           <tbody>
             <tr>
               <th scope="row">Monthly price</th>
-              {this.state.plans.map((plan) => (<th scope="col" key={plan.id}>EUR {plan.monthlyPrice}</th>))}
+              {this.state.plans.map((plan) => (<th className={this.state.planName === plan.name ? "selected" : ''} scope="col" key={plan.id}>EUR {plan.monthlyPrice}</th>))}
             </tr>
             <tr>
               <th scope="row">HD available</th>
-              {this.state.plans.map((plan) => (<th scope="col" key={plan.id}>{this.renderBoolean(plan.hd)}</th>))}
+              {this.state.plans.map((plan) => (<th className={this.state.planName === plan.name ? "selected" : ''} scope="col" key={plan.id}>{this.renderBoolean(plan.hd)}</th>))}
             </tr>
             <tr>
               <th scope="row">Ultra HD available</th>
-              {this.state.plans.map((plan) => (<th scope="col" key={plan.id}>{this.renderBoolean(plan.ultraHd)}</th>))}
+              {this.state.plans.map((plan) => (<th className={this.state.planName === plan.name ? "selected" : ''} scope="col" key={plan.id}>{this.renderBoolean(plan.ultraHd)}</th>))}
             </tr>
             <tr>
               <th scope="row">Screens you can watch on at the same time</th>
-              {this.state.plans.map((plan) => (<th scope="col" key={plan.id}>{plan.noScreens}</th>))}
+              {this.state.plans.map((plan) => (<th className={this.state.planName === plan.name ? "selected" : ''} scope="col" key={plan.id}>{plan.noScreens}</th>))}
             </tr>
             <tr>
               <th scope="row">Cancel anytime</th>
-              {this.state.plans.map((plan) => (<th scope="col" key={plan.id}>{this.renderBoolean(plan.cancelAnytime)}</th>))}
+              {this.state.plans.map((plan) => (<th className={this.state.planName === plan.name ? "selected" : ''} scope="col" key={plan.id}>{this.renderBoolean(plan.cancelAnytime)}</th>))}
             </tr>
           </tbody>
         </table>

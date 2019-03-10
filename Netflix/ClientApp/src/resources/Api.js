@@ -19,7 +19,7 @@ export const getGenres = () => {
 }
 
 export const getPlans = () => {
-  return fetch(`${apiBase}/plans`)
+  return fetch(`${apiBase}/plans`, {cache: "force-cache"})
     .then(response => response.json());
 }
 
