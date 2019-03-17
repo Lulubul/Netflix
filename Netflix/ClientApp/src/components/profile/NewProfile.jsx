@@ -30,7 +30,7 @@ export class NewProfile extends Component {
     return (
       <Container id="newProfile">
         <h1>Add profile</h1>
-        <h3>Add a profile for another person watching Netflix.</h3>
+        <h3>Add a profile for another person watching Streaming Website.</h3>
         <Row className="profile-entry">
           <div className="main-profile-avatar">
             <Image alt={"Profile"} src={this.avatarUrl} />

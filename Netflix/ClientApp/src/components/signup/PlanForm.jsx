@@ -26,7 +26,7 @@ export class PlanForm extends Component {
     return (
       <div id="signIn">
         <span>STEP 1 OF 3</span>
-        <h1>Choose a plan that's right for you.</h1>
+        <h2>Choose a plan that's right for you.</h2>
         <p>Downgrade or upgrade at any time</p>
         <table className="table table-dark">
           <thead>
@@ -67,15 +67,13 @@ export class PlanForm extends Component {
           </tbody>
         </table>
         <Link to="/signup/register">
-          <button type="button" className="btn btn-primary btn-solid btn-oversize">CONTINUE</button>
+          <Button type="button" className="btn btn-primary btn-solid btn-oversize">CONTINUE</Button>
         </Link>
       </div>
     )
   }
 
   renderBoolean = (value) => {
-    return value
-      ?  <FontAwesomeIcon icon="check" />
-      : <FontAwesomeIcon icon="times" />;
+    return value ? <FontAwesomeIcon icon="check" /> : <FontAwesomeIcon icon="times" />;
   }
 }

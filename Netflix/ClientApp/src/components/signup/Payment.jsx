@@ -18,13 +18,13 @@ export default class Payment extends Component {
 
   render() {
     return (
-      <div className="paymentContainer" data-uia="payment-container">
+      <div className="paymentContainer col-xs-6 col-md-6 col-lg-3" data-uia="payment-container">
         <div className="stepHeader-container">
           <div className="stepHeader">
             <span className="stepIndicator">
               STEP <b>3</b> OF <b>3</b>
             </span>
-            <h1 className="stepTitle">Set up your payment.</h1>
+            <h2 className="stepTitle">Set up your payment.</h2>
           </div>
         </div>
         <div>
@@ -49,11 +49,11 @@ export default class Payment extends Component {
           </Form.Group>
           <Form.Group controlId="formCardtNumber">
             <Form.Label>Card Number</Form.Label>
-            <Form.Control type="text" placeholder="Card Number" />
+            <Form.Control type="tel" placeholder="Card Number" />
           </Form.Group>
           <Form.Group controlId="formSecurityCode">
             <Form.Label>Security Code</Form.Label>
-            <Form.Control type="text" placeholder="Security Code" />
+            <Form.Control type="tel" placeholder="Security Code" />
           </Form.Group>
           <Link to="/profiles">
             <Button>START MEMBERSHIP</Button>

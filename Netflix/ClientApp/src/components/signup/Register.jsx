@@ -6,9 +6,9 @@ import { Button, Form } from "react-bootstrap";
 export class Register extends Component {
   render() {
     return (
-      <div id="register-container">
+      <div id="register-container" className="col-xs-6 col-md-6 col-lg-3" >
         <span>STEP 2 OF 3</span>
-        <h1>Sign up to start your free month.</h1>
+        <h2>Sign up to start your free month.</h2>
         <div id="register">
           <Form method="POST">
             <Form.Group controlId="formEmail">
@@ -17,7 +17,7 @@ export class Register extends Component {
             </Form.Group>
             <Form.Group controlId="formPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="text" placeholder="Password" />
+              <Form.Control type="password" placeholder="Password" />
             </Form.Group>
             <Link to="/signup/payment">
               <Button>Continue</Button>

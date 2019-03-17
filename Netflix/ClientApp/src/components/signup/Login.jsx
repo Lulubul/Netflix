@@ -4,21 +4,31 @@ import './Login.css';
 import { Button, Form } from "react-bootstrap";
 
 export class Login extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { validated: false };
+  }
+
   render() {
+    const { validated } = this.state;
     return (
-      <div id="login">
-        <h1>Sign In.</h1>
-        <Form method="POST">
+      <div id="login" class="col-xs-6 col-md-6 col-lg-3">
+        <h2>Sign In.</h2>
+        <Form 
+            noValidate 
+            validated={validated} 
+            method="POST">
             <Form.Group controlId="formEmail">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="text" placeholder="Email" />
+              <Form.Control type="email" placeholder="Email" required/>
             </Form.Group>
             <Form.Group controlId="formPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="text" placeholder="Password" />
+              <Form.Control type="password" min="5" placeholder="Password" required/>
             </Form.Group>
             <Link to="/profiles">
-              <Button type="submit" className="btn btn-primary btn-solid btn-oversize">Sign In</Button>
+              <Button disabled={validated} type="submit" className="btn btn-primary btn-solid btn-oversize">Sign In</Button>
             </Link>
             <span>New to Streaming Website? <Link to="/signup/planform">Sign up now.</Link></span>
           </Form>
