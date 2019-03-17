@@ -13,7 +13,7 @@ export class Login extends Component {
   render() {
     const { validated } = this.state;
     return (
-      <div id="login" class="col-xs-6 col-md-6 col-lg-3">
+      <div id="login" className="col-xs-6 col-md-6 col-lg-3">
         <h2>Sign In.</h2>
         <Form 
             noValidate 

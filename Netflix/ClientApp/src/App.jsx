@@ -10,8 +10,20 @@ import { Register } from './components/signup/Register';
 import { WatchingItem } from './components/WatchingItem';
 import { Login } from './components/signup/Login';
 import Payment from './components/signup/Payment';
+import { connect } from 'react-redux';
+import { REDIRECT } from './constants/actionTypes';
+import { push } from 'connected-react-router';
 
-export default class App extends Component {
+const mapStateToProps = state => {
+  return {}
+};
+
+const mapDispatchToProps = dispatch => ({
+  onRedirect: () =>
+    dispatch({ type: REDIRECT })
+});
+
+export class App extends Component {
   displayName = App.name
 
   render() {
@@ -31,3 +43,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
