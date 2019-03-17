@@ -25,7 +25,7 @@ export class TvShows extends Component {
                 <p>TV Shows</p>
                 <Dropdown options={this.state.genres}></Dropdown>
             </div>
-            <Container title="Popular on Netflix" items={this.state.tvShows}></Container>
+            <Container title="Popular on Streaming Website" items={this.state.tvShows}></Container>
         </div>
     )
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
+import { Route, Redirect } from 'react-router';
 import { Layout } from './components/Layout.';
 import { Home } from './components/profile/Home';
 import { NewProfile } from './components/profile/NewProfile';
@@ -17,15 +17,16 @@ export default class App extends Component {
   render() {
     return (
       <Layout>
-        <Route exact path='/' component={Home} />
+        <Redirect from="/" to="/signup/login" />
+        <Route path='/profiles' component={Home} />
         <Route path='/tvshows' component={TvShows} />
         <Route path='/movies' component={Movies} />
         <Route path='/newProfile' component={NewProfile} />
+        <Route path='/watchingItem' component={WatchingItem} />
         <Route path='/signup/planform' component={PlanForm} />
         <Route path='/signup/payment' component={Payment} />
         <Route path='/signup/login' component={Login} />
         <Route path='/signup/register' component={Register} />
-        <Route path='/watchingItem' component={WatchingItem} />
       </Layout>
     );
   }

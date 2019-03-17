@@ -11,7 +11,7 @@ export class NavMenu extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { avatarUrl: '', userId: '1' };
+    this.state = { avatarUrl: '', userId: '' };
 }
 
   render() {
@@ -22,29 +22,27 @@ export class NavMenu extends Component {
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse>
-          <Nav className="mr-auto">
           { !this.state.userId ? <></> :
-            <>
-              <LinkContainer to={'/'} exact>
-                <Nav.Item>
-                  <span glyph='home' /> Home
-                </Nav.Item>
-              </LinkContainer>
-              <LinkContainer to={'/tvshows'}>
-                <Nav.Item>
-                  <span /> TV Shows
-                </Nav.Item>
-              </LinkContainer>
-              <LinkContainer to={'/movies'}>
-                <Nav.Item>
-                  <span/> Movies
-                </Nav.Item>
-              </LinkContainer>
-            </>
+            <Nav className="mr-auto">
+                <LinkContainer to={'/'} exact>
+                  <Nav.Item>
+                    <span glyph='home' /> Home
+                  </Nav.Item>
+                </LinkContainer>
+                <LinkContainer to={'/tvshows'}>
+                  <Nav.Item>
+                    <span /> TV Shows
+                  </Nav.Item>
+                </LinkContainer>
+                <LinkContainer to={'/movies'}>
+                  <Nav.Item>
+                    <span/> Movies
+                  </Nav.Item>
+                </LinkContainer>
+                <SearchBar className="pull-right"/>
+                { !!this.state.avatarUrl ? <Image src={this.state.avatarUrl} /> : <></> }
+            </Nav>
           }
-          </Nav>
-          <SearchBar className="pull-right"/>
-          { !!this.state.avatarUrl ? <Image src={this.state.avatarUrl} /> : <></> }
         </Navbar.Collapse>
       </Navbar>
     );

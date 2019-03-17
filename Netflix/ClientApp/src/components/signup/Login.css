@@ -1,13 +1,11 @@
 #login {
     margin: auto;
     position: relative;
-    width: 20%;
+    width: 30%;
     padding: 3em;
-}
-
-#login span {
     color: white;
 }
+
 
 #login form {
     display: table;
@@ -19,9 +17,6 @@
     height: 3em;
 }
 
-#login h1 {
-    color: white;
-}
 
 #login button {
     width: 100%;

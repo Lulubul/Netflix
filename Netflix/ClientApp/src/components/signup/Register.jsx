@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import './Register.css';
-
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import "./Register.css";
+import { Button, Form } from "react-bootstrap";
 
 export class Register extends Component {
   render() {
@@ -10,15 +10,21 @@ export class Register extends Component {
         <span>STEP 2 OF 3</span>
         <h1>Sign up to start your free month.</h1>
         <div id="register">
-          <form method="POST">
-              <input name="email" placeholder="email"></input><br/>
-              <input name="password" placeholder="password"></input><br/>
-              <Link to="/signup/payment">
-                <button type="submit" className="btn btn-primary btn-solid btn-oversize">Continue</button>
-              </Link>
-          </form>
+          <Form method="POST">
+            <Form.Group controlId="formEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="text" placeholder="Email" />
+            </Form.Group>
+            <Form.Group controlId="formPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="text" placeholder="Password" />
+            </Form.Group>
+            <Link to="/signup/payment">
+              <Button>Continue</Button>
+            </Link>
+          </Form>
         </div>
       </div>
-    )
+    );
   }
 }
