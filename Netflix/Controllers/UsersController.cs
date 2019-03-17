@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Netflix.Domain.Models;
 using Netflix.Domain.Models.UserContext;
 using Netflix.Services;
 
@@ -21,14 +21,16 @@ namespace Netflix.Api.Controllers
         // GET: api/<controller>
         [HttpGet]
         [ProducesResponseType(typeof(UserProfile), 200)]
-        public async Task<User> GetUserById(Guid id)
+        public async Task<User> Login(Guid id)
         {
             return await _usersService.GetUserById(id);
         }
 
         // POST: api/<controller>
         [HttpPost]
-        public async Task<bool> AddUser(User user)
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<bool> Register(UserRegister user)
         {
             return await _usersService.AddUser(user);
         }

@@ -8,7 +8,7 @@ namespace Netflix.Repositories
     public interface IUserRepository
     {
         Task<User> GetUserById(Guid id);
-        Task<bool> AddUser(User user);
+        Task<bool> AddUser(UserRegister user);
     }
 
     public class UserRepository : IUserRepository
@@ -18,7 +18,7 @@ namespace Netflix.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<bool> AddUser(User user)
+        public Task<bool> AddUser(UserRegister user)
         {
             throw new NotImplementedException();
         }

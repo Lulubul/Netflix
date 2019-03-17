@@ -53,6 +53,7 @@ namespace Netflix.Api
                 c.SwaggerDoc("v1", new Info { Title = "Netflix API", Version = "v1" });
             });
 
+            services.AddAntiforgery(o => { o.Cookie.Name = "X-CSRF-TOKEN"; });
             services.AddAutoMapper();
         }
 
@@ -89,6 +90,8 @@ namespace Netflix.Api
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Netflix V1");
             });
+
+            app.UseAuthentication();
 
             app.UseSpa(spa =>
             {

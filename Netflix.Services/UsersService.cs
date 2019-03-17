@@ -8,7 +8,7 @@ namespace Netflix.Services
     public interface IUsersService
     {
         Task<User> GetUserById(Guid id);
-        Task<bool> AddUser(User user);
+        Task<bool> AddUser(UserRegister user);
         Task<bool> UpdateUser(User user);
     }
 
@@ -21,7 +21,7 @@ namespace Netflix.Services
             _userRepository = userRepository;
         }
 
-        public async Task<bool> AddUser(User user)
+        public async Task<bool> AddUser(UserRegister user)
         {
             return await _userRepository.AddUser(user);
         }
