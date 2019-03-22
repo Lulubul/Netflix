@@ -5,17 +5,19 @@ import { Home } from './components/profile/Home';
 import { NewProfile } from './components/profile/NewProfile';
 import { Movies } from './components/Movies';
 import { TvShows } from './components/TvShows';
-import { PlanForm } from './components/signup/PlanForm';
-import { Register } from './components/signup/Register';
+import PlanForm from './components/signup/PlanForm';
+import Register from './components/signup/Register';
 import { WatchingItem } from './components/WatchingItem';
-import { Login } from './components/signup/Login';
+import Login from './components/signup/Login';
 import Payment from './components/signup/Payment';
 import { connect } from 'react-redux';
 import { REDIRECT } from './constants/actionTypes';
-import { push } from 'connected-react-router';
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    appName: state.common.appName,
+    redirectTo: state.common.redirectTo
+  }
 };
 
 const mapDispatchToProps = dispatch => ({

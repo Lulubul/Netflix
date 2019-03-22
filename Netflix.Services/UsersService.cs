@@ -7,7 +7,7 @@ namespace Netflix.Services
 {
     public interface IUsersService
     {
-        Task<User> GetUserById(Guid id);
+        Task<User> Login(UserLogin userLogin);
         Task<bool> AddUser(UserRegister user);
         Task<bool> UpdateUser(User user);
     }
@@ -21,6 +21,11 @@ namespace Netflix.Services
             _userRepository = userRepository;
         }
 
+        public async Task<User> Login(UserLogin userLogin)
+        {
+            return await _userRepository.Login(userLogin);
+        }
+
         public async Task<bool> AddUser(UserRegister user)
         {
             return await _userRepository.AddUser(user);
@@ -29,11 +34,6 @@ namespace Netflix.Services
         public Task<bool> UpdateUser(User user)
         {
             throw new NotImplementedException();
-        }
-
-        public async Task<User> GetUserById(Guid id)
-        {
-            return await _userRepository.GetUserById(id);
         }
     }
 }

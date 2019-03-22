@@ -19,15 +19,17 @@ namespace Netflix.Api.Controllers
         }
 
         // GET: api/<controller>
-        [HttpGet]
-        [ProducesResponseType(typeof(UserProfile), 200)]
-        public async Task<User> Login(Guid id)
+        [HttpPost]
+        [Route("Users/Login")]
+        [ProducesResponseType(typeof(User), 200)]
+        public async Task<User> Login(UserLogin userLogin)
         {
-            return await _usersService.GetUserById(id);
+            return await _usersService.Login(userLogin);
         }
 
         // POST: api/<controller>
         [HttpPost]
+        [Route("Users/Register")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<bool> Register(UserRegister user)
