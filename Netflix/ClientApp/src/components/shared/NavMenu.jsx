@@ -4,25 +4,32 @@ import { Nav, Navbar, Image } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { SearchBar } from './SearchBar';
 import './NavMenu.css';
+import { connect } from 'react-redux';
+import { REDIRECT } from '../../constants/actionTypes';
 
+const mapStateToProps = state => {
+  return {
+    appName: state.common.appName,
+    redirectTo: state.common.redirectTo,
+    user: state.user
+  }
+};
 
-export class NavMenu extends Component {
-  displayName = NavMenu.name
+const mapDispatchToProps = dispatch => ({
+  onRedirect: () => dispatch({ type: REDIRECT })
+});
 
-  constructor(props) {
-    super(props);
-    this.state = { avatarUrl: '', userId: '' };
-}
+class NavMenu extends Component {
 
   render() {
     return (
       <Navbar variant="dark" expand="lg" collapseOnSelect>
         <Navbar.Brand>
-          <Link to={'/'}>Streaming Website</Link>
+          <Link to={'/'}>{this.props.appName}</Link>
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse>
-          { !this.state.userId ? <></> :
+          { !this.props.user ? <></> :
             <Nav className="mr-auto">
                 <LinkContainer to={'/'} exact>
                   <Nav.Item>
@@ -40,7 +47,7 @@ export class NavMenu extends Component {
                   </Nav.Item>
                 </LinkContainer>
                 <SearchBar className="pull-right"/>
-                { !!this.state.avatarUrl ? <Image src={this.state.avatarUrl} /> : <></> }
+                { !!this.props.user.avatarUrl ? <Image src={this.props.user.avatarUrl} /> : <></> }
             </Nav>
           }
         </Navbar.Collapse>
@@ -48,3 +55,5 @@ export class NavMenu extends Component {
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavMenu);

@@ -16,6 +16,9 @@
     height: 3em;
 }
 
+#login form span {
+    font-size: 1vw;
+}
 
 #login button {
     width: 100%;

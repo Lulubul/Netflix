@@ -12,6 +12,8 @@ import Login from './components/signup/Login';
 import Payment from './components/signup/Payment';
 import { connect } from 'react-redux';
 import { REDIRECT } from './constants/actionTypes';
+import { store } from './store';
+import { push } from 'connected-react-router';
 
 const mapStateToProps = state => {
   return {
@@ -27,6 +29,13 @@ const mapDispatchToProps = dispatch => ({
 
 export class App extends Component {
   displayName = App.name
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.redirectTo) {
+      store.dispatch(push(nextProps.redirectTo));
+      this.props.onRedirect();
+    }
+  }
 
   render() {
     return (

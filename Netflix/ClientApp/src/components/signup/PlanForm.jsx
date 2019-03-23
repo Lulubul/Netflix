@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './PlanForm.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import { Plans } from '../../resources/Api';
 import {
   UPDATE_PLAN,
@@ -21,10 +21,6 @@ const mapDispatchToProps = dispatch => ({
 
 class PlanForm extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount() {
     this.props.onLoad(Plans.get().then((response) => response));
   }
@@ -34,7 +30,7 @@ class PlanForm extends Component {
   }
 
   getPlanClassName = (planName) => {
-    return planName === this.props.plan ? "selected" : '';
+    return planName === this.props.selectPlan ? "selected" : '';
   }
 
   renderBoolean = (value) => {
@@ -48,7 +44,7 @@ class PlanForm extends Component {
         <span>STEP 1 OF 3</span>
         <h2>Choose a plan that's right for you.</h2>
         <p>Downgrade or upgrade at any time</p>
-        <table className="table table-dark">
+        <Table className="table table-dark">
           <thead>
             <tr>
               <th scope="col">Plan name</th>
@@ -85,11 +81,11 @@ class PlanForm extends Component {
               {plans.map((plan) => (<th className={this.getPlanClassName(plan.name)} scope="col" key={plan.id}>{this.renderBoolean(plan.cancelAnytime)}</th>))}
             </tr>
           </tbody>
-        </table>
+        </Table>
         <Link to="/signup/register">
           <Button type="button" className="btn btn-primary btn-solid btn-oversize">CONTINUE</Button>
         </Link>
-      </div>
+      </div> 
     )
   }
 }

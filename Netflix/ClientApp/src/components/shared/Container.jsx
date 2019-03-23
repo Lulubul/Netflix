@@ -39,7 +39,7 @@ export class Container extends Component {
 
     updateWindowDimensions = (elementCount) => {
         const boxartContainer = document.getElementsByClassName('boxart-container')[0];
-        if (elementCount > 0) { 
+        if (boxartContainer && elementCount > 0) { 
             const defaultWidth = 341;
             const elementWidth = boxartContainer.offsetWidth > 200 ? boxartContainer.offsetWidth : defaultWidth;
             const stepSize = window.innerWidth - 120;

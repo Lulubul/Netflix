@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { NavMenu } from './shared/NavMenu';
+import NavMenu from './shared/NavMenu';
 
 export class Layout extends Component {
-  displayName = Layout.name
-
   render() {
     return (
       <Container fluid>

@@ -6,18 +6,12 @@ import { promiseMiddleware } from './middleware';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
 export const history = createBrowserHistory();
-
-export function configureStore(preloadedState) {
-  const store = createStore(
+export const store = createStore(
     createRootReducer(history), // root reducer with router state
-    preloadedState,
     composeWithDevTools(
       applyMiddleware(
         routerMiddleware(history), // for dispatching history actions
         promiseMiddleware
       ),
     ),
-  )
-
-  return store;
-}
+);
