@@ -19,7 +19,7 @@ const mapDispatchToProps = dispatch => ({
 class Payment extends Component {
 
   componentWillMount() {
-    if (!this.props.plans || this.props.plans.length == 0) {
+    if (!this.props.plans || this.props.plans.length === 0) {
       this.props.onLoad(Plans.get().then((response) => response));
     }
   }

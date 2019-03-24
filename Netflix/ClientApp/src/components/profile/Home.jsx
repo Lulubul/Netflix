@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Col, Container, Row, Button } from "react-bootstrap";
 import { Profile } from "./Profile";
-import { getProfiles } from "../../resources/Api";
+import { Profiles } from "../../resources/Api";
 import { Link } from "react-router-dom";
 import "./Home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,7 +15,7 @@ export class Home extends Component {
 
   componentDidMount() {
     const userId = "3f008259-8509-40a2-8118-f047861e4f31";
-    getProfiles(userId).then(profiles => this.setState({ profiles: profiles }));
+    Profiles.get(userId).then(profiles => this.setState({ profiles: profiles }));
   }
 
   render() {

@@ -20,6 +20,7 @@ export default (state = defaultState, action) => {
             token: action.error ? null : action.payload.user.token,
             currentUser: action.error ? null : action.payload.user
         };
+        default:
+        return state;
     }
-    return state;
 }

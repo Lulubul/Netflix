@@ -1,0 +1,4 @@
+PartitionKey,RowKey,Timestamp,AvatarUrl,AvatarUrl@type,Language,Language@type,MaturityLevel,MaturityLevel@type,Name,Name@type
+3f008259-8509-40a2-8118-f047861e4f31,09425822-3cb2-4b37-a739-41d44bf7e0f9,2018-11-24T11:43:44.977Z,https://occ-0-3032-768.1.nflxso.net/art/adee5/994a657647584c9333956e515d8864bc854adee5.png,Edm.String,English,Edm.String,Teens,Edm.String,Kids,Edm.String
+3f008259-8509-40a2-8118-f047861e4f31,154ff9c1-8f01-4c4a-9997-8d70b0131cd6,2019-02-12T18:40:15.267Z,https://art-s.nflximg.net/38327/c6ba4ae7fa391f422edd9ee8104c75c01e038327.png,Edm.String,English,Edm.String,All,Edm.String,Madalina,Edm.String
+3f008259-8509-40a2-8118-f047861e4f31,5aeb1a4b-d866-4a11-ba7e-3bf5772968c0,2018-11-24T11:42:38.327Z,https://occ-0-3032-768.1.nflxso.net/art/0d282/eb648e0fd0b2676dbb7317310a48f9bdc2b0d282.png,Edm.String,English,Edm.String,All,Edm.String,Daniel,Edm.String

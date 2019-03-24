@@ -8,12 +8,12 @@ import { store, history } from './store';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes, faAngleRight, faAngleLeft, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faCheck, faTimes, faAngleRight, faAngleLeft, faPlusCircle)
 
 const rootElement = document.getElementById('root');
+registerServiceWorker();
 
 ReactDOM.render(
   <Provider store={store}>
@@ -23,4 +23,9 @@ ReactDOM.render(
   </Provider>,
   rootElement);
 
-registerServiceWorker();
+
+if (module.hot) {
+  module.hot.accept();
+}
+
+

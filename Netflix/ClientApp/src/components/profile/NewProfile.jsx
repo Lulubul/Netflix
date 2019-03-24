@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Button} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { postProfile } from '../../resources/Api';
+import { Profiles } from '../../resources/Api';
 import { Image } from 'react-bootstrap';
 import './NewProfile.css';
 
@@ -17,7 +17,7 @@ export class NewProfile extends Component {
    addProfile = () => {
     const userId = '3f008259-8509-40a2-8118-f047861e4f31';
     const newPorfile = { avatarUrl: this.avatarUrl, language: "English", name: this.state.name, maturityLevel: "All" };
-    postProfile(userId, newPorfile).then((response) => {
+    Profiles.post(userId, newPorfile).then((response) => {
       this.props.history.push('/');
     })
   }

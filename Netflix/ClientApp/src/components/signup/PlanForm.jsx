@@ -30,7 +30,8 @@ class PlanForm extends Component {
   }
 
   getPlanClassName = (planName) => {
-    return planName === this.props.selectPlan ? "selected" : '';
+    const selectedPlan = this.props.selectedPlan;
+    return planName === selectedPlan ? "selected" : '';
   }
 
   renderBoolean = (value) => {

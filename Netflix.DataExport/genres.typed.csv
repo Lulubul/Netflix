@@ -1,0 +1,5 @@
+PartitionKey,RowKey,Timestamp,Name,Name@type
+c3ae90c0-405a-492b-9a9f-dc7ff9ed3045,4e8f3dae-c6b3-4f66-89fc-507cc8ae5769,2018-12-20T09:19:46.037Z,Anime,Edm.String
+c3ae90c0-405a-492b-9a9f-dc7ff9ed3045,4ea663b1-6b97-4517-961a-eea2a83030b3,2018-12-20T09:19:36.547Z,Crime,Edm.String
+c3ae90c0-405a-492b-9a9f-dc7ff9ed3045,606862c3-3223-48af-997d-8178dfafa727,2018-12-20T09:18:21.590Z,Action,Edm.String
+c3ae90c0-405a-492b-9a9f-dc7ff9ed3045,7731717d-e400-4c29-9d59-e107fa4c30be,2018-12-20T09:22:26.220Z,Docuseries,Edm.String

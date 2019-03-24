@@ -1,0 +1,4 @@
+PartitionKey,RowKey,Timestamp,CancelAnytime,CancelAnytime@type,HD,HD@type,MonthlyPrice,MonthlyPrice@type,Name,Name@type,NoScreens,NoScreens@type,UltraHD,UltraHD@type
+726f3022-aa82-4fc7-ae91-d9ce3c287e7a,236ca1ac-305c-4f3a-b8bd-86e4275f22ed,2018-12-25T09:35:03.487Z,true,Edm.Boolean,true,Edm.Boolean,10,Edm.Double,Standard,Edm.String,2,Edm.Int32,false,Edm.Boolean
+726f3022-aa82-4fc7-ae91-d9ce3c287e7a,5b9167c0-8b59-4cba-a04f-881cee4ebaaa,2018-12-25T09:34:56.317Z,true,Edm.Boolean,true,Edm.Boolean,12,Edm.Double,Premium,Edm.String,4,Edm.Int32,true,Edm.Boolean
+726f3022-aa82-4fc7-ae91-d9ce3c287e7a,f68e7f55-6df3-4372-bb10-f53c30880549,2018-12-25T09:34:46.430Z,true,Edm.Boolean,false,Edm.Boolean,8,Edm.Double,Basic,Edm.String,1,Edm.Int32,false,Edm.Boolean

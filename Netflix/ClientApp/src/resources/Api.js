@@ -16,30 +16,15 @@ export const Plans = {
   get: () => axios.get('/plans').then(response => response.data)
 }
 
-export const getPlans = () => {
-  return fetch(`${apiBase}/plans`, {cache: "force-cache"})
-    .then(response => response.json());
-}
-
-export const getProfiles = (userId) => {
-  return fetch(`${apiBase}/profiles?usedId=${userId}`, {cache: "force-cache"})
-    .then(response => response.json());
-}
-
-export const postProfile = (userId, newProfile) => {
-  return fetch(`${apiBase}/profiles?usedId=${userId}`, {
-    method: "POST",
-    cache: "no-cache",
-    body: JSON.stringify(newProfile)
-  })
+export const Profiles = {
+  get: (userId) => axios.get(`/profiles?usedId=${userId}`).then(response => response.data),
+  post: (userId, newProfile) => axios.post(`/profiles?usedId=${userId}`, JSON.stringify(newProfile)),
 }
 
 export const getGenres = () => {
   return fetch(`${apiBase}/genres`, {cache: "force-cache"})
     .then(response => response.json());
 }
-
-
 
 export const getMovies = () => {
   return fetch(`${apiBase}/movies`)
