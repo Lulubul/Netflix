@@ -1,41 +1,44 @@
-import React, { Component } from 'react'
-import './PlanForm.css';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Table } from 'react-bootstrap';
-import { Plans } from '../../resources/Api';
-import {
-  UPDATE_PLAN,
-  PLANFORM_PAGE_LOADED
-} from '../../constants/actionTypes';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import "./PlanForm.css";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Table } from "react-bootstrap";
+import { Plans } from "../../resources/Api";
+import { UPDATE_PLAN, PLANFORM_PAGE_LOADED } from "../../constants/actionTypes";
+import { connect } from "react-redux";
 
 const mapStateToProps = state => ({ ...state.auth });
 
 const mapDispatchToProps = dispatch => ({
-  onPlanChange: value =>
-    dispatch({ type: UPDATE_PLAN, value }),
-  onLoad: payload =>
-    dispatch({ type: PLANFORM_PAGE_LOADED, payload }),
+  onPlanChange: value => dispatch({ type: UPDATE_PLAN, value }),
+  onLoad: payload => dispatch({ type: PLANFORM_PAGE_LOADED, payload })
 });
 
 class PlanForm extends Component {
 
   componentWillMount() {
-    this.props.onLoad(Plans.get().then((response) => response));
+    this.props.onLoad(Plans.get().then(response => response));
   }
 
-  selectPlan = (planName) => {
-    this.props.onPlanChange(planName);
-  }
+  selectPlan = planId => {
+    this.props.onPlanChange(planId);
+  };
 
-  getPlanClassName = (planName) => {
+  getPlanClassName = plan => {
     const selectedPlan = this.props.selectedPlan;
-    return planName === selectedPlan ? "selected" : '';
-  }
+    return plan.id === selectedPlan ? "selected" : "";
+  };
 
-  renderBoolean = (value) => {
-    return value ? <FontAwesomeIcon icon="check" /> : <FontAwesomeIcon icon="times" />;
+  renderBoolean = value => {
+    return value ? (
+      <FontAwesomeIcon icon="check" />
+    ) : (
+      <FontAwesomeIcon icon="times" />
+    );
+  };
+
+  hasSelectedPlan = () => {
+    return !!this.props.selectedPlan && this.props.selectedPlan.length > 0;
   }
 
   render() {
@@ -49,11 +52,12 @@ class PlanForm extends Component {
           <thead>
             <tr>
               <th scope="col">Plan name</th>
-              {plans.map((plan) => (
+              {plans.map(plan => (
                 <th scope="col" key={plan.id}>
-                  <Button 
-                    className={this.getPlanClassName(plan.name)}
-                    onClick={() => this.selectPlan(plan.name)}>
+                  <Button
+                    className={this.getPlanClassName(plan)}
+                    onClick={() => this.selectPlan(plan.id)}
+                  >
                     {plan.name}
                   </Button>
                 </th>
@@ -63,32 +67,81 @@ class PlanForm extends Component {
           <tbody>
             <tr>
               <th scope="row">Monthly price</th>
-              {plans.map((plan) => (<th className={this.getPlanClassName(plan.name)} scope="col" key={plan.id}>EUR {plan.monthlyPrice}</th>))}
+              {plans.map(plan => (
+                <th
+                  className={this.getPlanClassName(plan)}
+                  scope="col"
+                  key={plan.id}
+                >
+                  EUR {plan.monthlyPrice}
+                </th>
+              ))}
             </tr>
             <tr>
               <th scope="row">HD available</th>
-              {plans.map((plan) => (<th className={this.getPlanClassName(plan.name)} scope="col" key={plan.id}>{this.renderBoolean(plan.hd)}</th>))}
+              {plans.map(plan => (
+                <th
+                  className={this.getPlanClassName(plan)}
+                  scope="col"
+                  key={plan.id}
+                >
+                  {this.renderBoolean(plan.hd)}
+                </th>
+              ))}
             </tr>
             <tr>
               <th scope="row">Ultra HD available</th>
-              {plans.map((plan) => (<th className={this.getPlanClassName(plan.name)} scope="col" key={plan.id}>{this.renderBoolean(plan.ultraHd)}</th>))}
+              {plans.map(plan => (
+                <th
+                  className={this.getPlanClassName(plan)}
+                  scope="col"
+                  key={plan.id}
+                >
+                  {this.renderBoolean(plan.ultraHd)}
+                </th>
+              ))}
             </tr>
             <tr>
               <th scope="row">Screens you can watch on at the same time</th>
-              {plans.map((plan) => (<th className={this.getPlanClassName(plan.name)} scope="col" key={plan.id}>{plan.noScreens}</th>))}
+              {plans.map(plan => (
+                <th
+                  className={this.getPlanClassName(plan)}
+                  scope="col"
+                  key={plan.id}
+                >
+                  {plan.noScreens}
+                </th>
+              ))}
             </tr>
             <tr>
               <th scope="row">Cancel anytime</th>
-              {plans.map((plan) => (<th className={this.getPlanClassName(plan.name)} scope="col" key={plan.id}>{this.renderBoolean(plan.cancelAnytime)}</th>))}
+              {plans.map(plan => (
+                <th
+                  className={this.getPlanClassName(plan)}
+                  scope="col"
+                  key={plan.id}
+                >
+                  {this.renderBoolean(plan.cancelAnytime)}
+                </th>
+              ))}
             </tr>
           </tbody>
         </Table>
         <Link to="/signup/register">
-          <Button type="button" className="btn btn-primary btn-solid btn-oversize">CONTINUE</Button>
+          <Button
+            type="button"
+            className="btn btn-primary btn-solid btn-oversize"
+            disabled={!this.hasSelectedPlan()}
+          >
+            CONTINUE
+          </Button>
         </Link>
-      </div> 
-    )
+      </div>
+    );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlanForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PlanForm);

@@ -13,4 +13,10 @@
     <ProjectReference Include="..\Netflix.Repositories\Netflix.Repositories.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>C:\Users\Silviu\.nuget\packages\microsoft.aspnet.identity.core\2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

@@ -20,7 +20,7 @@ namespace Netflix.Api.Controllers
 
         // GET: api/<controller>
         [HttpPost]
-        [Route("Users/Login")]
+        [Route("Login")]
         [ProducesResponseType(typeof(User), 200)]
         public async Task<User> Login(UserLogin userLogin)
         {
@@ -29,10 +29,10 @@ namespace Netflix.Api.Controllers
 
         // POST: api/<controller>
         [HttpPost]
-        [Route("Users/Register")]
+        [Route("Register")]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<bool> Register(UserRegister user)
+        //[ValidateAntiForgeryToken]
+        public async Task<string> Register(UserRegister user)
         {
             return await _usersService.AddUser(user);
         }
