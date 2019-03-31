@@ -9,19 +9,20 @@ namespace Netflix.Services
 {
     public interface INewsService
     {
-        Task<List<News>> GetNewsAsync();
+        Task<List<News>> GetNewsAsync(string userid);
     }
 
-    public class NewsService : AbstractService, INewsService
+    public class NewsService: AbstractService, INewsService
     {
         private readonly INewsRepository _newsRepository;
+        private readonly IHistoryService _historyService;
 
         public NewsService(INewsRepository newsRepository)
         {
             _newsRepository = newsRepository;
         }
 
-        public Task<List<News>> GetNewsAsync()
+        public Task<List<News>> GetNewsAsync(string userid)
         {
             return _newsRepository.GetNews();
         }

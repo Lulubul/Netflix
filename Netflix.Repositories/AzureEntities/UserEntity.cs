@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Microsoft.WindowsAzure.Storage.Table;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Netflix.Repositories.AzureEntities
 {
-    class UserEntity
+    public class UserEntity: TableEntity
     {
     }
 }

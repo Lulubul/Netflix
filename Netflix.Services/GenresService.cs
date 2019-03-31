@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Netflix.Domain.Models;
 using Netflix.Domain.Models.MovieContext;
 using Netflix.Repositories;
 using Netflix.Repositories.AzureEntities;

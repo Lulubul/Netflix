@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Netflix.Domain.Models;
@@ -21,9 +22,9 @@ namespace Netflix.Api.Controllers
         // GET: api/<controller>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<News>), 200)]
-        public async Task<IEnumerable<News>> GetNews()
+        public async Task<IEnumerable<News>> GetNews(string userid)
         {
-            var news = await _newsService.GetNewsAsync();
+            var news = await _newsService.GetNewsAsync(userid);
             return news;
         }
     }
