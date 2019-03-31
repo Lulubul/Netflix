@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.WindowsAzure.Storage.Table;
 using Netflix.Domain.Models;
 using Netflix.Domain.Models.UserContext;
+using Netflix.Repositories.AzureEntities;
 
 namespace Netflix.Repositories
 {
@@ -9,11 +11,19 @@ namespace Netflix.Repositories
     {
         Task<User> Login(UserLogin login);
         Task<User> GetUserById(Guid id);
-        Task<bool> AddUser(UserRegister user);
+        Task<string> AddUser(UserEntity user);
     }
 
-    public class UserRepository : IUserRepository
+    public class UserRepository : AbstractRepository, IUserRepository
     {
+        public string TableName = "Users";
+        private readonly string _storageConnectionString;
+
+        public UserRepository(string storageConnectionString)
+        {
+            _storageConnectionString = storageConnectionString;
+        }
+
         public Task<User> GetUserById(Guid id)
         {
             throw new NotImplementedException();
@@ -24,9 +34,12 @@ namespace Netflix.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<bool> AddUser(UserRegister user)
+        public async Task<string> AddUser(UserEntity newUser)
         {
-            throw new NotImplementedException();
+            TableOperation insertOperation = TableOperation.Insert(newUser);
+            var table = GetTable(TableName, _storageConnectionString);
+            await table.ExecuteAsync(insertOperation);
+            return await Task.FromResult(newUser.RowKey);
         }
     }
 }

@@ -5,9 +5,9 @@ axios.defaults.baseURL = apiBase;
 
 export const Auth = {
   login: (email, password) =>
-    axios.post('/users/login', { user: { email, password } }),
-  register: (username, email, password) =>
-    axios.post('/users/register', { user: { username, email, password } }),
+    axios.post('/users/login', { email, password  }),
+  register: (email, password, planId) =>
+    axios.post('/users/register', { email, password, planId  }),
   save: user =>
     axios.put('/user', { user })
 };

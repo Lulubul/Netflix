@@ -39,7 +39,7 @@ export class NewProfile extends Component {
         </Row>
         <Row>
           <Button id="continue" size="lg" onClick={this.addProfile}>Continue</Button>
-          <Link to="/">
+          <Link to="/profiles">
             <Button size="lg">Cancel</Button>
           </Link>
         </Row>

@@ -6,27 +6,33 @@ import { Link } from "react-router-dom";
 import "./Home.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export class Home extends Component {
-  displayName = Home.name;
-  constructor(props) {
-    super(props);
-    this.state = { profiles: [] };
-  }
+import { HOME_PAGE_LOADED } from "../../constants/actionTypes";
+import { connect } from "react-redux";
 
-  componentDidMount() {
-    const userId = "3f008259-8509-40a2-8118-f047861e4f31";
-    Profiles.get(userId).then(profiles => this.setState({ profiles: profiles }));
+const mapStateToProps = state => ({ ...state.common, ...state.profile });
+const mapDispatchToProps = dispatch => ({
+  onLoad: payload => dispatch({ type: HOME_PAGE_LOADED, payload })
+});
+
+
+class Home extends Component {
+
+  componentWillMount() {
+    const { userId } = this.props;
+    if (userId) {
+      this.props.onLoad(Profiles.get(userId).then(response => response));
+    }
   }
 
   render() {
-    const { profiles } = this.state;
+    const { profiles, userId } = this.props;
 
     return (
       <div className="home">
         <h1>Who's watching?</h1>
         <Container lg={12} md={12}>
           <Row>
-            {profiles.map((profile, index) => (
+            { profiles && profiles.map((profile, index) => (
               <Col key={index} className="profile-wrapper" xs={2} md={2} lg={2}>
                 <Profile key={index} profile={profile} />
               </Col>
@@ -50,3 +56,8 @@ export class Home extends Component {
     );
   }
 }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
 import { Layout } from './components/Layout.';
-import { Home } from './components/profile/Home';
+import Home from './components/profile/Home';
 import { NewProfile } from './components/profile/NewProfile';
 import { Movies } from './components/Movies';
 import { TvShows } from './components/TvShows';
@@ -40,7 +40,6 @@ export class App extends Component {
   render() {
     return (
       <Layout>
-        <Redirect from="/" to="/signup/login" />
         <Route path='/profiles' component={Home} />
         <Route path='/tvshows' component={TvShows} />
         <Route path='/movies' component={Movies} />
