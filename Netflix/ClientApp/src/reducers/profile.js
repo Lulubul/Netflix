@@ -1,11 +1,23 @@
 import {
-    HOME_PAGE_LOADED
+    PROFILES_PAGE_LOADED,
+    ADD_NEW_PROFILE,
+    UPDATE_PROFILE_FIELD,
+    SELECT_PROFILE
 } from '../constants/actionTypes';
   
 export default (state = {}, action) => {
   switch (action.type) {
-    case HOME_PAGE_LOADED:
+    case PROFILES_PAGE_LOADED:
       return { ...state, profiles: action.payload };
+    case ADD_NEW_PROFILE:
+      return { ...state, profiles: [ ...(state.profiles || []), action.payload] };
+    case UPDATE_PROFILE_FIELD:
+      return { ...state, [action.key]: action.value };
+    case SELECT_PROFILE:
+      return { 
+        ...state,
+        selectedProfile: action.value
+      }
     default:
       return state;
   }

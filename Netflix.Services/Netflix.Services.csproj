@@ -17,6 +17,9 @@
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>C:\Users\Silviu\.nuget\packages\microsoft.aspnet.identity.core\2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.aspnetcore.cryptography.keyderivation\2.1.1\lib\netcoreapp2.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

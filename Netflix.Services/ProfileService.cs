@@ -48,7 +48,9 @@ namespace Netflix.Services
         {
             var newProfileEntity = _mapper.Map<UserProfile, ProfileEntity>(profile);
             newProfileEntity.PartitionKey = userId.ToString();
-            newProfileEntity.RowKey = Guid.NewGuid().ToString();
+            var profileId = Guid.NewGuid();
+            newProfileEntity.RowKey = profileId.ToString();
+            profile.Id = profileId;
             var addResponse = await _profileRepository.AddUserProfile(newProfileEntity);
             return addResponse;
         }

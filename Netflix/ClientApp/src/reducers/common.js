@@ -1,4 +1,4 @@
-import { REDIRECT, LOGOUT, LOGIN, REGISTER } from '../constants/actionTypes';
+import { REDIRECT, LOGOUT, LOGIN, REGISTER, ADD_NEW_PROFILE, SELECT_PROFILE } from '../constants/actionTypes';
 
 const defaultState = {
     appName: 'Streaming Website',
@@ -11,20 +11,25 @@ export default (state = defaultState, action) => {
         case REDIRECT:
             return { ...state, redirectTo: null };
         case LOGOUT:
-            return { ...state, redirectTo: '/', token: null, currentUser: null };
+            return { ...state, redirectTo: '/', token: null, userId: null };
         case LOGIN:
-        return {
-            ...state,
-            redirectTo: action.error ? null : '/profiles',
-            userId: action.error ? null : "3f008259-8509-40a2-8118-f047861e4f31"
-        };
         case REGISTER:
-        return {
-            ...state,
-            redirectTo: action.error ? null : '/profiles',
-            userId: action.error ? null : action.payload.data
-        };
+            return {
+                ...state,
+                redirectTo: action.error ? null : '/profiles',
+                userId: action.error ? null : action.payload.data.id
+            };
+        case ADD_NEW_PROFILE:
+            return {
+                ...state,
+                redirectTo: action.error ? null : '/profiles',
+            }
+        case SELECT_PROFILE:
+            return {
+                ...state,
+                redirectTo: action.error ? null : '/movies',
+            }
         default:
-        return state;
+            return state;
     }
 }

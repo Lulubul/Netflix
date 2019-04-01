@@ -26,7 +26,7 @@ namespace Netflix.Api.Controllers
             return historyItems;
         }
 
-        // GET: api/<controller>
+        // POST: api/<controller>
         [HttpPost]
         public async Task<bool> AddItemInHistory(HistoryItem historyItem)
         {

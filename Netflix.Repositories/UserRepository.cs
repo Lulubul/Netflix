@@ -9,8 +9,8 @@ namespace Netflix.Repositories
 {
     public interface IUserRepository
     {
-        Task<User> Login(UserLogin login);
-        Task<User> GetUserById(Guid id);
+        Task<UserEntity> Login(UserLogin login);
+        Task<UserEntity> GetUserById(Guid id);
         Task<string> AddUser(UserEntity user);
     }
 
@@ -24,14 +24,19 @@ namespace Netflix.Repositories
             _storageConnectionString = storageConnectionString;
         }
 
-        public Task<User> GetUserById(Guid id)
+        public Task<UserEntity> GetUserById(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<User> Login(UserLogin login)
+        public async Task<UserEntity> Login(UserLogin user)
         {
-            throw new NotImplementedException();
+            var query = new TableQuery<UserEntity>().Where(TableQuery.GenerateFilterCondition("Email", QueryComparisons.Equal, user.Email)).Take(1);
+
+            var table = GetTable(TableName, _storageConnectionString);
+            TableContinuationToken continuationToken = null;
+            var result = await table.ExecuteQuerySegmentedAsync(query, continuationToken);
+            return result?.Results[0];
         }
 
         public async Task<string> AddUser(UserEntity newUser)

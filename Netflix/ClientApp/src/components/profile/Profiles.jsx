@@ -1,26 +1,26 @@
 import React, { Component } from "react";
 import { Col, Container, Row, Button } from "react-bootstrap";
-import { Profile } from "./Profile";
-import { Profiles } from "../../resources/Api";
+import Profile from "./Profile";
+import { ProfilesAsync } from "../../resources/Api";
 import { Link } from "react-router-dom";
-import "./Home.css";
+import "./Profiles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { HOME_PAGE_LOADED } from "../../constants/actionTypes";
+import { PROFILES_PAGE_LOADED } from "../../constants/actionTypes";
 import { connect } from "react-redux";
 
 const mapStateToProps = state => ({ ...state.common, ...state.profile });
 const mapDispatchToProps = dispatch => ({
-  onLoad: payload => dispatch({ type: HOME_PAGE_LOADED, payload })
+  onLoad: payload => dispatch({ type: PROFILES_PAGE_LOADED, payload })
 });
 
 
-class Home extends Component {
-
+class Profiles extends Component {
+  
   componentWillMount() {
     const { userId } = this.props;
     if (userId) {
-      this.props.onLoad(Profiles.get(userId).then(response => response));
+      this.props.onLoad(ProfilesAsync.get(userId).then(response => response || []));
     }
   }
 
@@ -33,12 +33,12 @@ class Home extends Component {
         <Container lg={12} md={12}>
           <Row>
             { profiles && profiles.map((profile, index) => (
-              <Col key={index} className="profile-wrapper" xs={2} md={2} lg={2}>
+              <Col key={index} xs={2} md={2} lg={2}>
                 <Profile key={index} profile={profile} />
               </Col>
             ))}
-            <Col className="profile-wrapper" xs={2} md={2} lg={2}>
-              <div>
+            <Col xs={2} md={2} lg={2}>
+              <div className="profile-wrapper">
                 <Link to={"/newProfile"}>
                   <FontAwesomeIcon icon="plus-circle" />
                   <span className="profile-name">Add Profile</span>
@@ -60,4 +60,4 @@ class Home extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home);
+)(Profiles);

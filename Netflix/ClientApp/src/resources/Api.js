@@ -3,7 +3,7 @@ const apiBase = '/api';
 
 axios.defaults.baseURL = apiBase;
 
-export const Auth = {
+export const AuthAsync = {
   login: (email, password) =>
     axios.post('/users/login', { email, password  }),
   register: (email, password, planId) =>
@@ -12,13 +12,13 @@ export const Auth = {
     axios.put('/user', { user })
 };
 
-export const Plans = {
+export const PlansAsync = {
   get: () => axios.get('/plans').then(response => response.data)
 }
 
-export const Profiles = {
+export const ProfilesAsync = {
   get: (userId) => axios.get(`/profiles?usedId=${userId}`).then(response => response.data),
-  post: (userId, newProfile) => axios.post(`/profiles?usedId=${userId}`, JSON.stringify(newProfile)),
+  post: (userId, newProfile) => axios.post(`/profiles?usedId=${userId}`, newProfile),
 }
 
 export const getGenres = () => {

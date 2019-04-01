@@ -9,8 +9,8 @@ import {
   REGISTER,
   REGISTER_FLOW_UNLOADED
 } from "../../constants/actionTypes";
-import { Plans } from "../../resources/Api";
-import { Auth } from "../../resources/Api";
+import { PlansAsync } from "../../resources/Api";
+import { AuthAsync } from "../../resources/Api";
 
 const mapStateToProps = state => ({ ...state.auth });
 
@@ -18,15 +18,13 @@ const mapDispatchToProps = dispatch => ({
   onPlanChange: value => dispatch({ type: UPDATE_PLAN, value }),
   onLoad: payload => dispatch({ type: PAYMENT_PAGE_LOADED, payload }),
   onUnload: () => dispatch({ type: REGISTER_FLOW_UNLOADED }),
-  onSubmit: (payload) => {
-    dispatch({ type: REGISTER, payload });
-  }
+  onSubmit: (payload) => dispatch({ type: REGISTER, payload })
 });
 
 class Payment extends Component {
   componentWillMount() {
     if (!this.props.plans || this.props.plans.length === 0) {
-      this.props.onLoad(Plans.get().then(response => response));
+      this.props.onLoad(PlansAsync.get().then(response => response));
     }
   }
 
@@ -40,7 +38,7 @@ class Payment extends Component {
 
   startMemberShip = () => {
     const { email, password, selectedPlan } = this.props;
-    this.props.onSubmit(Auth.register(email, password, selectedPlan).then(response => response));
+    this.props.onSubmit(AuthAsync.register(email, password, selectedPlan).then(response => response));
   }
 
   render() {

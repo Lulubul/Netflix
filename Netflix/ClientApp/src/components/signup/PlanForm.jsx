@@ -3,7 +3,7 @@ import "./PlanForm.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Table } from "react-bootstrap";
-import { Plans } from "../../resources/Api";
+import { PlansAsync } from "../../resources/Api";
 import { UPDATE_PLAN, PLANFORM_PAGE_LOADED } from "../../constants/actionTypes";
 import { connect } from "react-redux";
 
@@ -17,29 +17,13 @@ const mapDispatchToProps = dispatch => ({
 class PlanForm extends Component {
 
   componentWillMount() {
-    this.props.onLoad(Plans.get().then(response => response));
+    this.props.onLoad(PlansAsync.get().then(response => response));
   }
 
-  selectPlan = planId => {
-    this.props.onPlanChange(planId);
-  };
-
-  getPlanClassName = plan => {
-    const selectedPlan = this.props.selectedPlan;
-    return plan.id === selectedPlan ? "selected" : "";
-  };
-
-  renderBoolean = value => {
-    return value ? (
-      <FontAwesomeIcon icon="check" />
-    ) : (
-      <FontAwesomeIcon icon="times" />
-    );
-  };
-
-  hasSelectedPlan = () => {
-    return !!this.props.selectedPlan && this.props.selectedPlan.length > 0;
-  }
+  selectPlan = planId => this.props.onPlanChange(planId);
+  getPlanClassName = plan => plan.id === this.props.selectedPlan ? "selected" : "";
+  renderBoolean = value => value ? <FontAwesomeIcon icon="check" /> : <FontAwesomeIcon icon="times" />;
+  hasSelectedPlan = () => !!this.props.selectedPlan && this.props.selectedPlan.length > 0;
 
   render() {
     const plans = (this.props && this.props.plans) || [];

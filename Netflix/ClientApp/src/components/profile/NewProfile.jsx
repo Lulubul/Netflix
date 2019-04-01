@@ -1,29 +1,29 @@
 import React, { Component } from 'react';
 import { Container, Row, Button} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Profiles } from '../../resources/Api';
+import { ProfilesAsync } from '../../resources/Api';
 import { Image } from 'react-bootstrap';
 import './NewProfile.css';
+import { ADD_NEW_PROFILE, UPDATE_PROFILE_FIELD } from "../../constants/actionTypes";
+import { connect } from "react-redux";
 
-export class NewProfile extends Component {
+const mapStateToProps = state => ({ ...state.common, ...state.profile });
+const mapDispatchToProps = dispatch => ({
+  onChangeProfileName: value => dispatch({ type: UPDATE_PROFILE_FIELD, key: "profileName", value }),
+  addNewProfile: payload => dispatch({ type: ADD_NEW_PROFILE, payload })
+});
+
+class NewProfile extends Component {
 
   avatarUrl = 'https://art-s.nflximg.net/38327/c6ba4ae7fa391f422edd9ee8104c75c01e038327.png';
 
-  constructor(props) {
-    super(props);
-    this.state = { name: '' };
-  } 
-
-   addProfile = () => {
-    const userId = '3f008259-8509-40a2-8118-f047861e4f31';
-    const newPorfile = { avatarUrl: this.avatarUrl, language: "English", name: this.state.name, maturityLevel: "All" };
-    Profiles.post(userId, newPorfile).then((response) => {
-      this.props.history.push('/');
-    })
+  addProfile = () => {
+    const newProfile = { avatarUrl: this.avatarUrl, language: "English", name: this.props.profileName, maturityLevel: "All" };
+    this.props.addNewProfile(ProfilesAsync.post(this.props.userId, newProfile).then(response => response));
   }
 
   onNameChanged = (event) => {
-    this.setState({name: event.target.value});
+    this.props.onChangeProfileName(event.target.value);
   }
 
   render() {
@@ -35,7 +35,7 @@ export class NewProfile extends Component {
           <div className="main-profile-avatar">
             <Image alt={"Profile"} src={this.avatarUrl} />
           </div>
-          <input type="text" value={this.state.name} onChange={this.onNameChanged} placeholder="Name"/>
+          <input type="text" onChange={this.onNameChanged} placeholder="Name" />
         </Row>
         <Row>
           <Button id="continue" size="lg" onClick={this.addProfile}>Continue</Button>
@@ -47,3 +47,8 @@ export class NewProfile extends Component {
     )
   }
 }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NewProfile);

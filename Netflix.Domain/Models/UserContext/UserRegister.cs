@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Netflix.Domain.Models.UserContext
+﻿namespace Netflix.Domain.Models.UserContext
 {
     public class UserRegister: Entity
     {

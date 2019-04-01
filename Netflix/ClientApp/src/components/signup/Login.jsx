@@ -7,7 +7,7 @@ import {
   LOGIN,
   LOGIN_PAGE_UNLOADED
 } from "../../constants/actionTypes";
-import { Auth } from "../../resources/Api";
+import { AuthAsync } from "../../resources/Api";
 import { connect } from "react-redux";
 
 const mapStateToProps = state => ({ ...state.auth });
@@ -17,7 +17,7 @@ const mapDispatchToProps = dispatch => ({
   onChangePassword: value =>
     dispatch({ type: UPDATE_FIELD_AUTH, key: "password", value }),
   onSubmit: (email, password) =>
-    dispatch({ type: LOGIN, payload: Auth.login(email, password) }),
+    dispatch({ type: LOGIN, payload: AuthAsync.login(email, password) }),
   onUnload: () => dispatch({ type: LOGIN_PAGE_UNLOADED })
 });
 
@@ -25,19 +25,26 @@ class Login extends Component {
 
   changeEmail = ev => this.props.onChangeEmail(ev.target.value);
   changePassword = ev => this.props.onChangePassword(ev.target.value);
-  submitForm = () => {
-    this.props.onSubmit(this.props.email, this.props.password);
-  };
+  submitForm = () => this.props.onSubmit(this.props.email, this.props.password);
+  formHasValues = () => this.props.email && this.props.password;
 
   componentWillUnmount() {
     this.props.onUnload();
   }
+
 
   render() {
 
     return (
       <div id="login" className="col-xs-6 col-md-6 col-lg-3">
         <h2>Sign In.</h2>
+        { this.props.errors ?
+          <div>
+            Sorry, we can't find an account with this email address. 
+            Please try again or <Link to="/signup/planform"> create a new account</Link>. 
+          </div>
+          : <></>
+        }
         <Form>
           <Form.Group controlId="formEmail">
             <Form.Label>Email</Form.Label>
@@ -58,7 +65,10 @@ class Login extends Component {
               required
             />
           </Form.Group>
-          <Button onClick={this.submitForm} className="btn btn-primary btn-solid btn-oversize">
+          <Button
+            disabled={!this.formHasValues()}
+            onClick={this.submitForm} 
+            className="btn btn-primary btn-solid btn-oversize">
             Sign In
           </Button>
           <span>

@@ -26,28 +26,29 @@ namespace Netflix.Api
         public void ConfigureServices(IServiceCollection services)
         {
             var azureTableStorage = Configuration.GetConnectionString("AzureTableStorage");
+            var azureBlobStorage = Configuration.GetConnectionString("AzureBlobStorage");
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<IMovieStreamService, MovieStreamService>();
-            services.AddTransient<IMovieRepository>(m => new MovieRepository(Configuration.GetConnectionString("AzureBlobStorage")));
             services.AddTransient<IRecommendationsService, RecommendationsService>();
             services.AddTransient<INewsRepository, NewsRepository>();
             services.AddTransient<INewsService, NewsService>();
             services.AddTransient<IUsersService, UsersService>();
-            services.AddTransient<IUserRepository>(m => new UserRepository(azureTableStorage));
             services.AddTransient<IWatchingListService, WatchingListService>();
             services.AddTransient<IWatchingItemRepository, WatchingItemRepository>();
             services.AddTransient<IProfileService, ProfileService>();
             services.AddTransient<IGenresService, GenresService>();
             services.AddTransient<IMovieService, MovieService>();
             services.AddTransient<IHistoryService, HistoryService>();
-            
             services.AddTransient<IPlanService, PlansService>();
+            services.AddTransient<IPasswordHasher, PasswordHasher>();
+
+            services.AddTransient<IMovieRepository>(m => new MovieRepository(azureBlobStorage));
+            services.AddTransient<IUserRepository>(m => new UserRepository(azureTableStorage));
             services.AddTransient<IPlanRepository>(m => new PlanRepository(azureTableStorage));
             services.AddTransient<IGenresRepository>(m => new GenresRepository(azureTableStorage));
             services.AddTransient<IProfileRepository>(m => new ProfileRepository(azureTableStorage));
             services.AddTransient<IHistoryRepository>(m => new HistoryRepository(azureTableStorage));
-            services.AddTransient<IPasswordHasher, PasswordHasher>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -62,11 +63,6 @@ namespace Netflix.Api
 
             services.AddAntiforgery(o => { o.Cookie.Name = "X-CSRF-TOKEN"; });
             services.AddAutoMapper();
-
-            services.Configure<PasswordHasherOptions>(option =>
-            {
-                option.IterationCount = 12000;
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

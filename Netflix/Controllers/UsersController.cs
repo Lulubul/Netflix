@@ -22,9 +22,19 @@ namespace Netflix.Api.Controllers
         [HttpPost]
         [Route("Login")]
         [ProducesResponseType(typeof(User), 200)]
-        public async Task<User> Login(UserLogin userLogin)
+        public async Task<IActionResult> Login(UserLogin userLogin)
         {
-            return await _usersService.Login(userLogin);
+            if (userLogin == null)
+            {
+                return BadRequest($"Parameter is not defined in query {nameof(userLogin)}");
+            }
+
+            var user = await _usersService.Login(userLogin);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+            return Ok(user);
         }
 
         // POST: api/<controller>

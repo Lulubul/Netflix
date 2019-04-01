@@ -34,7 +34,7 @@ namespace Netflix.Api.Controllers
 
         // Post: api/<controller>
         [HttpPost]
-        public async Task<IActionResult> CreateNewProfile([FromQuery]Guid? usedId, [FromBody]UserProfile profile)
+        public async Task<IActionResult> CreateNewProfile([FromQuery]string usedId, [FromBody]UserProfile profile)
         {
             if (usedId == null)
             {
@@ -45,13 +45,17 @@ namespace Netflix.Api.Controllers
                 return BadRequest($"Parameter is not defined in body {nameof(profile)}");
             }
 
-            var profiles = await _profileService.AddUserProfile(usedId.Value, profile);
-            return Ok(profiles);
+            var addWasSucceful = await _profileService.AddUserProfile(Guid.Parse(usedId), profile);
+            if (addWasSucceful)
+            {
+                return Ok(profile);
+            }
+            return BadRequest();
         }
 
         // Post: api/<controller>
         [HttpPut]
-        public async Task<IActionResult> UpdateUserProfile(Guid? usedId, UserProfile profile)
+        public async Task<IActionResult> UpdateUserProfile([FromQuery]string usedId, [FromBody]UserProfile profile)
         {
             if (usedId == null)
             {
@@ -62,7 +66,7 @@ namespace Netflix.Api.Controllers
                 return BadRequest($"Parameter is not defined in body {nameof(profile)}");
             }
 
-            var profiles = await _profileService.UpdateUserProfile(usedId.Value, profile);
+            var profiles = await _profileService.UpdateUserProfile(Guid.Parse(usedId), profile);
             return Ok(profiles);
         }
     }

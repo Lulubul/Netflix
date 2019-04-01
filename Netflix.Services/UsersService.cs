@@ -30,9 +30,15 @@ namespace Netflix.Services
 
         public async Task<User> Login(UserLogin user)
         {
-            user.Password = _passwordHasher.HashPassword(user.Password);
-            return null;
-            //return await _userRepository.Login(user);
+            var dbUser = await _userRepository.Login(user);
+            if (dbUser == null)
+            {
+                return null;
+            }
+            if (_passwordHasher.VerifyHashedPassword(dbUser.Password, user.Password) == PasswordVerificationResult.Failed) {
+                return null;
+            }
+            return _mapper.Map<UserEntity, User>(dbUser);
         }
 
         public async Task<string> AddUser(UserRegister user)

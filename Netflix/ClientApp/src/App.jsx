@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router';
+import { Route, Redirect, Switch } from 'react-router';
 import { Layout } from './components/Layout.';
-import Home from './components/profile/Home';
-import { NewProfile } from './components/profile/NewProfile';
+import ProfilesAsync from './components/profile/Profiles';
+import NewProfile from './components/profile/NewProfile';
 import { Movies } from './components/Movies';
 import { TvShows } from './components/TvShows';
 import PlanForm from './components/signup/PlanForm';
@@ -23,11 +23,10 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  onRedirect: () =>
-    dispatch({ type: REDIRECT })
+  onRedirect: () => dispatch({ type: REDIRECT })
 });
 
-export class App extends Component {
+class App extends Component {
   displayName = App.name
 
   componentWillReceiveProps(nextProps) {
@@ -40,15 +39,18 @@ export class App extends Component {
   render() {
     return (
       <Layout>
-        <Route path='/profiles' component={Home} />
-        <Route path='/tvshows' component={TvShows} />
-        <Route path='/movies' component={Movies} />
-        <Route path='/newProfile' component={NewProfile} />
-        <Route path='/watchingItem' component={WatchingItem} />
-        <Route path='/signup/planform' component={PlanForm} />
-        <Route path='/signup/payment' component={Payment} />
-        <Route path='/signup/login' component={Login} />
-        <Route path='/signup/register' component={Register} />
+        <Switch>
+          <Redirect from="/" to="/signup/login" exact={true} />
+          <Route path='/profiles' component={ProfilesAsync} />
+          <Route path='/tvshows' component={TvShows} />
+          <Route path='/movies' component={Movies} />
+          <Route path='/newProfile' component={NewProfile} />
+          <Route path='/watchingItem' component={WatchingItem} />
+          <Route path='/signup/planform' component={PlanForm} />
+          <Route path='/signup/payment' component={Payment} />
+          <Route path='/signup/login' component={Login} />
+          <Route path='/signup/register' component={Register} />
+        </Switch>
       </Layout>
     );
   }

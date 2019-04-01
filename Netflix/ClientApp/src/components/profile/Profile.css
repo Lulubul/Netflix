@@ -2,6 +2,14 @@
   text-align: center;
 }
 
+.profile-wrapper img {
+  cursor: pointer;
+}
+
+.profile-wrapper span {
+  cursor: pointer;
+}
+
 .profile-name {
   text-decoration: none;
   color: grey;
