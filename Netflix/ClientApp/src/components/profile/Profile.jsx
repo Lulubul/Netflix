@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Button } from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 import './Profile.css';
 import { SELECT_PROFILE } from "../../constants/actionTypes";
 import { connect } from "react-redux";

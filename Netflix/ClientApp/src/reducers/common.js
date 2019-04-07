@@ -3,7 +3,8 @@ import { REDIRECT, LOGOUT, LOGIN, REGISTER, ADD_NEW_PROFILE, SELECT_PROFILE } fr
 const defaultState = {
     appName: 'Streaming Website',
     token: null,
-    viewChangeCounter: 0
+    viewChangeCounter: 0,
+    userId: null
 };
 
 export default (state = defaultState, action) => {

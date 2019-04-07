@@ -15,6 +15,7 @@ namespace Netflix.Services
             CreateMap<UserProfile, ProfileEntity>();
             CreateMap<UserLogin, UserEntity>();
             CreateMap<UserRegister, UserEntity>();
+            CreateMap<UserRegister, User>();
             CreateMap<UserEntity, User>()
                  .ForMember(x => x.Id, opt => opt.MapFrom(x => x.RowKey));
             CreateMap<NewsEntity, News>();

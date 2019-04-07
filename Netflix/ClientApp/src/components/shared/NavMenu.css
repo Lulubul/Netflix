@@ -21,6 +21,14 @@
     padding: 5px;
 }
 
+.right-menu {
+    display: flex;   
+}
+
+.right-menu button {
+    margin: 5px;
+}
+
 @media (min-width: 768px) {
     /* On large screens, convert the nav menu to a vertical sidebar */
     .navbar {

@@ -11,7 +11,8 @@ namespace Netflix.Services
     public interface IUsersService
     {
         Task<User> Login(UserLogin userLogin);
-        Task<string> AddUser(UserRegister user);
+        Task<User> Logout(string email);
+        Task<User> AddUser(UserRegister user);
         Task<bool> UpdateUser(User user);
     }
 
@@ -41,16 +42,23 @@ namespace Netflix.Services
             return _mapper.Map<UserEntity, User>(dbUser);
         }
 
-        public async Task<string> AddUser(UserRegister user)
+        public async Task<User> AddUser(UserRegister user)
         {
             user.Password = _passwordHasher.HashPassword(user.Password);
             var newUser = _mapper.Map<UserRegister, UserEntity>(user);
             newUser.PartitionKey = Guid.NewGuid().ToString();
-            newUser.RowKey = Guid.NewGuid().ToString();
-            return await _userRepository.AddUser(newUser);
+            user.Id = Guid.NewGuid();
+            newUser.RowKey = user.Id.ToString();
+            await _userRepository.AddUser(newUser);
+            return _mapper.Map<UserRegister, User>(user);
         }
 
         public Task<bool> UpdateUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<User> Logout(string email)
         {
             throw new NotImplementedException();
         }

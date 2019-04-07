@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Netflix.Domain.Models;
 using Netflix.Domain.Models.UserContext;
 using Netflix.Repositories;
 using Netflix.Repositories.AzureEntities;

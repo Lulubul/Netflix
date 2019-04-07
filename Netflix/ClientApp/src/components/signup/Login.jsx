@@ -21,6 +21,13 @@ const mapDispatchToProps = dispatch => ({
   onUnload: () => dispatch({ type: LOGIN_PAGE_UNLOADED })
 });
 
+const ErrorMessage = () => (
+  <div>
+    Sorry, we can't find an account with this email address. 
+    Please try again or <Link to="/signup/planform"> create a new account</Link>. 
+  </div>
+);
+
 class Login extends Component {
 
   changeEmail = ev => this.props.onChangeEmail(ev.target.value);
@@ -32,19 +39,11 @@ class Login extends Component {
     this.props.onUnload();
   }
 
-
   render() {
-
     return (
       <div id="login" className="col-xs-6 col-md-6 col-lg-3">
         <h2>Sign In.</h2>
-        { this.props.errors ?
-          <div>
-            Sorry, we can't find an account with this email address. 
-            Please try again or <Link to="/signup/planform"> create a new account</Link>. 
-          </div>
-          : <></>
-        }
+        { this.props.errors && <ErrorMessage/> }
         <Form>
           <Form.Group controlId="formEmail">
             <Form.Label>Email</Form.Label>
@@ -72,8 +71,7 @@ class Login extends Component {
             Sign In
           </Button>
           <span>
-            New to Streaming Website?{" "}
-            <Link to="/signup/planform">Sign up now.</Link>
+            New to Streaming Website? <Link to="/signup/planform">Sign up now.</Link>
           </span>
         </Form>
       </div>

@@ -29,6 +29,11 @@ namespace Netflix.Api.Controllers
                 return BadRequest($"Parameter is not defined in query {nameof(userLogin)}");
             }
 
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var user = await _usersService.Login(userLogin);
             if (user == null)
             {
@@ -41,10 +46,31 @@ namespace Netflix.Api.Controllers
         [HttpPost]
         [Route("Register")]
         [AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        public async Task<string> Register(UserRegister user)
+        [ProducesResponseType(typeof(User), 200)]
+        public async Task<IActionResult> Register(UserRegister user)
         {
-            return await _usersService.AddUser(user);
+            if (user == null)
+            {
+                return BadRequest($"Parameter is not defined in query {nameof(UserRegister)}");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var newUser = await _usersService.AddUser(user);
+            return Ok(newUser);
+        }
+
+        // POST: api/<controller>
+        [HttpPost]
+        [Route("Logout")]
+        [AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        public async Task<string> Logout(UserRegister user)
+        {
+            throw new NotImplementedException();
         }
 
         // Put: api/<controller>

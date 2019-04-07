@@ -6,6 +6,7 @@ import { SearchBar } from "./SearchBar";
 import "./NavMenu.css";
 import { connect } from "react-redux";
 import { REDIRECT } from "../../constants/actionTypes";
+import Logout from "../signup/Logout";
 
 const mapStateToProps = state => {
   return {
@@ -58,7 +59,10 @@ class NavMenu extends Component {
                   {this.props.user && !!this.props.user.avatarUrl ? <Image src={this.props.user.avatarUrl}/>: <></>}
                 </Nav>
               </Navbar.Collapse>
-              <SearchBar className="pull-right" />
+              <div className="right-menu pull-right">
+                <SearchBar  />
+                <Logout/>
+              </div>
             </>)}
       </Navbar>
     );

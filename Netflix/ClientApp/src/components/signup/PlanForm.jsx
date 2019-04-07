@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./PlanForm.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, Spinner } from "react-bootstrap";
 import { PlansAsync } from "../../resources/Api";
 import { UPDATE_PLAN, PLANFORM_PAGE_LOADED } from "../../constants/actionTypes";
 import { connect } from "react-redux";

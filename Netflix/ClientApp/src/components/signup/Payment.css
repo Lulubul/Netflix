@@ -4,3 +4,7 @@
   position: relative;
   padding: 3em;
 }
+
+.paymentContainer .list-group-item {
+  cursor: pointer;
+}
