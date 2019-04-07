@@ -16,7 +16,7 @@ export default (state = {}, action) => {
     case SELECT_PROFILE:
       return { 
         ...state,
-        selectedProfile: action.value
+        selectedProfile: state.profiles.find((profile) => profile.id == action.value)
       }
     default:
       return state;

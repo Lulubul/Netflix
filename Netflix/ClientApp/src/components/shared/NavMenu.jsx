@@ -1,6 +1,6 @@
 ﻿import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Nav, Navbar, Image } from "react-bootstrap";
+import { Nav, Navbar, Image, Dropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { SearchBar } from "./SearchBar";
 import "./NavMenu.css";
@@ -56,11 +56,21 @@ class NavMenu extends Component {
                       </LinkContainer>
                     </>
                   }
-                  {this.props.user && !!this.props.user.avatarUrl ? <Image src={this.props.user.avatarUrl}/>: <></>}
                 </Nav>
               </Navbar.Collapse>
               <div className="right-menu pull-right">
-                <SearchBar  />
+                { selectedProfile && <SearchBar/> }
+                { selectedProfile && (
+                  <Dropdown>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                      <Image className={"profile"} src={selectedProfile.avatarUrl}/>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item href="#/action-1">Account</Dropdown.Item>
+                      <Dropdown.Item href="#/action-2">Help Center</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                )}
                 <Logout/>
               </div>
             </>)}

@@ -29,6 +29,18 @@
     margin: 5px;
 }
 
+.right-menu .profile {
+    margin: 5px;
+    cursor: pointer;
+}
+
+.right-menu .dropdown button, .right-menu .show.dropdown button  {
+    color: white;
+    border: 0;
+    background-color: inherit;
+    box-shadow: 0;
+}
+
 @media (min-width: 768px) {
     /* On large screens, convert the nav menu to a vertical sidebar */
     .navbar {
