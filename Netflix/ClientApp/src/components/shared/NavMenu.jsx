@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import { Nav, Navbar, Image, Dropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import { SearchBar } from "./SearchBar";
+import SearchBar from "./SearchBar";
 import "./NavMenu.css";
 import { connect } from "react-redux";
 import { REDIRECT } from "../../constants/actionTypes";
@@ -66,8 +66,7 @@ class NavMenu extends Component {
                       <Image className={"profile"} src={selectedProfile.avatarUrl}/>
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                      <Dropdown.Item href="#/action-1">Account</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">Help Center</Dropdown.Item>
+                      <Link to={"/settings/account"}>Account</Link>
                     </Dropdown.Menu>
                   </Dropdown>
                 )}

@@ -24,20 +24,23 @@ export class Container extends Component {
     }
 
     componentDidMount() {
-        window.addEventListener('resize', () => this.updateWindowDimensions(this.props.items.length));
+        window.addEventListener('resize', () => this.updateWindowDimensions(this.props.items && this.props.items.length));
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions(this.props.items.length));
+        window.removeEventListener('resize', this.updateWindowDimensions(this.props.items && this.props.items.length));
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.items.length < this.props.items.length) {
-            this.updateWindowDimensions(this.props.items.length);
+        if (prevProps.items && this.props.items && prevProps.items.length < this.props.items.length) {
+            this.updateWindowDimensions(this.props.items && this.props.items.length);
         }
     }
 
     updateWindowDimensions = (elementCount) => {
+        if (!elementCount) {
+            return;
+        }
         const boxartContainer = document.getElementsByClassName('boxart-container')[0];
         if (boxartContainer && elementCount > 0) { 
             const defaultWidth = 341;
@@ -70,12 +73,12 @@ export class Container extends Component {
         const nextPosition = position - direction * stepSize;
         const nextIndex = index + direction;
         this.setState({ position: nextPosition, index: nextIndex });
-
         this.itemsRef.current.style.transform = "translateX(" + nextPosition + "px)";
     }
 
     render() {
         const { title, items, size } = this.props;
+        
         return (
             <div>
                 <div>
@@ -88,7 +91,7 @@ export class Container extends Component {
                     </div>
                     <div className="sliderMask">
                         <div className="items" ref={this.itemsRef}>
-                            {items.map((item, index) => (
+                            {items && items.map((item, index) => (
                                 <Link to="/watchingItem" key={index}>
                                     <Item key={index} imageSource={item.image} size={size} />
                                 </Link>

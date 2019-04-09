@@ -25,20 +25,17 @@
     display: flex;   
 }
 
-.right-menu button {
-    margin: 5px;
-}
-
 .right-menu .profile {
     margin: 5px;
     cursor: pointer;
 }
 
-.right-menu .dropdown button, .right-menu .show.dropdown button  {
+.right-menu .dropdown button, .right-menu .show.dropdown button, .right-menu .show.dropdown button:focus  {
     color: white;
     border: 0;
-    background-color: inherit;
-    box-shadow: 0;
+    background-color: transparent;
+    outline: 0;
+    box-shadow: 0 0 0 0;
 }
 
 @media (min-width: 768px) {

@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import './Movies.css';
 import Dropdown from './shared/Dropdown';
-import { getGenres, getMovies } from '../resources/Api';
+import { MoviesAsync } from '../resources/Api';
 import { Container } from './shared/Container';
+import { MOVIES_PAGE_LOADED } from '../constants/actionTypes';
+import { connect } from "react-redux";
 
-export class Movies extends Component {
+const mapStateToProps = state => ({ ...state.movies });
+const mapDispatchToProps = dispatch => ({
+  onLoad: payload => dispatch({ type: MOVIES_PAGE_LOADED, payload })
+});
 
-  constructor(props) {
-      super(props);
-      this.state = { genres: [], movies: [] };
-  } 
+class Movies extends Component {
 
-  componentDidMount = () => {
-    getGenres()
-      .then((genres) => this.setState({genres: genres}));
-    getMovies()
-      .then((movies) => this.setState({movies: movies}))
+  componentWillMount() {
+    let genresPromise = MoviesAsync.getGenres().then(response => response || []);
+    let moviesPromise = MoviesAsync.getMovies().then(response => response || []);
+    this.props.onLoad(Promise.all([genresPromise, moviesPromise]).then(([genres, movies]) => ({genres, movies})));
   }
 
   render() {
@@ -26,16 +27,22 @@ export class Movies extends Component {
       { image: 'https://occ-0-3032-768.1.nflxso.net/dnm/api/v5/rendition/8235889aa78c638456a837ba52c96294bfd5070d/AAAABYuRQJDvbcfKyM3lCUKoZb3CnTKIlRktbf9J_87XB9jxtmywOkQYBpPS8dvjtfLPrhGz2vGKmtkhX1_z4UtTDqmt0hey5bRyEV1C7SOZHxz3Qd_VdtqAcchELHedbkRYR2xmDsu3l4gYpU2FjisPtTCuKmvqhuE7Uykf50AmSmXpDkdDXhuKtNrcyDoKjFbkBguqucmFlEBCNXaCDkN3By1dYaSOaCDMUj-e-HxbY0s6lSim4mJxh6v6ASKKna0H8YVT21BKPLGHtkabfw.webp' },
       { image: 'https://occ-0-3032-768.1.nflxso.net/dnm/api/v5/rendition/8235889aa78c638456a837ba52c96294bfd5070d/AAAABSaM9rO_DsASwj8LVbgd1WmAZNq-joiIVeDjdaDRY2qQyeRnE7LHsLfVhETAVZz1196lZUuxBf_1AMqqC5TC2Pa1eqJHIEX6zuCMriswa6MQ2AYbULrLVHfeZjLPZA37XDOHC8t1V-3B2A7tWhhbpcL2eZnEkUhjV52XSVagUU87TVv9SOItyf0trLHciooW1js-2jMzRlSRz4XLqTk9O04vRg9q2T4_nnnfjIVscj0x4Xd8aK2zPVvMAyD-n3FqUqg20wDsYVwpo7-mgw.webp' }
     ];
-
+    const {movies, genres} = this.props;
     return (
       <div>
         <div id="genres">
           <p>Movies</p>
-          <Dropdown options={this.state.genres}></Dropdown>
+          <Dropdown options={genres}></Dropdown>
         </div>
-        <Container title="Popular on Netflix" items={this.state.movies}></Container>
+        <Container title="Popular on Netflix" items={movies}></Container>
         <Container title="Netflix originals" items={netflixOriginals}></Container>
       </div>
     );
   }
 }
+
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Movies);
