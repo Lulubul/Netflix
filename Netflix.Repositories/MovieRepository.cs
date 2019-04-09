@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Table;
 using Netflix.Repositories.AzureEntities;
@@ -11,6 +12,7 @@ namespace Netflix.Repositories
     {
         Task<Stream> GetMovieByNameAsync(string name);
         Task<List<MovieEntity>> GetMovies();
+        Task<List<MovieEntity>> GetMoviesByName(string name);
     }
 
     public class MovieRepository : AbstractRepository, IMovieRepository
@@ -36,7 +38,13 @@ namespace Netflix.Repositories
             }
             while (continuationToken != null);
             return movies;
+        }
 
+        public async Task<List<MovieEntity>> GetMoviesByName(string name)
+        {
+            var table = GetTable(MoviesContainer, _storageConnectionString);
+            var movies = await GetMovies();
+            return movies.Where((movie) => movie.Name.Contains(name)).ToList();
         }
 
         public async Task<Stream> GetMovieByNameAsync(string movieName)

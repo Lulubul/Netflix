@@ -29,7 +29,12 @@ namespace Netflix.Services
         {
             var movies = await _movieRepository.GetMovies();
             return movies.Select(_mapper.Map<MovieEntity, Movie>).ToList();
+        }
 
+        public async Task<List<Movie>> GetMoviesByName(string name)
+        {
+            var movies = await _movieRepository.GetMoviesByName(name);
+            return movies.Select(_mapper.Map<MovieEntity, Movie>).ToList();
         }
     }
 }
