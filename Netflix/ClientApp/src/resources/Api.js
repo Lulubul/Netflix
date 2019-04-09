@@ -23,17 +23,9 @@ export const ProfilesAsync = {
   post: (userId, newProfile) => axios.post(`/profiles?usedId=${userId}`, newProfile),
 }
 
-export const getGenres = () => {
-  return fetch(`${apiBase}/genres`, {cache: "force-cache"})
-    .then(response => response.json());
-}
-
-export const getMovies = () => {
-  return fetch(`${apiBase}/movies`)
-    .then(response => response.json());
-}
-
-export const getTvShows = () => {
-  return fetch(`${apiBase}/movies`)
-    .then(response => response.json());
+export const MoviesAsync = {
+  getGenres: () => axios.get('/genres').then(response => response.data),
+  getMovies: () => axios.get('/movies').then(response => response.data),
+  getTvShows: () => axios.get('/movies').then(response => response.data),
+  getMovieByName: (movieName) => axios.get('/movies/' + movieName).then(response => response.data)
 }

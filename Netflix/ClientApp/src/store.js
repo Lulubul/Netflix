@@ -4,12 +4,22 @@ import { routerMiddleware } from 'connected-react-router';
 import createRootReducer from './reducers';
 import { promiseMiddleware } from './middleware';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 export const history = createBrowserHistory();
 export const rootReducer = createRootReducer(history);
 
+const persistConfig = {
+  key: 'root',
+  storage,
+  blacklist: ['navigation'] 
+}
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+
 export const store = createStore(
-    rootReducer, // root reducer with router state
+    persistedReducer,
     composeWithDevTools(
       applyMiddleware(
         routerMiddleware(history), // for dispatching history actions
@@ -17,6 +27,7 @@ export const store = createStore(
       ),
     ),
 );
+export const persistor = persistStore(store);
 
 if (process.env.NODE_ENV !== 'production' && module.hot) {
   // Note! Make sure this path matches your rootReducer import exactly

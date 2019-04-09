@@ -4,11 +4,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { Provider } from 'react-redux';
-import { store, history } from './store';
+import { store, history, persistor } from './store';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCheck, faTimes, faAngleRight, faAngleLeft, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
+import { PersistGate } from 'redux-persist/integration/react';
 
 library.add(faCheck, faTimes, faAngleRight, faAngleLeft, faPlusCircle)
 
@@ -17,9 +18,11 @@ registerServiceWorker();
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}> 
-      <App/>
-    </ConnectedRouter>
+   <PersistGate loading={null} persistor={persistor}>
+      <ConnectedRouter history={history}> 
+        <App/>
+      </ConnectedRouter>
+    </PersistGate>
   </Provider>,
   rootElement);
 
