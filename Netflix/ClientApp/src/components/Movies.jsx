@@ -32,9 +32,9 @@ class Movies extends Component {
       <div>
         <div id="genres">
           <p>Movies</p>
-          <Dropdown options={genres}></Dropdown>
+          { genres && <Dropdown options={genres}></Dropdown> }
         </div>
-        <Container title="Popular on Netflix" items={movies}></Container>
+        { movies && movies.length > 0 && <Container title="Popular on Netflix" items={movies}></Container> }
         <Container title="Netflix originals" items={netflixOriginals}></Container>
       </div>
     );

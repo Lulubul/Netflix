@@ -12,6 +12,7 @@ namespace Netflix.Services
     public interface IMovieService
     {
         Task<List<Movie>> GetTopMoviesInCategories();
+        Task<List<Movie>> GetMoviesByName(string name);
     }
 
     public class MovieService : IMovieService

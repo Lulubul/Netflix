@@ -28,6 +28,15 @@ namespace Netflix.Api.Controllers
         }
 
         // GET: api/<controller>
+        [HttpGet("/search/{name}")]
+        public async Task<IActionResult> GetMoviesByName(string name)
+        {
+            var movies = await _movieService.GetMoviesByName(name);
+            return Ok(movies);
+        }
+        
+
+        // GET: api/<controller>
         [HttpGet("{name}")]
         public async Task<IActionResult> GetMovieByNameAsync(string name)
         {

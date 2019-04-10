@@ -27,7 +27,7 @@ class TvShows extends Component {
                     <p>TV Shows</p>
                     <Dropdown options={genres}></Dropdown>
                 </div>
-                <Container title="Popular on Streaming Website" items={movies}></Container>
+                { movies && movies.length > 0 && <Container title="Popular on Streaming Website" items={movies}></Container> }
             </div>
         )
     }

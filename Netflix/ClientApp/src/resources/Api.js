@@ -27,5 +27,5 @@ export const MoviesAsync = {
   getGenres: () => axios.get('/genres').then(response => response.data),
   getMovies: () => axios.get('/movies').then(response => response.data),
   getTvShows: () => axios.get('/movies').then(response => response.data),
-  getMovieByName: (movieName) => axios.get('/movies/' + movieName).then(response => response.data)
+  getMoviesByName: (movieName) => axios.get('/movies/search/' + movieName).then(response => response.data)
 }
