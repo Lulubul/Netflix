@@ -61,7 +61,7 @@ class NavMenu extends Component {
               <div className="right-menu pull-right">
                 { selectedProfile && <SearchBar/> }
                 { selectedProfile && (
-                  <Dropdown>
+                  <Dropdown className="dropdown-profile">
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
                       <Image className={"profile"} src={selectedProfile.avatarUrl}/>
                     </Dropdown.Toggle>

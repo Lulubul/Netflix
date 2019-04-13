@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { LOGOUT } from "../../constants/actionTypes";
 import { connect } from "react-redux";
+import "./Logout.css";
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch({ type: LOGOUT }),
@@ -13,7 +14,7 @@ class Logout extends Component {
 
   render() {
     return (
-      <Button onClick={this.logout}>Logout</Button>
+      <Button id="logout" onClick={this.logout}>Logout</Button>
     );
   }
 }

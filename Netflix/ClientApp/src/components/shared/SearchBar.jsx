@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormControl, Button, Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import './SearchBar.css';
 import { connect } from "react-redux";
 import { SEARCH_MOVIE, UPDATE_SEARCH_INPUT } from '../../constants/actionTypes';

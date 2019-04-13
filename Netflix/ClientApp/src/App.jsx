@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router';
 import { Layout } from './components/Layout.';
 import NewProfile from './components/profile/NewProfile';
-import Movies from './components/Movies';
-import TvShows from './components/TvShows';
+import Movies from './components/movies/Movies';
+import WatchItemsFounded from './components/movies/WatchItemsFounded';
+import TvShows from './components/movies/TvShows';
 import PlanForm from './components/signup/PlanForm';
 import Register from './components/signup/Register';
-import { WatchingItem } from './components/WatchingItem';
+import { WatchingItem } from './components/movies/WatchingItem';
 import Login from './components/signup/Login';
 import Payment from './components/signup/Payment';
 import Account from './components/settings/Account';
@@ -47,6 +48,7 @@ class App extends Component {
           <Route path='/movies' component={Movies} />
           <Route path='/newProfile' component={NewProfile} />
           <Route path='/watchingItem' component={WatchingItem} />
+          <Route path='/watchItemsFounded' component={WatchItemsFounded} />
           <Route path='/settings/account' component={Account} />
           <Route path='/signup/planform' component={PlanForm} />
           <Route path='/signup/payment' component={Payment} />

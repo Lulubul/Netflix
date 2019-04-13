@@ -30,7 +30,7 @@
     cursor: pointer;
 }
 
-.right-menu .dropdown button, .right-menu .show.dropdown button, .right-menu .show.dropdown button:focus  {
+.right-menu .dropdown-profile, .right-menu button#dropdown-basic {
     color: white;
     border: 0;
     background-color: transparent;

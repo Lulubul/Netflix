@@ -23,28 +23,16 @@ export class Container extends Component {
         this.state = { position: 0, index: 0, stepSize: 1750, elementWidth: 0, containerSize: 1 };
     }
 
-    componentDidMount() {
-        window.addEventListener('resize', () => this.updateWindowDimensions(this.props.items && this.props.items.length));
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions(this.props.items && this.props.items.length));
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.items && this.props.items && prevProps.items.length < this.props.items.length) {
-            this.updateWindowDimensions(this.props.items && this.props.items.length);
-        }
+    componentWillMount() {
+        this.updateWindowDimensions(this.props.items && this.props.items.length);
     }
 
     updateWindowDimensions = (elementCount) => {
         if (!elementCount) {
             return;
         }
-        const boxartContainer = document.getElementsByClassName('boxart-container')[0];
-        if (boxartContainer && elementCount > 0) { 
-            const defaultWidth = 341;
-            const elementWidth = boxartContainer.offsetWidth > 200 ? boxartContainer.offsetWidth : defaultWidth;
+        const elementWidth = 330;
+        if (elementCount > 0) { 
             const stepSize = window.innerWidth - 120;
             const elementsInContainer = stepSize / elementWidth;
             const containerSize = Math.ceil(elementCount / elementsInContainer);
@@ -52,23 +40,12 @@ export class Container extends Component {
         }
     }
 
-    goBack = (event) => {
-        this.goToNextPosition(Direction.Back);
-    }
-
-    goNext = (event) => {
-        this.goToNextPosition(Direction.Forward);
-    }
-
-    hasNextButton = () => {
-        return this.state.index < this.state.containerSize - 1;
-    }
-
-    hasPreviousButton = () => {
-        return this.state.index > 0;
-    }
+    goBack = () => this.goToNextPosition(Direction.Back);
+    goNext = () => this.goToNextPosition(Direction.Forward);
+    hasNextButton = () => this.state.index < this.state.containerSize - 1;
+    hasPreviousButton = () => this.state.index > 0;
     
-    goToNextPosition(direction) {
+    goToNextPosition = (direction) => {
         const {index, position, stepSize} = this.state;
         const nextPosition = position - direction * stepSize;
         const nextIndex = index + direction;
@@ -78,7 +55,6 @@ export class Container extends Component {
 
     render() {
         const { title, items, size } = this.props;
-        
         return (
             <div>
                 <div>

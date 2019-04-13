@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './Movies.css';
-import Dropdown from './shared/Dropdown';
-import { MoviesAsync } from '../resources/Api';
-import { Container } from './shared/Container';
-import { MOVIES_PAGE_LOADED } from '../constants/actionTypes';
+import Dropdown from '../shared/Dropdown';
+import { MoviesAsync } from '../../resources/Api';
+import { Container } from '../shared/Container';
+import { MOVIES_PAGE_LOADED } from '../../constants/actionTypes';
 import { connect } from "react-redux";
 
 const mapStateToProps = state => ({ ...state.movies });
@@ -34,8 +34,8 @@ class Movies extends Component {
           <p>Movies</p>
           { genres && <Dropdown options={genres}></Dropdown> }
         </div>
-        { movies && movies.length > 0 && <Container title="Popular on Netflix" items={movies}></Container> }
-        <Container title="Netflix originals" items={netflixOriginals}></Container>
+        { movies && movies.length > 0 && <Container title="Popular on Netflix" type="movie-container" index={0} items={movies}></Container> }
+        { movies && movies.length > 0 && <Container title="Netflix originals" type="movie-container" index={1} items={netflixOriginals}></Container> }
       </div>
     );
   }
