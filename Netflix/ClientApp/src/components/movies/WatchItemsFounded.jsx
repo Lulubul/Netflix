@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import './WatchItemsFounded.css';
-import { MoviesAsync } from '../../resources/Api';
 import { Container, Row } from 'react-bootstrap';
 import { MOVIES_PAGE_LOADED } from '../../constants/actionTypes';
 import { connect } from "react-redux";
+import { Link } from 'react-router-dom';
+import { Item } from '../shared/Item';
 
 const mapStateToProps = state => ({ ...state.movies });
 const mapDispatchToProps = dispatch => ({
@@ -11,19 +12,21 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class WatchItemsFounded extends Component {
-
-  componentWillMount() {
-  }
-
   render() {
     const { watchItems } = this.props;
     return (
-      <div>
+      <div className="watchItems">
         <div>
-          <p>Explore related titles</p>
+          <h1>Explore related titles</h1>
         </div>
-        <Container>
-          <Row></Row>
+        <Container className="col-lg-12 col-md-12">
+          <Row>
+            {watchItems && watchItems.map((item, index) => (
+              <Link to="/watchingItem" key={index}>
+                <Item key={index} imageSource={item.image} />
+              </Link>
+            ))}
+          </Row>
         </Container>
       </div>
     );

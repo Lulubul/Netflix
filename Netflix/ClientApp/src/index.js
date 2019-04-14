@@ -11,18 +11,16 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCheck, faTimes, faAngleRight, faAngleLeft, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { PersistGate } from 'redux-persist/integration/react';
 
-library.add(faCheck, faTimes, faAngleRight, faAngleLeft, faPlusCircle)
+library.add(faCheck, faTimes, faAngleRight, faAngleLeft, faPlusCircle )
 
 const rootElement = document.getElementById('root');
 registerServiceWorker();
-
+//  <PersistGate loading={null} persistor={persistor}>
 ReactDOM.render(
   <Provider store={store}>
-   <PersistGate loading={null} persistor={persistor}>
       <ConnectedRouter history={history}> 
         <App/>
       </ConnectedRouter>
-    </PersistGate>
   </Provider>,
   rootElement);
 

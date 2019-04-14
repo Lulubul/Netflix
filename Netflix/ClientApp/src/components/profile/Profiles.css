@@ -8,9 +8,15 @@
     margin-top: 25px;
 }
 
+.home {
+    margin-top: 10%;
+}
+
 .home h1 {
     text-align: center;
     color: white;
+    padding-bottom: 3vw; 
+    font-size: 3.5vw;
 }
 
 .home img {
@@ -23,10 +29,6 @@
 
 .navbar-header  {
     height: 50px;
-}
-
-.home {
-    margin-top: 15%;
 }
 
 .home .profile-wrapper svg {

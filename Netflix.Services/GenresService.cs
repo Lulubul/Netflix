@@ -13,6 +13,7 @@ namespace Netflix.Services
     public interface IGenresService
     {
         Task<List<Genre>> GetAllGenres();
+        Task<Genre> GetGenreByName(string name);
     }
 
     public class GenresService: AbstractService, IGenresService
@@ -31,5 +32,12 @@ namespace Netflix.Services
             var genres = await _genresRepository.GetAllGenres();
             return genres.Select(_mapper.Map<GenreEntity, Genre>).ToList();
         }
+
+        public async Task<Genre> GetGenreByName(string name)
+        {
+            var genre = await _genresRepository.GetGenreByName(name);
+            return _mapper.Map<GenreEntity, Genre>(genre);
+        }
+
     }
 }

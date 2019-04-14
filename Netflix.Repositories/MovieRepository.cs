@@ -13,6 +13,7 @@ namespace Netflix.Repositories
         Task<Stream> GetMovieByNameAsync(string name);
         Task<List<MovieEntity>> GetMovies();
         Task<List<MovieEntity>> GetMoviesByName(string name);
+        Task<List<MovieEntity>> GetMoviesByGenre(string genreId);
     }
 
     public class MovieRepository : AbstractRepository, IMovieRepository
@@ -44,7 +45,17 @@ namespace Netflix.Repositories
         {
             var table = GetTable(MoviesContainer, _storageConnectionString);
             var movies = await GetMovies();
-            return movies.Where((movie) => movie.Name.Contains(name)).ToList();
+            var wordsInName = name.Split(' ');
+            return movies
+                .Where((movie) => movie.Name.Contains(name) || wordsInName.Any((word) => movie.Name.Contains(word)))
+                .ToList();
+        }
+
+        public async Task<List<MovieEntity>> GetMoviesByGenre(string genreId)
+        {
+            var table = GetTable(MoviesContainer, _storageConnectionString);
+            var movies = await GetMovies();
+            return movies.Where((movie) => movie.Genres.Split(',').Contains(genreId)).ToList();
         }
 
         public async Task<Stream> GetMovieByNameAsync(string movieName)

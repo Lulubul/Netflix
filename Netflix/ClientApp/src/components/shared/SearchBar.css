@@ -1,6 +1,19 @@
-.searchBar {
-    height: 50px;
-    width: 100%;
-    border-radius: 0;
-    border-width: 0;
-} 
+.search-bar {
+    border: 1px solid white;
+    background-color: black;
+    color: white;
+    padding-right: 5px;
+    padding-left: 5px;
+    margin: 2px;
+    width: 210px;
+}
+
+.search-bar input {
+    background: transparent;
+    color: white;
+    border: 0;
+}
+
+.search-bar span {
+    cursor: pointer;
+}

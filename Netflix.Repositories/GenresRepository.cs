@@ -9,6 +9,7 @@ namespace Netflix.Repositories
     public interface IGenresRepository
     {
         Task<List<GenreEntity>> GetAllGenres();
+        Task<GenreEntity> GetGenreByName(string name);
     }
 
     public class GenresRepository: AbstractRepository, IGenresRepository
@@ -34,6 +35,15 @@ namespace Netflix.Repositories
             }
             while (continuationToken != null);
             return genres;
+        }
+
+        public async Task<GenreEntity> GetGenreByName(string name)
+        {
+            var query = new TableQuery<GenreEntity>().Where(TableQuery.GenerateFilterCondition("Name", QueryComparisons.Equal, name)).Take(1);
+            var table = GetTable(TableName, _storageConnectionString);
+            TableContinuationToken continuationToken = null;
+            var result = await table.ExecuteQuerySegmentedAsync(query, continuationToken);
+            return result?.Results[0];
         }
     }
 }

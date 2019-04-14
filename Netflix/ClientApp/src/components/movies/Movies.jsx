@@ -6,7 +6,7 @@ import { Container } from '../shared/Container';
 import { MOVIES_PAGE_LOADED } from '../../constants/actionTypes';
 import { connect } from "react-redux";
 
-const mapStateToProps = state => ({ ...state.movies });
+const mapStateToProps = state => ({ ...state.movies, ...state.common });
 const mapDispatchToProps = dispatch => ({
   onLoad: payload => dispatch({ type: MOVIES_PAGE_LOADED, payload })
 });

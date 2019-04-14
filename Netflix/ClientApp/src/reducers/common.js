@@ -1,4 +1,4 @@
-import { REDIRECT, LOGOUT, LOGIN, REGISTER, ADD_NEW_PROFILE, SELECT_PROFILE } from '../constants/actionTypes';
+import { REDIRECT, LOGOUT, LOGIN, REGISTER, ADD_NEW_PROFILE, SELECT_PROFILE, SEARCH_MOVIE, CLEAR_SEARCH_INPUT} from '../constants/actionTypes';
 
 const defaultState = {
     appName: 'Streaming Website',
@@ -11,8 +11,12 @@ export default (state = defaultState, action) => {
     switch (action.type) {
         case REDIRECT:
             return { ...state, redirectTo: null };
+        case SEARCH_MOVIE: 
+            return { ...state, redirectTo: '/watchItemsFounded' };
+        case CLEAR_SEARCH_INPUT:
+            return { ...state, redirectTo: '/movies' };
         case LOGOUT:
-            return { ...state, redirectTo: '/', token: null, userId: null };
+            return { redirectTo: '/', token: null, userId: null };
         case LOGIN:
         case REGISTER:
             return {

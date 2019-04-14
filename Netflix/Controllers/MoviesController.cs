@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Netflix.Domain.Models.MovieContext;
 using Netflix.Services;
 
 namespace Netflix.Api.Controllers
@@ -28,13 +30,38 @@ namespace Netflix.Api.Controllers
         }
 
         // GET: api/<controller>
-        [HttpGet("/search/{name}")]
+        [HttpGet("search/{name}")]
         public async Task<IActionResult> GetMoviesByName(string name)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                return BadRequest($"Parameter is not defined in query {nameof(name)}");
+            }
+
             var movies = await _movieService.GetMoviesByName(name);
             return Ok(movies);
         }
-        
+
+        // GET: api/<controller>
+        [HttpGet("genre/{name}")]
+        public async Task<IActionResult> GetMoviesByGenre(string genre)
+        {
+            if (string.IsNullOrEmpty(genre))
+            {
+                return BadRequest($"Parameter is not defined in query {nameof(genre)}");
+            }
+
+            List<Movie> movies = null;
+            try {
+                movies = await _movieService.GetMoviesByGenre(genre);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+            return Ok(movies);
+        }
+
 
         // GET: api/<controller>
         [HttpGet("{name}")]
