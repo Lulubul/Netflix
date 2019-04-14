@@ -15,7 +15,7 @@ class TvShows extends Component {
 
     componentWillMount() {
         let genresPromise = MoviesAsync.getGenres().then(response => response || []);
-        let moviesPromise = MoviesAsync.getMovies().then(response => response || []);
+        let moviesPromise = MoviesAsync.getTvShows().then(response => response || []);
         this.props.onLoad(Promise.all([genresPromise, moviesPromise]).then(([genres, movies]) => ({ genres, movies })));
     }
 

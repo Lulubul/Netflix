@@ -10,50 +10,50 @@ namespace Netflix.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MoviesController: ControllerBase
+    public class TvSeriesController : ControllerBase
     {
         private readonly IMovieStreamService _streamingService;
-        private readonly IMovieService _movieService;
+        private readonly ITvSeriesService _tvSeriesService;
 
-        public MoviesController(IMovieStreamService streamingService, IMovieService movieService)
+        public TvSeriesController(IMovieStreamService streamingService, ITvSeriesService movieService)
         {
             _streamingService = streamingService;
-            _movieService = movieService;
+            _tvSeriesService = movieService;
         }
 
         // GET: api/<controller>
         [HttpGet]
-        public async Task<IActionResult> GetAllMovies()
+        public async Task<IActionResult> GetAllTvSeries()
         {
-            var movies = await _movieService.GetTopMoviesInCategories();
+            var movies = await _tvSeriesService.GetTopTvSeriesInCategories();
             return Ok(movies);
         }
 
         // GET: api/<controller>
         [HttpGet("search/{name}")]
-        public async Task<IActionResult> GetMoviesByName(string name)
+        public async Task<IActionResult> GetTvSeriesByName(string name)
         {
             if (string.IsNullOrEmpty(name))
             {
                 return BadRequest($"Parameter is not defined in query {nameof(name)}");
             }
 
-            var movies = await _movieService.GetMoviesByName(name);
+            var movies = await _tvSeriesService.GetTvSeriesByName(name);
             return Ok(movies);
         }
 
         // GET: api/<controller>
         [HttpGet("genre/{name}")]
-        public async Task<IActionResult> GetMoviesByGenre(string genre)
+        public async Task<IActionResult> GetTvSeriesByGenre(string genre)
         {
             if (string.IsNullOrEmpty(genre))
             {
                 return BadRequest($"Parameter is not defined in query {nameof(genre)}");
             }
 
-            List<Movie> movies = null;
+            List<TvSeries> movies = null;
             try {
-                movies = await _movieService.GetMoviesByGenre(genre);
+                movies = await _tvSeriesService.GetTvSeriesByGenre(genre);
             }
             catch (KeyNotFoundException e)
             {
@@ -61,7 +61,6 @@ namespace Netflix.Api.Controllers
             }
             return Ok(movies);
         }
-
 
         // GET: api/<controller>
         [HttpGet("{name}")]

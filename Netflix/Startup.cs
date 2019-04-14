@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Netflix.Repositories;
+using Netflix.Repositories.AzureEntities;
 using Netflix.Services;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -42,6 +43,7 @@ namespace Netflix.Api
             services.AddTransient<IHistoryService, HistoryService>();
             services.AddTransient<IPlanService, PlansService>();
             services.AddTransient<IPasswordHasher, PasswordHasher>();
+            services.AddTransient<ITvSeriesService, TvSeriesService>();
 
             services.AddTransient<IMovieRepository>(m => new MovieRepository(azureBlobStorage));
             services.AddTransient<IUserRepository>(m => new UserRepository(azureTableStorage));
@@ -49,6 +51,7 @@ namespace Netflix.Api
             services.AddTransient<IGenresRepository>(m => new GenresRepository(azureTableStorage));
             services.AddTransient<IProfileRepository>(m => new ProfileRepository(azureTableStorage));
             services.AddTransient<IHistoryRepository>(m => new HistoryRepository(azureTableStorage));
+            services.AddTransient<ITvSeriesRepository>(m => new TvSeriesRepository(azureTableStorage));
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -71,6 +74,8 @@ namespace Netflix.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                //SeedData seedData = new SeedData(Configuration.GetConnectionString("AzureTableStorage"));
+                //seedData.AddEntitesAsync().GetAwaiter().GetResult();
             }
             else
             {
