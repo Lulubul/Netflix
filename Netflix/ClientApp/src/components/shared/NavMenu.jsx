@@ -13,7 +13,8 @@ const mapStateToProps = state => {
     appName: state.common.appName,
     redirectTo: state.common.redirectTo,
     userId: state.common.userId,
-    selectedProfile: state.profile.selectedProfile
+    selectedProfile: state.profile.selectedProfile,
+    path: state.router.location.pathname
   };
 };
 
@@ -24,7 +25,8 @@ const mapDispatchToProps = dispatch => ({
 class NavMenu extends Component {
 
   render() {
-    const { appName, userId, selectedProfile } = this.props;
+    const { appName, userId, selectedProfile, path} = this.props;
+    const showRightPart = selectedProfile && path && (path.indexOf("movies") >= 0 || path.indexOf("tvshows") >= 0);
     return (
       <Navbar variant="dark" expand="lg" collapseOnSelect>
         <Navbar.Brand>
@@ -59,8 +61,8 @@ class NavMenu extends Component {
                 </Nav>
               </Navbar.Collapse>
               <div className="right-menu pull-right">
-                { selectedProfile && <SearchBar/> }
-                { selectedProfile && (
+                { showRightPart && <SearchBar/> }
+                { showRightPart && (
                   <Dropdown className="dropdown-profile">
                     <Dropdown.Toggle variant="success" id="dropdown-basic">
                       <Image className={"profile"} src={selectedProfile.avatarUrl}/>

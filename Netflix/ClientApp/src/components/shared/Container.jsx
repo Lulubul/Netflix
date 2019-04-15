@@ -31,7 +31,7 @@ export class Container extends Component {
         if (!elementCount) {
             return;
         }
-        const elementWidth = 330;
+        const elementWidth = 340;
         if (elementCount > 0) { 
             const stepSize = window.innerWidth - 120;
             const elementsInContainer = stepSize / elementWidth;
