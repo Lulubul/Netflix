@@ -49,7 +49,7 @@ export default (state = defaultState, action) => {
         case ACCOUNT_PAGE_LOADED:
             return {
                 ...state,
-                selectedPlan: action.error ? null : action.payload.find(x => x.id == state.user.planId)
+                selectedPlan: action.error ? null : action.payload.find(x => x.id === state.user.planId)
             }
         default:
             return state;

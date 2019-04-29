@@ -14,7 +14,7 @@ namespace Netflix.Repositories.AzureEntities
             _storageConnectionString = storageConnectionString;
         }
 
-        public async Task AddEntitesAsync()
+        public async Task AddTvSeriesEntitesAsync()
         {
             var partionKey = Guid.NewGuid().ToString();
             var tvSeries = new List<TvSeriesEntity> {
@@ -65,6 +65,66 @@ namespace Netflix.Repositories.AzureEntities
             };
 
             var table = GetTable("tvSeries", _storageConnectionString);
+            TableBatchOperation batchOperation = new TableBatchOperation();
+            foreach (var entity in tvSeries)
+            {
+                batchOperation.InsertOrMerge(entity);
+            }
+            await table.ExecuteBatchAsync(batchOperation);
+        }
+
+        public async Task AddMoviesEntitesAsync()
+        {
+            var partionKey = Guid.NewGuid().ToString();
+            var tvSeries = new List<MovieEntity> {
+                new MovieEntity
+                {
+                    PartitionKey = partionKey,
+                    RowKey = Guid.NewGuid().ToString(),
+                    Name = "Inside the real narcos",
+                    Description = "",
+                    Genres = "0b452f44-ffae-41d0-b125-dfee76a2d54a",
+                    Image = "https://occ-0-3032-768.1.nflxso.net/dnm/api/v5/rendition/8235889aa78c638456a837ba52c96294bfd5070d/AAAABVMta4Fjh88G4OFYOKqY7dQjOKq2Aj4MGtFihhQaQKpfTCJ6BaLPH35JrZr_7pNHJVyKO1BjJLBqJzSBwBu7JtlqewoLhG2RHmMmnwq5x8Lx2HAE6mW0sqB6OMC9HX8oT8ziRrqs-KsOAZCqGTm446MVprFK5a241WggIGUf80_l4rDJSpPZ-cD-eHJqP6bSqNM3lGVtCQEGj_oVrpR42TG80nkyO0dTFnfg8nnQirC9Np7gOg-FwuZLKzM23bz1LtnWmX5s83YJzYf9bQ.webp"
+                },
+                new MovieEntity
+                {
+                    PartitionKey = partionKey,
+                    RowKey = Guid.NewGuid().ToString(),
+                    Name = "Mowgli the legend of jungle",
+                    Description = "",
+                    Genres = "0b452f44-ffae-41d0-b125-dfee76a2d54a",
+                    Image = "https://occ-0-3032-768.1.nflxso.net/dnm/api/v5/rendition/8235889aa78c638456a837ba52c96294bfd5070d/AAAABXXMR156Hg0LTwBZbdYEpfFzV9DsS14wgrQFCZDa8ohmTWNBg9hk2TBUW8BAkRTOG8BWC_bPaRyMSt1lpYSp0XxdTqPB0X5PK6yZwSpBVYJZZ37oNrNCYhXm2hENCf5gIQ0FYUGkvjOELOqVjs-clHMyay1xvlrmDPt_mYCK7Z0JigMNavAuuHBQ10fZZoVud2zooCchN85_Q-QbHVcslnOwYaE8j66dRtln89TD8G-f41UPHSnvgl6JAiH2jEc5lI3kRSuwNgcoTYc21g.webp"
+                },
+                new MovieEntity
+                {
+                    PartitionKey = partionKey,
+                    RowKey = Guid.NewGuid().ToString(),
+                    Name = "Murder Mointain",
+                    Description = "",
+                    Genres = "0b452f44-ffae-41d0-b125-dfee76a2d54a",
+                    Image = "https://occ-0-3032-768.1.nflxso.net/dnm/api/v5/rendition/8235889aa78c638456a837ba52c96294bfd5070d/AAAABVMta4Fjh88G4OFYOKqY7dQjOKq2Aj4MGtFihhQaQKpfTCJ6BaLPH35JrZr_7pNHJVyKO1BjJLBqJzSBwBu7JtlqewoLhG2RHmMmnwq5x8Lx2HAE6mW0sqB6OMC9HX8oT8ziRrqs-KsOAZCqGTm446MVprFK5a241WggIGUf80_l4rDJSpPZ-cD-eHJqP6bSqNM3lGVtCQEGj_oVrpR42TG80nkyO0dTFnfg8nnQirC9Np7gOg-FwuZLKzM23bz1LtnWmX5s83YJzYf9bQ.webp"
+                },
+                new MovieEntity
+                {
+                    PartitionKey = partionKey,
+                    RowKey = Guid.NewGuid().ToString(),
+                    Name = "Bird Box",
+                    Description = "",
+                    Genres = "0b452f44-ffae-41d0-b125-dfee76a2d54a",
+                    Image = "https://occ-0-3032-768.1.nflxso.net/dnm/api/v5/rendition/8235889aa78c638456a837ba52c96294bfd5070d/AAAABYuRQJDvbcfKyM3lCUKoZb3CnTKIlRktbf9J_87XB9jxtmywOkQYBpPS8dvjtfLPrhGz2vGKmtkhX1_z4UtTDqmt0hey5bRyEV1C7SOZHxz3Qd_VdtqAcchELHedbkRYR2xmDsu3l4gYpU2FjisPtTCuKmvqhuE7Uykf50AmSmXpDkdDXhuKtNrcyDoKjFbkBguqucmFlEBCNXaCDkN3By1dYaSOaCDMUj-e-HxbY0s6lSim4mJxh6v6ASKKna0H8YVT21BKPLGHtkabfw.webp"
+                },
+                new MovieEntity
+                {
+                    PartitionKey = partionKey,
+                    RowKey = Guid.NewGuid().ToString(),
+                    Name = "Watership down",
+                    Description = "",
+                    Genres = "0b452f44-ffae-41d0-b125-dfee76a2d54a",
+                    Image = "https://occ-0-3032-768.1.nflxso.net/dnm/api/v5/rendition/8235889aa78c638456a837ba52c96294bfd5070d/AAAABSaM9rO_DsASwj8LVbgd1WmAZNq-joiIVeDjdaDRY2qQyeRnE7LHsLfVhETAVZz1196lZUuxBf_1AMqqC5TC2Pa1eqJHIEX6zuCMriswa6MQ2AYbULrLVHfeZjLPZA37XDOHC8t1V-3B2A7tWhhbpcL2eZnEkUhjV52XSVagUU87TVv9SOItyf0trLHciooW1js-2jMzRlSRz4XLqTk9O04vRg9q2T4_nnnfjIVscj0x4Xd8aK2zPVvMAyD-n3FqUqg20wDsYVwpo7-mgw.webp"
+                }
+            };
+
+            var table = GetTable("movies", _storageConnectionString);
             TableBatchOperation batchOperation = new TableBatchOperation();
             foreach (var entity in tvSeries)
             {

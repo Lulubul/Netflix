@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./Payment.css";
 import { Button, Form, ListGroup } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   UPDATE_PLAN,

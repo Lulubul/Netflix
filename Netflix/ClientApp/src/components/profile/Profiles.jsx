@@ -25,7 +25,7 @@ class Profiles extends Component {
   }
 
   render() {
-    const { profiles, userId } = this.props;
+    const { profiles } = this.props;
 
     return (
       <div className="home">

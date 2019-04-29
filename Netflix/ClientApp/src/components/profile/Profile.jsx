@@ -17,6 +17,7 @@ class Profile extends Component {
     if (!this.props.profile) {
       return <></>
     }
+    
     const {avatarUrl, name, id} = this.props.profile;
     return (
       <div className="profile-wrapper" onClick={() => this.selectProfile(id)}>

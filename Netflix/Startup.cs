@@ -75,7 +75,7 @@ namespace Netflix.Api
             {
                 app.UseDeveloperExceptionPage();
                 //SeedData seedData = new SeedData(Configuration.GetConnectionString("AzureTableStorage"));
-                //seedData.AddEntitesAsync().GetAwaiter().GetResult();
+                //seedData.AddMoviesEntitesAsync().GetAwaiter().GetResult();
             }
             else
             {
