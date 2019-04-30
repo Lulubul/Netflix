@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Table;
-using Netflix.Domain.Models;
 using Netflix.Domain.Models.UserContext;
 using Netflix.Repositories.AzureEntities;
 
@@ -31,7 +30,8 @@ namespace Netflix.Repositories
 
         public async Task<UserEntity> Login(UserLogin user)
         {
-            var query = new TableQuery<UserEntity>().Where(TableQuery.GenerateFilterCondition("Email", QueryComparisons.Equal, user.Email)).Take(1);
+            var query = new TableQuery<UserEntity>()
+                .Where(TableQuery.GenerateFilterCondition("Email", QueryComparisons.Equal, user.Email)).Take(1);
 
             var table = GetTable(TableName, _storageConnectionString);
             TableContinuationToken continuationToken = null;

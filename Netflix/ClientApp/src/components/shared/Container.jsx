@@ -75,7 +75,7 @@ export class Container extends Component {
                         </div>
                     </div>
                     <div className="handle handleNext active">
-                        {this.hasNextButton() ? <NextButton clickEvent={() => this.goNext()} /> : ""}
+                        <NextButton clickEvent={() => this.goNext()} />
                     </div>
                 </div>
             </div>

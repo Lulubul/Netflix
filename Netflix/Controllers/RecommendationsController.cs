@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Netflix.Domain.Models;
 using Netflix.Domain.Models.MovieContext;
 using Netflix.Services;
 
@@ -22,14 +21,19 @@ namespace Netflix.Api.Controllers
         // GET: api/<controller>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Recommendation>), 200)]
-        public async Task<IActionResult> GetVideoRecommendationsByUser([FromQuery]Guid? usedId)
+        public async Task<IActionResult> GetVideoRecommendationsByUser([FromQuery]Guid? userId, [FromQuery]Guid? profileId)
         {
-            if (usedId == null)
+            if (userId == null)
             {
-                return BadRequest($"Parameter is not defined in query {nameof(usedId)}");
+                return BadRequest($"Parameter is not defined in query {nameof(userId)}");
             }
 
-            var recommendations = await _recommendationsService.GetVideoRecommendationsByUser(usedId.Value);
+            if (profileId == null)
+            {
+                return BadRequest($"Parameter is not defined in query {nameof(profileId)}");
+            }
+
+            var recommendations = await _recommendationsService.GetVideoRecommendationsByUser(userId.Value, profileId.Value);
             return Ok(recommendations);
         }
     }

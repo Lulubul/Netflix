@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Table;
-using Netflix.Domain.Models.UserContext;
 using Netflix.Repositories.AzureEntities;
 
 namespace Netflix.Repositories

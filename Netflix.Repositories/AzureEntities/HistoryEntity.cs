@@ -6,7 +6,8 @@ namespace Netflix.Repositories.AzureEntities
     public class HistoryEntity : TableEntity
     {
         public string UserId;
-        public string ItemId;
+        public string ProfileId;
+        public string WatchingItemId;
         public DateTime Date;
     }
 }

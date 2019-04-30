@@ -11,7 +11,7 @@ namespace Netflix.Services
     public interface IHistoryService
     {
         Task<bool> AddAsync(HistoryItem historyItem);
-        Task<IEnumerable<HistoryItem>> GetAllAsync(string userId);
+        Task<IEnumerable<HistoryItem>> GetAllAsync(string userId, string profileId);
     }
 
     public class HistoryService : IHistoryService
@@ -31,9 +31,9 @@ namespace Netflix.Services
             return await _historyRepository.AddAsync(historyEntity);
         }
 
-        public async Task<IEnumerable<HistoryItem>> GetAllAsync(string userId)
+        public async Task<IEnumerable<HistoryItem>> GetAllAsync(string userId, string profileId)
         {
-            var historyEntities = await _historyRepository.GetAll(userId);
+            var historyEntities = await _historyRepository.GetAll(userId, profileId);
             return historyEntities.Select((entity) => _mapper.Map<HistoryEntity, HistoryItem>(entity)).ToArray();
         }
     }

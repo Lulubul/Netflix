@@ -2,13 +2,11 @@ using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Netflix.Repositories;
-using Netflix.Repositories.AzureEntities;
 using Netflix.Services;
 using Swashbuckle.AspNetCore.Swagger;
 

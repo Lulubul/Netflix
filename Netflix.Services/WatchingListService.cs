@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Netflix.Domain;
-using Netflix.Domain.Models;
 using Netflix.Domain.Models.MovieContext;
 using Netflix.Repositories;
 
@@ -10,21 +8,21 @@ namespace Netflix.Services
 {
     public interface IWatchingListService
     {
-        Task<List<WatchingItem>> GetWatchingListForUser(Guid userId);
+        Task<List<WatchingItem>> GetWatchingListForUser(Guid userId, Guid profileId);
     }
 
     public class WatchingListService : AbstractService, IWatchingListService
     {
-        private readonly WatchingItemRepository _watchingItemRepository;
+        private readonly IWatchingItemRepository _watchingItemRepository;
 
-        public WatchingListService(WatchingItemRepository watchingItemRepository)
+        public WatchingListService(IWatchingItemRepository watchingItemRepository)
         {
             _watchingItemRepository = watchingItemRepository;
         }
 
-        public Task<List<WatchingItem>> GetWatchingListForUser(Guid userId)
+        public Task<List<WatchingItem>> GetWatchingListForUser(Guid userId, Guid profileId)
         {
-            return _watchingItemRepository.GetWatchingListForUser(userId);
+            return _watchingItemRepository.GetWatchingListForUser(userId, profileId);
         }
     }
 }

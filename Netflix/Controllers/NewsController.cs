@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Netflix.Domain.Models;
 using Netflix.Domain.Models.MovieContext;
 using Netflix.Services;
 
@@ -22,10 +20,20 @@ namespace Netflix.Api.Controllers
         // GET: api/<controller>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<News>), 200)]
-        public async Task<IEnumerable<News>> GetNews(string userid)
+        public async Task<IActionResult> GetNews([FromQuery]string userId, [FromQuery]string profileId)
         {
-            var news = await _newsService.GetNewsAsync(userid);
-            return news;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return BadRequest($"Parameter is not defined in query {nameof(userId)}");
+            }
+
+            if (string.IsNullOrEmpty(profileId))
+            {
+                return BadRequest($"Parameter is not defined in query {nameof(profileId)}");
+            }
+
+            var news = await _newsService.GetNewsAsync(userId, profileId);
+            return Ok(news);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.WindowsAzure.Storage.Table;
-using Netflix.Repositories;
 using Netflix.Repositories.AzureEntities;
 using System.Collections.Generic;
 using System.IO;
@@ -43,14 +42,12 @@ namespace Netflix.Repositories
 
         public async Task<List<TvSeriesEntity>> GetTvSeriesByGenre(string genreId)
         {
-            var table = GetTable(TvSeriesContainer, _storageConnectionString);
             var tvSeries = await GetTvSeries();
-            return tvSeries.Where((tvSerie) => tvSerie.Genres.Split(',').Contains(genreId)).ToList();
+            return tvSeries.Where((item) => item.Genres.Split(',').Contains(genreId)).ToList();
         }
 
         public async Task<List<TvSeriesEntity>> GetTvSeriesByName(string name)
         {
-            var table = GetTable(TvSeriesContainer, _storageConnectionString);
             var tvSeries = await GetTvSeries();
             var wordsInName = name.Split(' ');
             return tvSeries
@@ -60,7 +57,9 @@ namespace Netflix.Repositories
 
         public async Task<Stream> GetTvSeriesByNameAsync(string name)
         {
-            throw new System.NotImplementedException();
+            return await GetContainer(_storageConnectionString, TvSeriesContainer)
+                .GetBlobReference(name)
+                .OpenReadAsync();
         }
     }
 }

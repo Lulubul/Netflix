@@ -68,7 +68,7 @@ namespace Netflix.Api.Controllers
         [Route("Logout")]
         [AllowAnonymous]
         //[ValidateAntiForgeryToken]
-        public async Task<string> Logout(UserRegister user)
+        public Task<string> Logout(UserRegister user)
         {
             throw new NotImplementedException();
         }
