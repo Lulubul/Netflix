@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Item } from './Item';
 import './Container.css';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const Direction = { Back : -1, Forward: 1 }
@@ -18,7 +17,6 @@ export class Container extends Component {
 
     constructor(props) {
         super(props);
-
         this.itemsRef = React.createRef();
         this.state = { position: 0, index: 0, stepSize: 1750, elementWidth: 0, containerSize: 1 };
     }
@@ -54,7 +52,7 @@ export class Container extends Component {
     }
 
     render() {
-        const { title, items, size } = this.props;
+        const { title, items } = this.props;
         return (
             <div>
                 <div>
@@ -68,9 +66,11 @@ export class Container extends Component {
                     <div className="sliderMask">
                         <div className="items" ref={this.itemsRef}>
                             {items && items.map((item, index) => (
-                                <Link to="/watchingItem" key={index}>
-                                    <Item key={index} imageSource={item.image} size={size} />
-                                </Link>
+                                <Item 
+                                    onClick={() => this.props.onClick(item)} 
+                                    key={index}
+                                    size={this.props.size}
+                                    imageSource={item.image}/>
                             ))}
                         </div>
                     </div>

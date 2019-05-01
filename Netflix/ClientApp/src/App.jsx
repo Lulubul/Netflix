@@ -7,7 +7,7 @@ import WatchItemsFounded from './components/movies/WatchItemsFounded';
 import TvShows from './components/movies/TvShows';
 import PlanForm from './components/signup/PlanForm';
 import Register from './components/signup/Register';
-import { WatchingItem } from './components/movies/WatchingItem';
+import WatchingItem from './components/movies/WatchingItem';
 import Login from './components/signup/Login';
 import Payment from './components/signup/Payment';
 import Account from './components/settings/Account';

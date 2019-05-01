@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Netflix.Domain.Models.SharedContext;
 using Netflix.Services;
 using System.Collections.Generic;
@@ -44,7 +45,6 @@ namespace Netflix.Api.Controllers
             {
                 return BadRequest($"Parameter is not defined in query {nameof(historyItem)}");
             }
-
             return Ok(await _historyService.AddAsync(historyItem));
         }
     }

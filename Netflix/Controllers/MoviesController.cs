@@ -71,7 +71,7 @@ namespace Netflix.Api.Controllers
                 return BadRequest($"Parameter is not defined in query {nameof(name)}");
             }
 
-            var movieStream = await _streamingService.GetMovieByNameAsync(name);
+            var movieStream = await _streamingService.GetMovieByNameAsync("cosmos");
             return new FileStreamResult(movieStream, new MediaTypeHeaderValue("video/mp4").MediaType)
             {
                 EnableRangeProcessing = true

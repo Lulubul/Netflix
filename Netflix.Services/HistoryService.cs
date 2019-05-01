@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Netflix.Domain.Models.SharedContext;
 using Netflix.Repositories.AzureEntities;
 using Netflix.Repositories;
@@ -28,6 +29,9 @@ namespace Netflix.Services
         public async Task<bool> AddAsync(HistoryItem historyItem)
         {
             var historyEntity = _mapper.Map<HistoryItem, HistoryEntity>(historyItem);
+            historyEntity.PartitionKey = historyEntity.UserId;
+            historyEntity.RowKey = historyItem.WatchingItemId;
+            historyEntity.Date = DateTime.Now;
             return await _historyRepository.AddAsync(historyEntity);
         }
 

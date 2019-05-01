@@ -21,32 +21,32 @@ namespace Netflix.Api.Controllers
         // GET: api/<controller>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<UserProfile>), 200)]
-        public async Task<IActionResult> GetUserProfiles([FromQuery]Guid? usedId)
+        public async Task<IActionResult> GetUserProfiles([FromQuery]Guid? userId)
         {
-            if (usedId == null)
+            if (userId == null)
             {
-                return BadRequest($"Parameter is not defined in query {nameof(usedId)}");
+                return BadRequest($"Parameter is not defined in query {nameof(userId)}");
             }
 
-            var profiles = await _profileService.GetUserProfile(usedId.Value);
+            var profiles = await _profileService.GetUserProfile(userId.Value);
             return Ok(profiles);
         }
 
         // Post: api/<controller>
         [HttpPost]
-        public async Task<IActionResult> CreateNewProfile([FromQuery]string usedId, [FromBody]UserProfile profile)
+        public async Task<IActionResult> CreateNewProfile([FromQuery]string userId, [FromBody]UserProfile profile)
         {
-            if (usedId == null)
+            if (userId == null)
             {
-                return BadRequest($"Parameter is not defined in body {nameof(usedId)}");
+                return BadRequest($"Parameter is not defined in body {nameof(userId)}");
             }
             if (profile == null)
             {
                 return BadRequest($"Parameter is not defined in body {nameof(profile)}");
             }
 
-            var addWasSucceful = await _profileService.AddUserProfile(Guid.Parse(usedId), profile);
-            if (addWasSucceful)
+            var wasSuccessful = await _profileService.AddUserProfile(Guid.Parse(userId), profile);
+            if (wasSuccessful)
             {
                 return Ok(profile);
             }
@@ -55,18 +55,18 @@ namespace Netflix.Api.Controllers
 
         // Post: api/<controller>
         [HttpPut]
-        public async Task<IActionResult> UpdateUserProfile([FromQuery]string usedId, [FromBody]UserProfile profile)
+        public async Task<IActionResult> UpdateUserProfile([FromQuery]string userId, [FromBody]UserProfile profile)
         {
-            if (usedId == null)
+            if (userId == null)
             {
-                return BadRequest($"Parameter is not defined in body {nameof(usedId)}");
+                return BadRequest($"Parameter is not defined in body {nameof(userId)}");
             }
             if (profile == null)
             {
                 return BadRequest($"Parameter is not defined in body {nameof(profile)}");
             }
 
-            var profiles = await _profileService.UpdateUserProfile(Guid.Parse(usedId), profile);
+            var profiles = await _profileService.UpdateUserProfile(Guid.Parse(userId), profile);
             return Ok(profiles);
         }
     }

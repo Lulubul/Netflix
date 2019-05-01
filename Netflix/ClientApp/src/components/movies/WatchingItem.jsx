@@ -1,8 +1,13 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from "react-redux";
 
-export class WatchingItem extends Component {
+const mapStateToProps = state => ({ ...state.common });
+const mapDispatchToProps = dispatch => ({});
+
+class WatchingItem extends Component {
   render() {
-    const source = `api/Movies/${this.props.movieId || "cosmos"}`;
+    const { watchingItemId } = this.props;
+    const source = `api/Movies/${watchingItemId || "cosmos"}`;
     return (
       <div className="container">
          <video id="video" width="1000px" height="auto" autoPlay={false} controls>
@@ -12,3 +17,8 @@ export class WatchingItem extends Component {
     )
   }
 }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WatchingItem);

@@ -1,6 +1,6 @@
 ﻿namespace Netflix.Domain.Models.MovieContext
 {
-    public class TvSeries
+    public class TvSeries : Entity
     {
         public string Name { get; set; }
         public string Description { get; set; }

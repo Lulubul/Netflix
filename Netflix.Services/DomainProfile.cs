@@ -23,8 +23,10 @@ namespace Netflix.Services
                 .ForMember(x => x.Id, opt => opt.MapFrom(x => x.RowKey));
             CreateMap<GenreEntity, Genre>()
                 .ForMember(x => x.Id, opt => opt.MapFrom(x => x.RowKey));
-            CreateMap<MovieEntity, Movie>();
-            CreateMap<TvSeriesEntity, TvSeries>();
+            CreateMap<MovieEntity, Movie>()
+                .ForMember(x => x.Id, opt => opt.MapFrom(x => x.RowKey));
+            CreateMap<TvSeriesEntity, TvSeries>()
+                .ForMember(x => x.Id, opt => opt.MapFrom(x => x.RowKey));
             CreateMap<HistoryEntity, HistoryItem>()
                  .ForMember(x => x.Id, opt => opt.MapFrom(x => x.RowKey));
             CreateMap<HistoryItem, HistoryEntity>();

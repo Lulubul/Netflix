@@ -33,7 +33,7 @@ class Account extends Component {
                 <Row>
                     <Col xl={3}><h3>MY PROFILE</h3></Col>
                     <Col xl={3}>
-                        <img className="profile-photo" src={selectedProfile && selectedProfile.avatarUrl} />
+                        <img className="profile-photo" alt="profile" src={selectedProfile && selectedProfile.avatarUrl} />
                         <span>{selectedProfile && selectedProfile.name}</span>
                     </Col>
                 </Row>

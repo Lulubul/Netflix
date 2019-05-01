@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import './WatchItemsFounded.css';
 import { Container, Row } from 'react-bootstrap';
-import { MOVIES_PAGE_LOADED } from '../../constants/actionTypes';
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import { Item } from '../shared/Item';
 
 const mapStateToProps = state => ({ ...state.movies });
-const mapDispatchToProps = dispatch => ({
-  onLoad: payload => dispatch({ type: MOVIES_PAGE_LOADED, payload })
-});
+const mapDispatchToProps = dispatch => ({});
 
 class WatchItemsFounded extends Component {
   render() {

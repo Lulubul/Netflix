@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import { Provider } from 'react-redux';
-import { store, history, persistor } from './store';
+import { store, history, persistor} from './store';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -15,13 +15,14 @@ library.add(faCheck, faTimes, faAngleRight, faAngleLeft, faPlusCircle )
 
 const rootElement = document.getElementById('root');
 registerServiceWorker();
-//  <PersistGate loading={null} persistor={persistor}>
 ReactDOM.render(
-  <Provider store={store}>
+  <PersistGate loading={null} persistor={persistor}>
+    <Provider store={store}>
       <ConnectedRouter history={history}> 
         <App/>
       </ConnectedRouter>
-  </Provider>,
+    </Provider>,
+  </PersistGate>,
   rootElement);
 
 

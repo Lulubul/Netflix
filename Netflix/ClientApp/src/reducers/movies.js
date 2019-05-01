@@ -18,6 +18,7 @@ export default (state = {}, action) => {
         ...state, 
         genres: action.payload && action.payload.genres,
         movies: action.payload && action.payload.movies,
+        history: action.payload && action.payload.history,
         selectedGenre: "" };
     case UPDATE_SEARCH_INPUT:
       return { ...state, searchInput: action.value }

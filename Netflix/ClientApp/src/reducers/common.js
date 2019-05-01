@@ -7,9 +7,9 @@ import {
     SELECT_PROFILE, 
     SEARCH_MOVIE,
     CLEAR_SEARCH_INPUT,
-    ACCOUNT_PAGE_LOADED 
+    ACCOUNT_PAGE_LOADED,
+    WATCH_ITEM 
 } from '../constants/actionTypes';
-
 const defaultState = {
     appName: 'Streaming Website',
     token: null,
@@ -36,6 +36,9 @@ export default (state = defaultState, action) => {
                 userId: action.error ? null : action.payload.data.id,
                 user: action.error ? null : action.payload.data
             };
+        case WATCH_ITEM: {
+            return { ...state, redirectTo: '/watchingItem', watchingItemId: action.watchingItemId };
+        }
         case ADD_NEW_PROFILE:
             return {
                 ...state,

@@ -14,13 +14,18 @@ export const AuthAsync = {
     axios.put('/user', { user })
 };
 
+export const HistoryAsync = {
+  get: (userId, profileId) => axios.get(`/history?userId=${userId}&profileId=${profileId}`).then(response => response.data),
+  post: (historyItem) => axios.post(`/history`, historyItem)
+}
+
 export const PlansAsync = {
   get: () => axios.get('/plans').then(response => response.data)
 }
 
 export const ProfilesAsync = {
-  get: (userId) => axios.get(`/profiles?usedId=${userId}`).then(response => response.data),
-  post: (userId, newProfile) => axios.post(`/profiles?usedId=${userId}`, newProfile),
+  get: (userId) => axios.get(`/profiles?userId=${userId}`).then(response => response.data),
+  post: (userId, newProfile) => axios.post(`/profiles?userId=${userId}`, newProfile),
 }
 
 export const MoviesAsync = {

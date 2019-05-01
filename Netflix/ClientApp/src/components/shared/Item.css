@@ -1,5 +1,10 @@
 .boxart-container {
-    width: 33%;
     margin-left: 4px;
     margin-right: 4px;
+    cursor: pointer;
+}
+
+.small-image {
+    height: 192px;
+    width: 341px;
 }
