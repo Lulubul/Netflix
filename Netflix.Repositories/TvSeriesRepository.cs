@@ -43,7 +43,7 @@ namespace Netflix.Repositories
         public async Task<List<TvSeriesEntity>> GetTvSeriesByGenre(string genreId)
         {
             var tvSeries = await GetTvSeries();
-            return tvSeries.Where((item) => item.Genres.Split(',').Contains(genreId)).ToList();
+            return tvSeries.Where((item) => !string.IsNullOrEmpty(item.Genres) && item.Genres.Split(',').Contains(genreId)).ToList();
         }
 
         public async Task<List<TvSeriesEntity>> GetTvSeriesByName(string name)

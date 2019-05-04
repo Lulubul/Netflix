@@ -12,7 +12,8 @@ namespace Netflix.Repositories
         Task<Stream> GetMovieByNameAsync(string name);
         Task<List<MovieEntity>> GetMovies();
         Task<List<MovieEntity>> GetMoviesByName(string name);
-        Task<List<MovieEntity>> GetMoviesByGenre(string genreId);
+        Task<List<MovieEntity>> GetMoviesByIdsAsync(string[] ids);
+        Task<List<MovieEntity>> GetMoviesByGenreIdsAsync(string[] genreIds);
     }
 
     public class MovieRepository : AbstractRepository, IMovieRepository
@@ -50,11 +51,10 @@ namespace Netflix.Repositories
                 .ToList();
         }
 
-        public async Task<List<MovieEntity>> GetMoviesByGenre(string genreId)
+        public async Task<List<MovieEntity>> GetMoviesByIdsAsync(string[] ids)
         {
-            var table = GetTable(MoviesContainer, _storageConnectionString);
             var movies = await GetMovies();
-            return movies.Where((movie) => movie.Genres.Split(',').Contains(genreId)).ToList();
+            return movies.Where((movie) => ids.Contains(movie.RowKey)).ToList();
         }
 
         public async Task<Stream> GetMovieByNameAsync(string movieName)
@@ -62,6 +62,26 @@ namespace Netflix.Repositories
             return await GetContainer(_storageConnectionString, MoviesContainer)
                 .GetBlobReference(movieName)
                 .OpenReadAsync();
+        }
+
+        public async Task<List<MovieEntity>> GetMoviesByGenreIdsAsync(string[] genreIds)
+        {
+            var movies = await GetMovies();
+            List<MovieEntity> entites = new List<MovieEntity>();
+            foreach (var movie in movies)
+            {
+                if (string.IsNullOrEmpty(movie.Genres))
+                {
+                    continue;
+                }
+
+                var genres = movie.Genres.Split(',');
+                if (genreIds.Intersect(genres).Any())
+                {
+                    entites.Add(movie);
+                }
+            }
+            return entites;
         }
     }
 }

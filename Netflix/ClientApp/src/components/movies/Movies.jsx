@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Movies.css';
 import Dropdown from '../shared/Dropdown';
-import { MoviesAsync, HistoryAsync } from '../../resources/Api';
+import { MoviesAsync, HistoryAsync, RecommandationsAsync } from '../../resources/Api';
 import { Container } from '../shared/Container';
 import { MOVIES_PAGE_LOADED, MOVIES_GENRE_FILTER, WATCH_ITEM } from '../../constants/actionTypes';
 import { connect } from "react-redux";
@@ -21,9 +21,10 @@ class Movies extends Component {
     const moviesPromise = MoviesAsync.getMovies().then(response => response || []);
     const [userId, profileId] = [this.props.userId, this.props.selectedProfile.id]
     const historyPromise = HistoryAsync.get(userId, profileId).then(response => response || []);
+    const recommandationsPromise = RecommandationsAsync.get(userId, profileId).then(response => response || []);
     const promises = Promise
-      .all([genresPromise, moviesPromise, historyPromise])
-      .then(([genres, movies, history]) => ({genres, movies, history}));
+      .all([genresPromise, moviesPromise, historyPromise, recommandationsPromise])
+      .then(([genres, movies, history, recommandations]) => ({genres, movies, history, recommandations}));
     this.props.onLoad(promises);
   }
 
@@ -39,20 +40,17 @@ class Movies extends Component {
   }
 
   render() {
-    const {movies, genres, selectedGenre, history} = this.props;
+    const {movies, genres, selectedGenre, history, recommandations} = this.props;
     const genre = selectedGenre ? "> " + genres.find((genre) => genre.id === selectedGenre).name : "";
-
+    const profileName = this.props.selectedProfile.name;
     let streamingOriginalMovies;
     let popularMovies;
-    let historyItemsIds;
     let historyMovies;
-    let historyTitle;
     if (movies && movies.length > 0) {
       streamingOriginalMovies = movies.filter((movie) => movie.genres === streamingOriginalGenre);
       popularMovies = movies.filter((movie) => movie.genres !== streamingOriginalGenre);
-      historyItemsIds = history.map((item) => item.watchingItemId);
+      let historyItemsIds = history.map((item) => item.watchingItemId);
       historyMovies = movies.filter((movie) => historyItemsIds.indexOf(movie.id) >= 0);
-      historyTitle = `Continue Watching for ${this.props.selectedProfile.name}`;
     }
     return (
       <div>
@@ -61,7 +59,8 @@ class Movies extends Component {
           { !selectedGenre && genres && <Dropdown options={genres} onChange={this.onGenreChanged}></Dropdown> }
         </div>
         { popularMovies && popularMovies.length > 0 && <Container size="small" onClick={this.onMovieSelected} title="Popular on Streaming Website" index={0} items={popularMovies}/> }
-        { historyMovies && historyMovies.length > 0 && <Container size="small" onClick={this.onMovieSelected} title={historyTitle} index={1} items={historyMovies}/> }
+        { historyMovies && historyMovies.length > 0 && <Container size="small" onClick={this.onMovieSelected} title={`Continue Watching for ${profileName}`} index={1} items={historyMovies}/> }
+        { recommandations && recommandations.length > 0 && <Container size="small" onClick={this.onMovieSelected} title={`Top picks for ${profileName}`} index={1} items={recommandations}/> }
         { streamingOriginalMovies && streamingOriginalMovies.length > 0 && <Container size="large" onClick={this.onMovieSelected} title="Streaming Website Originals" index={2} items={streamingOriginalMovies}/> }
       </div>
     );

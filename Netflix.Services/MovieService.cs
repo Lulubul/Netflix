@@ -12,7 +12,9 @@ namespace Netflix.Services
     {
         Task<List<Movie>> GetTopMoviesInCategories();
         Task<List<Movie>> GetMoviesByName(string name);
-        Task<List<Movie>> GetMoviesByGenre(string genre);
+        Task<List<Movie>> GetMoviesByGenreName(string genreName);
+        Task<List<Movie>> GetMoviesByGenreIds(string[] genreIds);
+        Task<List<Movie>> GetMoviesByIds(string[] ids);
     }
 
     public class MovieService : IMovieService
@@ -40,14 +42,25 @@ namespace Netflix.Services
             return movies.Select(_mapper.Map<MovieEntity, Movie>).ToList();
         }
 
-        public async Task<List<Movie>> GetMoviesByGenre(string genre)
+        public async Task<List<Movie>> GetMoviesByGenreName(string genreName)
         {
-            var genreFromDb = await _genreService.GetGenreByName(genre);
+            var genreFromDb = await _genreService.GetGenreByName(genreName);
             if (genreFromDb == null)
             {
-                throw new KeyNotFoundException("Genre not found " + genre);
+                throw new KeyNotFoundException("Genre not found " + genreName);
             }
-            var movies = await _movieRepository.GetMoviesByGenre(genreFromDb.Id.ToString());
+            return await GetMoviesByGenreIds(new string[] { genreFromDb.Id.ToString() });
+        }
+
+        public async Task<List<Movie>> GetMoviesByGenreIds(string[] genreIds)
+        {
+            var movies = await _movieRepository.GetMoviesByGenreIdsAsync(genreIds);
+            return movies.Select(_mapper.Map<MovieEntity, Movie>).ToList();
+        }
+
+        public async Task<List<Movie>> GetMoviesByIds(string[] ids)
+        {
+            var movies = await _movieRepository.GetMoviesByIdsAsync(ids);
             return movies.Select(_mapper.Map<MovieEntity, Movie>).ToList();
         }
     }

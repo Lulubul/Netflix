@@ -1,5 +1,5 @@
 import axios from "axios";
-const apiBase = '/api';
+const apiBase = 'api';
 
 axios.defaults.baseURL = apiBase;
 
@@ -17,6 +17,10 @@ export const AuthAsync = {
 export const HistoryAsync = {
   get: (userId, profileId) => axios.get(`/history?userId=${userId}&profileId=${profileId}`).then(response => response.data),
   post: (historyItem) => axios.post(`/history`, historyItem)
+}
+
+export const RecommandationsAsync = {
+  get: (userId, profileId) => axios.get(`/Recommendations?userId=${userId}&profileId=${profileId}`).then(response => response.data),
 }
 
 export const PlansAsync = {

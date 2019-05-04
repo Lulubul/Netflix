@@ -10,5 +10,6 @@ namespace Netflix.Repositories.AzureEntities
         public string Image { get; set; }
         public string Genres { get; set; }
         public string VideoId { get; set; }
+        public string ReleaseYear { get; set; }
     }
 }

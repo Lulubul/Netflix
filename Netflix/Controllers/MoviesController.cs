@@ -52,7 +52,7 @@ namespace Netflix.Api.Controllers
 
             List<Movie> movies = null;
             try {
-                movies = await _movieService.GetMoviesByGenre(genre);
+                movies = await _movieService.GetMoviesByGenreName(genre);
             }
             catch (KeyNotFoundException e)
             {
