@@ -43,6 +43,7 @@ namespace Netflix.Api
             services.AddTransient<IPlanService, PlansService>();
             services.AddTransient<IPasswordHasher, PasswordHasher>();
             services.AddTransient<ITvSeriesService, TvSeriesService>();
+            services.AddTransient<IJwtTokenService, JwtTokenService>();
 
             services.AddTransient<IMovieRepository>(m => new MovieRepository(azureBlobStorage));
             services.AddTransient<IUserRepository>(m => new UserRepository(azureTableStorage));
@@ -63,6 +64,7 @@ namespace Netflix.Api
                 c.SwaggerDoc("v1", new Info { Title = "Netflix API", Version = "v1" });
             });
 
+            services.AddCustomAuthorization(Configuration);
             services.AddAntiforgery(o => { o.Cookie.Name = "X-CSRF-TOKEN"; });
             services.AddAutoMapper();
         }
@@ -86,6 +88,7 @@ namespace Netflix.Api
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -102,8 +105,6 @@ namespace Netflix.Api
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Netflix V1");
             });
-
-            app.UseAuthentication();
 
             app.UseSpa(spa =>
             {

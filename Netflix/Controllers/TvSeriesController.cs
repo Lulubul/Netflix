@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Netflix.Domain.Models.MovieContext;
 using Netflix.Services;
 
 namespace Netflix.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TvSeriesController : ControllerBase

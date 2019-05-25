@@ -8,6 +8,7 @@ using Netflix.Services;
 namespace Netflix.Api.Controllers
 {
     [Route("api/[controller]")]
+    [AllowAnonymous]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -21,6 +22,7 @@ namespace Netflix.Api.Controllers
         // GET: api/<controller>
         [HttpPost]
         [Route("Login")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(User), 200)]
         public async Task<IActionResult> Login(UserLogin userLogin)
         {
@@ -61,16 +63,6 @@ namespace Netflix.Api.Controllers
 
             var newUser = await _usersService.AddUser(user);
             return Ok(newUser);
-        }
-
-        // POST: api/<controller>
-        [HttpPost]
-        [Route("Logout")]
-        [AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        public Task<string> Logout(UserRegister user)
-        {
-            throw new NotImplementedException();
         }
 
         // Put: api/<controller>

@@ -2,7 +2,7 @@ import { createBrowserHistory } from 'history';
 import { applyMiddleware, createStore } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
 import createRootReducer from './reducers';
-import { promiseMiddleware } from './middleware';
+import { promiseMiddleware, localStorageMiddleware } from './middleware';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -22,7 +22,8 @@ export const store = createStore(
     composeWithDevTools(
       applyMiddleware(
         routerMiddleware(history), // for dispatching history actions
-        promiseMiddleware
+        promiseMiddleware,
+        localStorageMiddleware
       ),
     ),
 );

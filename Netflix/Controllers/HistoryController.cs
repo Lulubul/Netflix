@@ -4,9 +4,11 @@ using Netflix.Domain.Models.SharedContext;
 using Netflix.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Netflix.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class HistoryController : ControllerBase

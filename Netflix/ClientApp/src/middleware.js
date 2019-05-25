@@ -1,7 +1,11 @@
 import {
   ASYNC_START,
   ASYNC_END,
+  LOGOUT, 
+  LOGIN, 
+  REGISTER
 } from './constants/actionTypes';
+import { setAuthHeader } from './resources/Api';
 
 const promiseMiddleware = store => next => action => {
     if (isPromise(action.payload)) {
@@ -42,8 +46,24 @@ const promiseMiddleware = store => next => action => {
     next(action);
 };
 
+const localStorageMiddleware = store => next => action => {
+  if (action.type === REGISTER || action.type === LOGIN) {
+    if (!action.error) {
+      window.localStorage.setItem('jwt', action.payload.data.token);
+      setAuthHeader(action.payload.data.token);
+      
+    }
+  } else if (action.type === LOGOUT) {
+    window.localStorage.setItem('jwt', '');
+    setAuthHeader('');
+  }
+
+  next(action);
+};
+
+
 const isPromise = (v) => {
     return v && typeof v.then === 'function';
 }
 
-export { promiseMiddleware }
+export { promiseMiddleware, localStorageMiddleware }

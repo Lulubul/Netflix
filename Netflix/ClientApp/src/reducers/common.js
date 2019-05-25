@@ -10,6 +10,7 @@ import {
     ACCOUNT_PAGE_LOADED,
     WATCH_ITEM 
 } from '../constants/actionTypes';
+
 const defaultState = {
     appName: 'Streaming Website',
     token: null,
@@ -34,7 +35,8 @@ export default (state = defaultState, action) => {
                 ...state,
                 redirectTo: action.error ? null : '/profiles',
                 userId: action.error ? null : action.payload.data.id,
-                user: action.error ? null : action.payload.data
+                user: action.error ? null : action.payload.data,
+                token: action.error ? null : action.payload.data.token
             };
         case WATCH_ITEM: {
             return { ...state, redirectTo: '/watchingItem', watchingItemId: action.watchingItemId };

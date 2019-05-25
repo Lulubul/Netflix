@@ -36,7 +36,11 @@ namespace Netflix.Repositories
             var table = GetTable(TableName, _storageConnectionString);
             TableContinuationToken continuationToken = null;
             var result = await table.ExecuteQuerySegmentedAsync(query, continuationToken);
-            return result?.Results[0];
+            if (result == null || result.Results.Count == 0)
+            {
+                return null;
+            }
+            return result.Results[0];
         }
 
         public async Task<string> AddUser(UserEntity newUser)

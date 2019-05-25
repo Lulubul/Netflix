@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import { REDIRECT } from './constants/actionTypes';
 import { store } from './store';
 import { push } from 'connected-react-router';
+import { setAuthHeader } from './resources/Api';
 
 const mapStateToProps = state => {
   return {
@@ -30,6 +31,13 @@ const mapDispatchToProps = dispatch => ({
 
 class App extends Component {
   displayName = App.name
+
+  componentWillMount() {
+    const token = window.localStorage.getItem('jwt');
+    if (token) {
+      setAuthHeader(token);
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.redirectTo) {

@@ -3,9 +3,13 @@ const apiBase = 'api';
 
 axios.defaults.baseURL = apiBase;
 
+export const setAuthHeader = (token) => {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+ }
+
 export const AuthAsync = {
   login: (email, password) =>
-    axios.post('/users/login', { email, password  }),
+    axios.post('/users/login', { email, password }),
   logout: () =>
     axios.post('/users/logout'),
   register: (user) =>

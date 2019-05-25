@@ -1,7 +1,13 @@
 ﻿using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Netflix.Domain.Configuration;
 using Netflix.Domain.Models.UserContext;
 using Netflix.Repositories;
 using Netflix.Repositories.AzureEntities;
@@ -11,7 +17,6 @@ namespace Netflix.Services
     public interface IUsersService
     {
         Task<User> Login(UserLogin userLogin);
-        Task<User> Logout(string email);
         Task<User> AddUser(UserRegister user);
         Task<bool> UpdateUser(User user);
     }
@@ -21,12 +26,14 @@ namespace Netflix.Services
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly IJwtTokenService _jwtTokenService;
 
-        public UsersService(IUserRepository userRepository, IMapper mapper, IPasswordHasher passwordHasher)
+        public UsersService(IUserRepository userRepository, IMapper mapper, IPasswordHasher passwordHasher, IJwtTokenService jwtTokenService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _passwordHasher = passwordHasher;
+            _jwtTokenService = jwtTokenService;
         }
 
         public async Task<User> Login(UserLogin user)
@@ -39,7 +46,10 @@ namespace Netflix.Services
             if (_passwordHasher.VerifyHashedPassword(dbUser.Password, user.Password) == PasswordVerificationResult.Failed) {
                 return null;
             }
-            return _mapper.Map<UserEntity, User>(dbUser);
+
+            var userModel = _mapper.Map<UserEntity, User>(dbUser);
+            userModel.Token = _jwtTokenService.CreateToken(userModel.Id.ToString());
+            return userModel;
         }
 
         public async Task<User> AddUser(UserRegister user)
@@ -50,15 +60,13 @@ namespace Netflix.Services
             user.Id = Guid.NewGuid();
             newUser.RowKey = user.Id.ToString();
             await _userRepository.AddUser(newUser);
-            return _mapper.Map<UserRegister, User>(user);
+
+            var userModel = _mapper.Map<UserRegister, User>(user);
+            userModel.Token = _jwtTokenService.CreateToken(userModel.Id.ToString());
+            return userModel;
         }
 
         public Task<bool> UpdateUser(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<User> Logout(string email)
         {
             throw new NotImplementedException();
         }
