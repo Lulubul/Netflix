@@ -11,10 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCoreRateLimit" Version="2.1.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.Antiforgery" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Api.Analyzers" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />

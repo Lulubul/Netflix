@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using System.Text;
 using Netflix.Domain.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Http;
+using AspNetCoreRateLimit;
 
 namespace Netflix.Api
 {
@@ -34,6 +36,15 @@ namespace Netflix.Api
                         ValidateAudience = false
                     };
                 });
+            return services;
+        }
+
+        public static IServiceCollection AddCustomRateLimiter(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<IpRateLimitOptions>(configuration.GetSection("IpRateLimiting"));
+            services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+            services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             return services;
         }
     }

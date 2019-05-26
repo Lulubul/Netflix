@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Netflix.Domain.Models.UserContext;
 using Netflix.Services;
@@ -36,6 +37,7 @@ namespace Netflix.Api.Controllers
 
         // Post: api/<controller>
         [HttpPost]
+        [ProducesResponseType(typeof(UserProfile), StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateNewProfile([FromQuery]string userId, [FromBody]UserProfile profile)
         {
             if (userId == null)

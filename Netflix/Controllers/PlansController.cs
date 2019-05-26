@@ -21,6 +21,7 @@ namespace Netflix.Api.Controllers
 
         // GET: api/<controller>
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(IEnumerable<Plan>), 200)]
         public async Task<IEnumerable<Plan>> GetPlans()
         {

@@ -2,6 +2,7 @@
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Netflix.Domain.Models.MovieContext;
 using Netflix.Services;
@@ -24,6 +25,7 @@ namespace Netflix.Api.Controllers
 
         // GET: api/<controller>
         [HttpGet]
+        [ProducesResponseType(typeof(List<Movie>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllMovies()
         {
             var movies = await _movieService.GetTopMoviesInCategories();
@@ -32,6 +34,7 @@ namespace Netflix.Api.Controllers
 
         // GET: api/<controller>
         [HttpGet("search/{name}")]
+        [ProducesResponseType(typeof(List<Movie>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMoviesByName(string name)
         {
             if (string.IsNullOrEmpty(name))
@@ -45,6 +48,7 @@ namespace Netflix.Api.Controllers
 
         // GET: api/<controller>
         [HttpGet("genre/{name}")]
+        [ProducesResponseType(typeof(List<Movie>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMoviesByGenre(string genre)
         {
             if (string.IsNullOrEmpty(genre))
@@ -66,6 +70,7 @@ namespace Netflix.Api.Controllers
 
         // GET: api/<controller>
         [HttpGet("{name}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetMovieByNameAsync(string name)
         {
             if (string.IsNullOrEmpty(name))

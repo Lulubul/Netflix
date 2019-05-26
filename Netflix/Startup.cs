@@ -1,4 +1,5 @@
 using System;
+using AspNetCoreRateLimit;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Builder;
@@ -65,8 +66,13 @@ namespace Netflix.Api
             });
 
             services.AddCustomAuthorization(Configuration);
+            services.AddMemoryCache();
+            services.AddCustomRateLimiter(Configuration);
+
             services.AddAntiforgery(o => { o.Cookie.Name = "X-CSRF-TOKEN"; });
             services.AddAutoMapper();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -84,6 +90,7 @@ namespace Netflix.Api
                 app.UseHsts();
             }
 
+            app.UseIpRateLimiting();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
