@@ -9,7 +9,7 @@ using AspNetCoreRateLimit;
 
 namespace Netflix.Api
 {
-    public static class StartupExtenstions
+    public static class StartupExtensions
     {
         public static IServiceCollection AddCustomAuthorization(this IServiceCollection services, IConfiguration configuration)
         {
