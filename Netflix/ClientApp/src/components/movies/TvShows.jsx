@@ -16,11 +16,11 @@ class TvShows extends Component {
 
     componentWillMount() {
         const genresPromise = MoviesAsync.getGenres().then(response => response || []);
-        const moviesPromise = MoviesAsync.getTvShows().then(response => response || []);
+        const tvSeriesPromise = MoviesAsync.getTvShows().then(response => response || []);
         const [userId, profileId] = [this.props.userId, this.props.selectedProfile.id]
         const historyPromise = HistoryAsync.get(userId, profileId).then(response => response || []);
         const promises = Promise
-            .all([genresPromise, moviesPromise, historyPromise])
+            .all([genresPromise, tvSeriesPromise, historyPromise])
             .then(([genres, movies, history]) => ({ genres, movies, history}));
         this.props.onLoad(promises);
     }

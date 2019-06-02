@@ -27,13 +27,25 @@ class SearchBar extends Component {
     this.props.onUpdateSearchInput(event.target.value);
   }
 
+  onKeyPress = (event) => {
+    if (event.which === 13 /* Enter */) {
+      event.preventDefault();
+    }
+  }
+
   render() {
     const { searchInput } = this.props;
     const hasClearButton = searchInput && searchInput.length > 1;
     return (
       <Form inline className="pull-right">
         <div className="search-bar">
-          <input type="text" value={searchInput} onChange={(event) => this.onNameChanged(event)} placeholder="Titels, people, genders" className="mr-sm-2" />
+          <input 
+              type="text" 
+              value={searchInput}
+              onChange={(event) => this.onNameChanged(event)} 
+              placeholder="Titels, people, genders"
+              onKeyPress={this.onKeyPress}
+              className="mr-sm-2" />
           { hasClearButton && <span onClick={this.clearSearchInput}><FontAwesomeIcon icon="times" /></span>}
         </div>
         <Button onClick={() => this.searchMovieByName()} variant="outline-success">Search</Button>

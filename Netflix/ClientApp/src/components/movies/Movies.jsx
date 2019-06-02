@@ -3,23 +3,29 @@ import './Movies.css';
 import Dropdown from '../shared/Dropdown';
 import { MoviesAsync, HistoryAsync, RecommandationsAsync } from '../../resources/Api';
 import { Container } from '../shared/Container';
-import { MOVIES_PAGE_LOADED, MOVIES_GENRE_FILTER, WATCH_ITEM } from '../../constants/actionTypes';
+import { MOVIES_PAGE_LOADED, MOVIES_GENRE_FILTER, WATCH_ITEM, REDIRECT_TO_LOGIN } from '../../constants/actionTypes';
 import { connect } from "react-redux";
 
 const mapStateToProps = state => ({ ...state.movies, ...state.common, ...state.profile });
 const mapDispatchToProps = dispatch => ({
   onLoad: payload => dispatch({ type: MOVIES_PAGE_LOADED, payload }),
   onGenreChanged: payload => dispatch({ type: MOVIES_GENRE_FILTER, payload }),
-  onMovieSelected: watchingItemId => dispatch({ type: WATCH_ITEM, watchingItemId })
+  onMovieSelected: watchingItemId => dispatch({ type: WATCH_ITEM, watchingItemId }),
+  redirectToLogin: () => dispatch({ type: REDIRECT_TO_LOGIN }),
 });
 const streamingOriginalGenre = '0b452f44-ffae-41d0-b125-dfee76a2d54a';
 
 class Movies extends Component {
 
   componentWillMount() {
+    if (!this.props.userId || !this.props.selectedProfile) {
+      this.props.redirectToLogin();
+      return;
+    }
+
+    const [userId, profileId] = [this.props.userId, this.props.selectedProfile.id];
     const genresPromise = MoviesAsync.getGenres().then(response => response || []);
     const moviesPromise = MoviesAsync.getMovies().then(response => response || []);
-    const [userId, profileId] = [this.props.userId, this.props.selectedProfile.id]
     const historyPromise = HistoryAsync.get(userId, profileId).then(response => response || []);
     const recommandationsPromise = RecommandationsAsync.get(userId, profileId).then(response => response || []);
     const promises = Promise
@@ -39,10 +45,16 @@ class Movies extends Component {
     HistoryAsync.post(historyItem).then(() => this.props.onMovieSelected(item.videoId));
   }
 
+  onKeyPress(event) {
+      if (event.which === 13 /* Enter */) {
+        event.preventDefault();
+      }
+  }
+
   render() {
     const {movies, genres, selectedGenre, history, recommandations} = this.props;
     const genre = selectedGenre ? "> " + genres.find((genre) => genre.id === selectedGenre).name : "";
-    const profileName = this.props.selectedProfile.name;
+    const profileName = this.props.selectedProfile && this.props.selectedProfile.name;
     let streamingOriginalMovies;
     let popularMovies;
     let historyMovies;
@@ -66,7 +78,6 @@ class Movies extends Component {
     );
   }
 }
-
 
 export default connect(
   mapStateToProps,

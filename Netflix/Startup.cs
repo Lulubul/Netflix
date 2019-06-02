@@ -109,6 +109,7 @@ namespace Netflix.Api
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Netflix V1");
+                c.RoutePrefix = "docs";
             });
 
             app.UseSpa(spa =>

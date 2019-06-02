@@ -8,7 +8,9 @@ import {
     SEARCH_MOVIE,
     CLEAR_SEARCH_INPUT,
     ACCOUNT_PAGE_LOADED,
-    WATCH_ITEM 
+    WATCH_ITEM,
+    REDIRECT_TO_LOGIN,
+    GO_BACK
 } from '../constants/actionTypes';
 
 const defaultState = {
@@ -25,10 +27,13 @@ export default (state = defaultState, action) => {
             return { ...state, redirectTo: null };
         case SEARCH_MOVIE:
             return { ...state, redirectTo: '/watchItemsFounded' };
+        case GO_BACK:
         case CLEAR_SEARCH_INPUT:
             return { ...state, redirectTo: '/movies' };
         case LOGOUT:
             return { redirectTo: '/', token: null, userId: null, user: null };
+        case REDIRECT_TO_LOGIN: 
+            return { redirectTo: '/signup/login', token: null, userId: null, user: null };
         case LOGIN:
         case REGISTER:
             return {
