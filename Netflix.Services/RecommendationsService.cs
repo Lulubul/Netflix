@@ -9,7 +9,7 @@ namespace Netflix.Services
 {
     public interface IRecommendationsService
     {
-        Task<List<Movie>> GetVideoRecommendationsByUser(Guid userId, Guid profileId);
+        Task<List<Guid>> GetVideoRecommendationsByUser(Guid userId, Guid profileId);
     }
 
     public class RecommendationsService : AbstractService, IRecommendationsService
@@ -23,13 +23,13 @@ namespace Netflix.Services
             _movieService = movieService;
         }
 
-        public async Task<List<Movie>> GetVideoRecommendationsByUser(Guid userId, Guid profileId)
+        public async Task<List<Guid>> GetVideoRecommendationsByUser(Guid userId, Guid profileId)
         {
             var historyItems = await _historyService.GetAllAsync(userId.ToString(), profileId.ToString());
 
             if (historyItems.Count() == 0)
             {
-                return await Task.FromResult(new List<Movie>());
+                return await Task.FromResult(new List<Guid>());
             }
 
             var userHistoryMovieIds = historyItems.Select((item) => item.WatchingItemId).ToArray();
@@ -37,7 +37,10 @@ namespace Netflix.Services
             var userPreferences = GetTopGenresAndReleaseYears(userHistoryMovie);
             var topGenres = userPreferences.MoviesByGenre.Select(x => x.Key).Take(2).ToArray();
             var movies = await _movieService.GetMoviesByGenreIds(topGenres);
-            return movies.Where(movie => !userHistoryMovieIds.Contains(movie.Id.ToString())).ToList();
+            return movies
+                .Where(movie => !userHistoryMovieIds.Contains(movie.Id.ToString()))
+                .Select((movie) => movie.Id)
+                .ToList();
         }
 
         private UserPreferences GetTopGenresAndReleaseYears(List<Movie> movies)

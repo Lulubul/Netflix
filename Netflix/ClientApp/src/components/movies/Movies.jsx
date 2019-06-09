@@ -17,7 +17,7 @@ const streamingOriginalGenre = '0b452f44-ffae-41d0-b125-dfee76a2d54a';
 
 class Movies extends Component {
 
-  componentWillMount() {
+  async componentWillMount() {
     if (!this.props.userId || !this.props.selectedProfile) {
       this.props.redirectToLogin();
       return;
@@ -27,7 +27,11 @@ class Movies extends Component {
     const genresPromise = MoviesAsync.getGenres().then(response => response || []);
     const moviesPromise = MoviesAsync.getMovies().then(response => response || []);
     const historyPromise = HistoryAsync.get(userId, profileId).then(response => response || []);
-    const recommandationsPromise = RecommandationsAsync.get(userId, profileId).then(response => response || []);
+    const recommandationsPromise = RecommandationsAsync
+      .get(userId, profileId)
+      .then(response => {
+        return response && response.length > 0 && MoviesAsync.getMoviesByIds(response.join(",")).then(response => response || []);
+      });
     const promises = Promise
       .all([genresPromise, moviesPromise, historyPromise, recommandationsPromise])
       .then(([genres, movies, history, recommandations]) => ({genres, movies, history, recommandations}));
@@ -36,19 +40,24 @@ class Movies extends Component {
 
   onGenreChanged = (ev) => this.props.onGenreChanged(ev.target.value);
   onMovieSelected = (item) => {
-    const historyItem = { 
-      userId: this.props.userId,
-      profileId: this.props.selectedProfile.id,
-      watchingItemId: item.id,
-      watchingItemType: "Movies"
-    };
-    HistoryAsync.post(historyItem).then(() => this.props.onMovieSelected(item.videoId));
+    const {history} = this.props;
+    let historyItemsIds = history.map((item) => item.watchingItemId);
+    if (historyItemsIds.indexOf(item.id) < 0) {
+      const historyItem = { 
+        userId: this.props.userId,
+        profileId: this.props.selectedProfile.id,
+        watchingItemId: item.id,
+        watchingItemType: "Movies"
+      };
+      HistoryAsync.post(historyItem).then(() => this.props.onMovieSelected(item.videoId));
+    }
+    else {
+      this.props.onMovieSelected(item.videoId)
+    }
   }
 
-  onKeyPress(event) {
-      if (event.which === 13 /* Enter */) {
-        event.preventDefault();
-      }
+  any = (array) => {
+    return array && array.length > 0;
   }
 
   render() {
@@ -58,6 +67,7 @@ class Movies extends Component {
     let streamingOriginalMovies;
     let popularMovies;
     let historyMovies;
+    
     if (movies && movies.length > 0) {
       streamingOriginalMovies = movies.filter((movie) => movie.genres === streamingOriginalGenre);
       popularMovies = movies.filter((movie) => movie.genres !== streamingOriginalGenre);
@@ -70,10 +80,10 @@ class Movies extends Component {
           <p>Movies {genre}</p>
           { !selectedGenre && genres && <Dropdown options={genres} onChange={this.onGenreChanged}></Dropdown> }
         </div>
-        { popularMovies && popularMovies.length > 0 && <Container size="small" onClick={this.onMovieSelected} title="Popular on Streaming Website" index={0} items={popularMovies}/> }
-        { historyMovies && historyMovies.length > 0 && <Container size="small" onClick={this.onMovieSelected} title={`Continue Watching for ${profileName}`} index={1} items={historyMovies}/> }
-        { recommandations && recommandations.length > 0 && <Container size="small" onClick={this.onMovieSelected} title={`Top picks for ${profileName}`} index={1} items={recommandations}/> }
-        { streamingOriginalMovies && streamingOriginalMovies.length > 0 && <Container size="large" onClick={this.onMovieSelected} title="Streaming Website Originals" index={2} items={streamingOriginalMovies}/> }
+        { this.any(popularMovies) && <Container size="small" onClick={this.onMovieSelected} title="Popular on Streaming Website" index={0} items={popularMovies}/> }
+        { this.any(historyMovies) && <Container size="small" onClick={this.onMovieSelected} title={`Continue Watching for ${profileName}`} index={1} items={historyMovies}/> }
+        { this.any(recommandations) && <Container size="small" onClick={this.onMovieSelected} title={`Top picks for ${profileName}`} index={1} items={recommandations}/> }
+        { this.any(streamingOriginalMovies) && <Container size="large" onClick={this.onMovieSelected} title="Streaming Website Originals" index={2} items={streamingOriginalMovies}/> }
       </div>
     );
   }

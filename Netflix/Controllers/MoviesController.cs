@@ -67,6 +67,16 @@ namespace Netflix.Api.Controllers
             return Ok(movies);
         }
 
+        [HttpGet("filter")]
+        public async Task<IActionResult> GetMoviesByIds(string ids)
+        {
+            if (string.IsNullOrEmpty(ids))
+            {
+                return BadRequest($"Parameter is not defined in query {nameof(ids)}");
+            }
+            List<Movie> movies = await _movieService.GetMoviesByIds(ids.Split(","));
+            return Ok(movies);
+        }
 
         // GET: api/<controller>
         [HttpGet("{name}")]

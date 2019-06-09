@@ -43,6 +43,7 @@ export const ProfilesAsync = {
 export const MoviesAsync = {
   getGenres: () => axios.get(`${axios.defaults.moviesUrl}/genres`).then(response => response.data),
   getMovies: () => axios.get(`${axios.defaults.moviesUrl}/movies`).then(response => response.data),
+  getMoviesByIds: (ids) => axios.get(`${axios.defaults.moviesUrl}/movies/filter?ids=${ids}`).then(response => response.data),
   getTvShows: () => axios.get(`${axios.defaults.moviesUrl}/tvSeries`).then(response => response.data),
   getMoviesByName: (movieName) => axios.get(`${axios.defaults.moviesUrl}/movies/search/${movieName}`).then(response => response.data)
 };
