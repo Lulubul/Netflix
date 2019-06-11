@@ -68,7 +68,12 @@ namespace Netflix.Api
             services.AddCustomAuthorization(Configuration);
             services.AddMemoryCache();
             services.AddCustomRateLimiter(Configuration);
-
+            services.AddCors(o => o.AddPolicy("AllowAnyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
             services.AddAntiforgery(o => { o.Cookie.Name = "X-CSRF-TOKEN"; });
             services.AddAutoMapper();
         }
@@ -87,6 +92,8 @@ namespace Netflix.Api
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+
+            app.UseCors("AllowAnyPolicy");
 
             app.UseIpRateLimiting();
             app.UseHttpsRedirection();
