@@ -22,3 +22,14 @@
   margin-top: 50px;
   color: white;
 }
+
+.spinner-border {
+  margin: auto;
+  display: block;
+  margin-top: 150px;
+  margin-bottom: 150px;
+}
+
+.btn-outline-success {
+  margin-right: 10px;
+}

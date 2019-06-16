@@ -2,16 +2,18 @@ import React, { Component } from "react";
 import "./PlanForm.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, Spinner } from "react-bootstrap";
 import { PlansAsync } from "../../resources/Api";
 import { UPDATE_PLAN, PLANFORM_PAGE_LOADED } from "../../constants/actionTypes";
 import { connect } from "react-redux";
+import { GO_BACK } from '../../constants/actionTypes';
 
 const mapStateToProps = state => ({ ...state.auth });
 
 const mapDispatchToProps = dispatch => ({
   onPlanChange: value => dispatch({ type: UPDATE_PLAN, value }),
-  onLoad: payload => dispatch({ type: PLANFORM_PAGE_LOADED, payload })
+  onLoad: payload => dispatch({ type: PLANFORM_PAGE_LOADED, payload }),
+  goBack: () => dispatch({ type: GO_BACK }),
 });
 
 class PlanForm extends Component {
@@ -25,14 +27,21 @@ class PlanForm extends Component {
   renderBoolean = value => value ? <FontAwesomeIcon icon="check" /> : <FontAwesomeIcon icon="times" />;
   hasSelectedPlan = () => !!this.props.selectedPlan && this.props.selectedPlan.length > 0;
 
+  onGoBackClick = () => {
+    this.props.goBack();
+  }
+
   render() {
     const plans = (this.props && this.props.plans) || [];
     return (
+      
       <div id="signIn">
-        <span>STEP 1 OF 3</span>
+         
+        <span> STEP 1 OF 3</span>
         <h2>Choose a plan that's right for you.</h2>
         <p>Downgrade or upgrade at any time</p>
-        <Table className="table table-dark">
+        { !plans || plans.length === 0 ? <Spinner animation="border" /> : 
+        <Table className="table table-dark" >
           <thead>
             <tr>
               <th scope="col">Plan name</th>
@@ -110,7 +119,9 @@ class PlanForm extends Component {
               ))}
             </tr>
           </tbody>
-        </Table>
+        </Table> 
+        }
+        <Button variant="outline-success" onClick={() => this.onGoBackClick()}> BACK </Button>
         <Link to="/signup/register">
           <Button
             type="button"
@@ -120,6 +131,7 @@ class PlanForm extends Component {
             CONTINUE
           </Button>
         </Link>
+
       </div>
     );
   }

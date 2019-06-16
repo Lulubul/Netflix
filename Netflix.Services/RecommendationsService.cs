@@ -9,7 +9,7 @@ namespace Netflix.Services
 {
     public interface IRecommendationsService
     {
-        Task<List<Guid>> GetVideoRecommendationsByUser(Guid userId, Guid profileId);
+        Task<List<Movie>> GetVideoRecommendationsByUser(Guid userId, Guid profileId);
     }
 
     public class RecommendationsService : AbstractService, IRecommendationsService
@@ -23,13 +23,13 @@ namespace Netflix.Services
             _movieService = movieService;
         }
 
-        public async Task<List<Guid>> GetVideoRecommendationsByUser(Guid userId, Guid profileId)
+        public async Task<List<Movie>> GetVideoRecommendationsByUser(Guid userId, Guid profileId)
         {
             var historyItems = await _historyService.GetAllAsync(userId.ToString(), profileId.ToString());
 
             if (historyItems.Count() == 0)
             {
-                return await Task.FromResult(new List<Guid>());
+                return await Task.FromResult(new List<Movie>());
             }
 
             var userHistoryMovieIds = historyItems.Select((item) => item.WatchingItemId).ToArray();
@@ -39,7 +39,6 @@ namespace Netflix.Services
             var movies = await _movieService.GetMoviesByGenreIds(topGenres);
             return movies
                 .Where(movie => !userHistoryMovieIds.Contains(movie.Id.ToString()))
-                .Select((movie) => movie.Id)
                 .ToList();
         }
 

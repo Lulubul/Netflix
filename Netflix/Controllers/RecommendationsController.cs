@@ -22,7 +22,7 @@ namespace Netflix.Api.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Recommendation>), 200)]
+        [ProducesResponseType(typeof(IEnumerable<Movie>), 200)]
         public async Task<IActionResult> GetVideoRecommendationsByUser([FromQuery]Guid? userId, [FromQuery]Guid? profileId)
         {
             if (userId == null)

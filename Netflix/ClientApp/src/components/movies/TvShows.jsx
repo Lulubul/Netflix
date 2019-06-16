@@ -30,6 +30,8 @@ class TvShows extends Component {
         const historyItem = { 
             userId: this.props.userId,
             profileId: this.props.selectedProfile.id,
+            releaseYear: item.releaseYear,
+            genres: item.genres,
             watchingItemId: item.id,
             watchingItemType: "TvShows"
         };

@@ -27,12 +27,7 @@ class Movies extends Component {
     const genresPromise = MoviesAsync.getGenres().then(response => response || []).catch((error) => []);;
     const moviesPromise = MoviesAsync.getMovies().then(response => response || []).catch((error) => []);;
     const historyPromise = HistoryAsync.get(userId, profileId).then(response => response || []).catch((error) => []);;
-    const recommandationsPromise = RecommandationsAsync
-      .get(userId, profileId)
-      .then(response => {
-        return response && response.length > 0 && MoviesAsync.getMoviesByIds(response.join(",")).then(response => response || []);
-      })
-      .catch((error) => []);
+    const recommandationsPromise = RecommandationsAsync.get(userId, profileId).then(response => response || []).catch((error) => []);
     const promises = Promise
       .all([genresPromise, moviesPromise, historyPromise, recommandationsPromise])
       .then(([genres, movies, history, recommandations]) => ({genres, movies, history, recommandations}));
@@ -47,6 +42,8 @@ class Movies extends Component {
       const historyItem = { 
         userId: this.props.userId,
         profileId: this.props.selectedProfile.id,
+        releaseYear: item.releaseYear,
+        genres: item.genres,
         watchingItemId: item.id,
         watchingItemType: "Movies"
       };

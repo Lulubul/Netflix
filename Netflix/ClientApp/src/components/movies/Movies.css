@@ -13,3 +13,6 @@
     display: inline;
     margin-left: 15px; 
 }
+
+.boxart-image { transition: all .2s ease-in-out; }
+.boxart-image:hover { transform: scale(1.2); }
