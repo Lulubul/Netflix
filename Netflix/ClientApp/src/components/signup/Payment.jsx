@@ -7,10 +7,10 @@ import {
   PAYMENT_PAGE_LOADED,
   REGISTER,
   REGISTER_FLOW_UNLOADED,
-  UPDATE_FIELD_AUTH
+  UPDATE_FIELD_AUTH,
+  GO_BACK
 } from "../../constants/actionTypes";
-import { PlansAsync } from "../../resources/Api";
-import { AuthAsync } from "../../resources/Api";
+import { PlansAsync, AuthAsync } from "../../resources/Api";
 
 const mapStateToProps = state => ({ ...state.auth });
 
@@ -20,7 +20,14 @@ const mapDispatchToProps = dispatch => ({
   onUnload: () => dispatch({ type: REGISTER_FLOW_UNLOADED }),
   onSubmit: (payload) => dispatch({ type: REGISTER, payload }),
   onFieldUpdate: (key, value) => dispatch({ type: UPDATE_FIELD_AUTH, key: key, value }),
+  goBack: () => dispatch({ type: GO_BACK }),
 });
+
+const ErrorMessage = () => (
+  <div>
+   An user with this email adress is already registered.
+  </div>
+);
 
 class Payment extends Component {
   componentWillMount() {
@@ -40,16 +47,18 @@ class Payment extends Component {
   startMemberShip = () => {
     const { email, password, selectedPlan, firstName, lastName } = this.props;
     const user = { email, password, planId: selectedPlan, firstName, lastName };
-    this.props.onSubmit(AuthAsync.register(user).then(response => response));
+    this.props
+      .onSubmit(AuthAsync.register(user).then(response => response).catch((errors) => this.props.errors = errors ));
   }
 
+  onGoBackClick = () => { this.props.goBack(); }
   changeFirstName = ev => this.props.onFieldUpdate("firstName", ev.target.value);
   changeLastName = ev => this.props.onFieldUpdate("lastName", ev.target.value);
   changeCardNumber = ev => this.props.onFieldUpdate("cardNumber", ev.target.value);
   changeSecurityCode = ev => this.props.onFieldUpdate("securityCode", ev.target.value);
 
   render() {
-    const { plans, selectedPlan } = this.props;
+    const { plans, selectedPlan, email } = this.props;
     return (
       <div
         className="paymentContainer col-xs-6 col-md-6 col-lg-3"
@@ -61,6 +70,10 @@ class Payment extends Component {
               STEP <b>3</b> OF <b>3</b>
             </span>
             <h2 className="stepTitle">Set up your payment.</h2>
+            { this.props.errors && (<div>
+              An user with {email} email adress is already registered.
+              </div>)
+            }
           </div>
         </div>
         <div>
@@ -97,6 +110,7 @@ class Payment extends Component {
             <Form.Label>Security Code</Form.Label>
             <Form.Control type="tel" placeholder="Security Code" onChange={this.changeSecurityCode} />
           </Form.Group>
+          <Button variant="outline-success" onClick={() => this.onGoBackClick()}> BACK </Button>
           <Button onClick={this.startMemberShip}>
             START MEMBERSHIP
           </Button>

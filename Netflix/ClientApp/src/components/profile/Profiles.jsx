@@ -34,7 +34,7 @@ class Profiles extends Component {
           <Row>
             { profiles && profiles.map((profile, index) => (
               <Col key={index} xs={2} md={2} lg={2}>
-                <Profile key={index} profile={profile} />
+                <Profile key={index} mappedProfile={profile} />
               </Col>
             ))}
             <Col xs={2} md={2} lg={2}>

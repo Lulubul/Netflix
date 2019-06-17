@@ -16,10 +16,10 @@ export default (state = {}, action) => {
     case TVSHOWS_PAGE_LOADED:
       return { 
         ...state, 
-        genres: action.payload && action.payload.genres,
-        movies: action.payload && action.payload.movies,
-        history: action.payload && action.payload.history,
-        recommandations: action.payload && action.payload.recommandations,
+        genres: action.payload && action.payload.genres || [],
+        movies: action.payload && action.payload.movies || [],
+        history: action.payload && action.payload.history || [],
+        recommandations: action.payload && action.payload.recommandations || [],
         selectedGenre: "" };
     case UPDATE_SEARCH_INPUT:
       return { ...state, searchInput: action.value }

@@ -18,11 +18,6 @@ const streamingOriginalGenre = '0b452f44-ffae-41d0-b125-dfee76a2d54a';
 class Movies extends Component {
 
   async componentWillMount() {
-    if (!this.props.userId || !this.props.selectedProfile) {
-      this.props.redirectToLogin();
-      return;
-    }
-
     const [userId, profileId] = [this.props.userId, this.props.selectedProfile.id];
     const genresPromise = MoviesAsync.getGenres().then(response => response || []).catch((error) => []);;
     const moviesPromise = MoviesAsync.getMovies().then(response => response || []).catch((error) => []);;

@@ -61,7 +61,7 @@ class NavMenu extends Component {
                 </Nav>
               </Navbar.Collapse>
               <div className="right-menu pull-right">
-                { showRightPart && <SearchBar/> }
+                { showRightPart && selectedProfile && <SearchBar/> }
                 { showRightPart && (
                   <Dropdown className="dropdown-profile">
                     <Dropdown.Toggle variant="success" id="dropdown-basic">

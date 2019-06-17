@@ -14,11 +14,11 @@ class Profile extends Component {
   selectProfile = (id) => this.props.onSelectProfile(id);
   
   render() {
-    if (!this.props.profile) {
+    if (!this.props.mappedProfile) {
       return <></>
     }
     
-    const {avatarUrl, name, id} = this.props.profile;
+    const {avatarUrl, name, id} = this.props.mappedProfile;
     return (
       <div className="profile-wrapper" onClick={() => this.selectProfile(id)}>
         <Image src={avatarUrl} thumbnail/>

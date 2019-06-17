@@ -15,7 +15,7 @@ const mapDispatchToProps = dispatch => ({
 
 class NewProfile extends Component {
 
-  avatarUrl = 'https://art-s.nflximg.net/38327/c6ba4ae7fa391f422edd9ee8104c75c01e038327.png';
+  avatarUrl = 'https://cdn2.iconfinder.com/data/icons/male-users-2/512/male_avatar20-512.png';
 
   addProfile = () => {
     const newProfile = { avatarUrl: this.avatarUrl, language: "English", name: this.props.profileName, maturityLevel: "All" };

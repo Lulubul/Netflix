@@ -122,7 +122,6 @@ namespace Netflix.Api
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
-
                 if (env.IsDevelopment())
                 {
                     spa.Options.StartupTimeout = TimeSpan.FromSeconds(120);
