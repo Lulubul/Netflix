@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Netflix.Services", "Netflix
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Netflix.Repositories", "Netflix.Repositories\Netflix.Repositories.csproj", "{494A245A-E5FC-4BA1-AE96-F3FEA3D474BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Netflix.Api.Tests", "Netflix.Api.Tests\Netflix.Api.Tests.csproj", "{71C81DDB-58FA-4D5F-90CE-2BCC7D79530D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Netflix.Api.Tests", "Netflix.Api.Tests\Netflix.Api.Tests.csproj", "{71C81DDB-58FA-4D5F-90CE-2BCC7D79530D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
