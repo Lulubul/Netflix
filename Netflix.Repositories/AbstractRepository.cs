@@ -1,6 +1,5 @@
-﻿using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.Table;
+﻿using Microsoft.Azure.Cosmos.Table;
+using Azure.Storage.Blobs;
 
 namespace Netflix.Repositories
 {
@@ -13,11 +12,9 @@ namespace Netflix.Repositories
             return tableClient.GetTableReference(table);
         }
 
-        protected CloudBlobContainer GetContainer(string storageConnectionString, string container)
+        protected BlobContainerClient GetContainer(string storageConnectionString, string container)
         {
-            var storageAccount = CloudStorageAccount.Parse(storageConnectionString);
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-            return blobClient.GetContainerReference(container);
+            return new BlobContainerClient(storageConnectionString, container);
         }
     }
 }

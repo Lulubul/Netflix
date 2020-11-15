@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.WindowsAzure.Storage.Table;
+using Microsoft.Azure.Cosmos.Table;
 using Netflix.Repositories.AzureEntities;
 
 namespace Netflix.Repositories
@@ -60,7 +60,7 @@ namespace Netflix.Repositories
         public async Task<Stream> GetMovieByNameAsync(string movieName)
         {
             return await GetContainer(_storageConnectionString, MoviesContainer)
-                .GetBlobReference(movieName)
+                .GetBlobClient(movieName)
                 .OpenReadAsync();
         }
 

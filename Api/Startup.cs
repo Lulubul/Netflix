@@ -1,18 +1,15 @@
-using System;
-using AspNetCoreRateLimit;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Netflix.Repositories;
 using Netflix.Services;
-using Swashbuckle.AspNetCore.Swagger;
 
-namespace Netflix.Api
+namespace Api
 {
     public class Startup
     {
@@ -29,7 +26,12 @@ namespace Netflix.Api
             var azureTableStorage = Configuration.GetConnectionString("AzureTableStorage");
             var azureBlobStorage = Configuration.GetConnectionString("AzureBlobStorage");
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });
+            });
+
             services.AddTransient<IMovieStreamService, MovieStreamService>();
             services.AddTransient<IRecommendationsService, RecommendationsService>();
             services.AddTransient<INewsRepository, NewsRepository>();
@@ -54,79 +56,28 @@ namespace Netflix.Api
             services.AddTransient<IHistoryRepository>(m => new HistoryRepository(azureTableStorage));
             services.AddTransient<ITvSeriesRepository>(m => new TvSeriesRepository(azureTableStorage));
 
-            // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/build";
-            });
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Info { Title = "Netflix API", Version = "v1" });
-            });
-
-            services.AddCustomAuthorization(Configuration);
-            services.AddMemoryCache();
-            services.AddCustomRateLimiter(Configuration);
-            services.AddCors(o => o.AddPolicy("AllowAnyPolicy", builder =>
-            {
-                builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader();
-            }));
-            services.AddAntiforgery(o => { o.Cookie.Name = "X-CSRF-TOKEN"; });
-            services.AddAutoMapper();
+            services.AddAutoMapper(this.GetType().Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //SeedData seedData = new SeedData(Configuration.GetConnectionString("AzureTableStorage"));
-                //seedData.AddMoviesEntitesAsync().GetAwaiter().GetResult();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1"));
             }
 
-            app.UseCors("AllowAnyPolicy");
-
-            app.UseIpRateLimiting();
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseSpaStaticFiles();
 
-            app.UseAuthentication();
-            app.UseMvc(routes =>
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
-            });
-
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Netflix V1");
-                c.RoutePrefix = "docs";
-            });
-
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
-                if (env.IsDevelopment())
-                {
-                    spa.Options.StartupTimeout = TimeSpan.FromSeconds(120);
-                    spa.UseReactDevelopmentServer(npmScript: "start");
-                }
+                endpoints.MapControllers();
             });
         }
     }
